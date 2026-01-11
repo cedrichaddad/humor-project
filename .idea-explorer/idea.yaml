@@ -1,0 +1,18 @@
+idea:
+  title: How low rank is humor recognition in LLMs?
+  domain: nlp
+  hypothesis: 'There exists a basis in the hidden representations of large language
+    models (LLMs) for humor recognition, and the rank of this basis is low.
+
+    '
+  background:
+    description: 'I bet there''s a basis in the hidden representation of LLMs for
+      humor recognition. My question is: how low rank is it?'
+  metadata:
+    source: IdeaHub
+    source_url: https://hypogenic.ai/ideahub/idea/OqkNpik5SM4GWxiwvMZM
+    idea_id: how_low_rank_is_humor_recognit_20260111_164024_390439fb
+    created_at: '2026-01-11T16:40:24.565848'
+    status: submitted
+    github_repo_name: humor-recognition-llm-claude
+    github_repo_url: https://github.com/Hypogenic-AI/humor-recognition-llm-claude
