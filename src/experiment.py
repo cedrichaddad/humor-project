@@ -543,25 +543,58 @@ class HumorIntervention:
         self.humor_direction = humor_direction.float().to(self.device)
         self.humor_direction = self.humor_direction / self.humor_direction.norm()
         
-    def _get_steering_hook(self, alpha: float):
+    def _get_steering_hook(self, alpha: float, direction: torch.Tensor = None):
+        """
+        Create hook function for steering.
+        
+        Adds alpha * direction to the residual stream.
+        """
+        target_dir = direction if direction is not None else self.humor_direction
+        
         def hook_fn(activation, hook):
             # activation shape: (batch, seq_len, d_model)
-            steering = alpha * self.humor_direction
+            steering = alpha * target_dir
             return activation + steering.view(1, 1, -1)
         return hook_fn
     
-    def _get_ablation_hook(self):
+    def _get_ablation_hook(self, direction: torch.Tensor = None):
+        """
+        Create hook function for ablation.
+        
+        Projects out the direction: x_new = x - (x · v̂) v̂
+        """
+        target_dir = direction if direction is not None else self.humor_direction
+        
         def hook_fn(activation, hook):
-            v = self.humor_direction
-            # Project out humor direction: x - (x · v)v
+            # Project out direction for each position
+            v = target_dir
+            # Compute dot product along d_model dimension
             proj_coef = torch.einsum('bsd,d->bs', activation, v)
             projection = proj_coef.unsqueeze(-1) * v
             return activation - projection
         return hook_fn
     
     def steer_humor(self, prompt: str, alpha: float = 1.0, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
+        """Steer using the stored global humor direction."""
+        return self.steer_direction(self.humor_direction, prompt, alpha, max_new_tokens, temperature)
+
+    def ablate_humor(self, prompt: str, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
+        """Ablate using the stored global humor direction."""
+        return self.ablate_direction(self.humor_direction, prompt, max_new_tokens, temperature)
+
+    def steer_direction(
+        self,
+        direction: torch.Tensor,
+        prompt: str,
+        alpha: float = 1.0, 
+        max_new_tokens: int = 50, 
+        temperature: float = 1.0
+    ) -> str:
+        """
+        Generate text with steering applied along an arbitrary direction (e.g. SAE feature).
+        """
         hook_name = f"blocks.{self.layer}.hook_resid_post"
-        hook_fn = self._get_steering_hook(alpha)
+        hook_fn = self._get_steering_hook(alpha, direction=direction)
         
         # Correctly apply hooks using context manager
         tokens = self.model.to_tokens(prompt, prepend_bos=True)
@@ -570,14 +603,23 @@ class HumorIntervention:
                 tokens,
                 max_new_tokens=max_new_tokens,
                 temperature=temperature,
-                prepend_bos=False,  # Already prepended
+                prepend_bos=False,
                 verbose=False
             )
         return self.model.to_string(output[0])
     
-    def ablate_humor(self, prompt: str, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
+    def ablate_direction(
+        self,
+        direction: torch.Tensor,
+        prompt: str,
+        max_new_tokens: int = 50, 
+        temperature: float = 1.0
+    ) -> str:
+        """
+        Generate text with arbitrary direction ablated.
+        """
         hook_name = f"blocks.{self.layer}.hook_resid_post"
-        hook_fn = self._get_ablation_hook()
+        hook_fn = self._get_ablation_hook(direction=direction)
         
         # Correctly apply hooks using context manager
         tokens = self.model.to_tokens(prompt, prepend_bos=True)
@@ -586,7 +628,7 @@ class HumorIntervention:
                 tokens,
                 max_new_tokens=max_new_tokens,
                 temperature=temperature,
-                prepend_bos=False,  # Already prepended
+                prepend_bos=False,
                 verbose=False
             )
         return self.model.to_string(output[0])
