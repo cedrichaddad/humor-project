@@ -617,12 +617,11 @@ class HumorIntervention:
         hook_name = f"blocks.{self.layer}.hook_resid_post"
         hook_fn = self._get_steering_hook(alpha)
         
-        with torch.no_grad():
+        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
                 prompt,
                 max_new_tokens=max_new_tokens,
-                temperature=temperature,
-                fwd_hooks=[(hook_name, hook_fn)]
+                temperature=temperature
             )
         
         return self.model.to_string(output[0])
@@ -647,12 +646,11 @@ class HumorIntervention:
         hook_name = f"blocks.{self.layer}.hook_resid_post"
         hook_fn = self._get_ablation_hook()
         
-        with torch.no_grad():
+        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
                 prompt,
                 max_new_tokens=max_new_tokens,
-                temperature=temperature,
-                fwd_hooks=[(hook_name, hook_fn)]
+                temperature=temperature
             )
         
         return self.model.to_string(output[0])
@@ -678,10 +676,8 @@ class HumorIntervention:
             seq_lengths = (tokens != self.model.tokenizer.pad_token_id).sum(dim=1) - 1
             
             with torch.no_grad():
-                _, cache = self.model.run_with_cache(
-                    tokens,
-                    fwd_hooks=[(hook_name, hook_fn)]
-                )
+                with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+                    _, cache = self.model.run_with_cache(tokens)
             
             activations = cache[hook_name]
             for j in range(len(batch_texts)):
@@ -737,7 +733,8 @@ def compute_logit_difference(
         hook_name = f"blocks.{intervention.layer}.hook_resid_post"
         hook_fn = intervention._get_steering_hook(alpha)
         with torch.no_grad():
-            logits = model.run_with_hooks(tokens, fwd_hooks=[(hook_name, hook_fn)])
+            with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+                logits = model(tokens)
     else:
         with torch.no_grad():
             logits = model(tokens)
