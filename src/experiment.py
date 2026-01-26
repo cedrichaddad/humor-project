@@ -121,6 +121,11 @@ def load_unfun_dataset(n_samples: int = None) -> Dict[str, Dict]:
         )
     
     df = pd.read_excel(dataset_path)
+    
+    # Ensure text is string and drop NaNs
+    df.dropna(subset=['text'], inplace=True)
+    df['text'] = df['text'].astype(str)
+    
     print(f"  Loaded {len(df)} samples from {dataset_path}")
     
     # Shuffle the data
@@ -184,6 +189,11 @@ def load_randomized_dataset(n_samples: int = None) -> Dict[str, Dict]:
         )
     
     df = pd.read_excel(dataset_path)
+    
+    # Ensure text is string and drop NaNs
+    df.dropna(subset=['text'], inplace=True)
+    df['text'] = df['text'].astype(str)
+    
     print(f"  Loaded {len(df)} samples from {dataset_path}")
     
     # Shuffle the data
