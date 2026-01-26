@@ -13,9 +13,13 @@ This script:
 import os
 import json
 import torch
+import sys
 import numpy as np
 from pathlib import Path
 from transformer_lens import HookedTransformer
+
+# Add src to path
+sys.path.append('src')
 
 # Import modules
 from experiment import (
