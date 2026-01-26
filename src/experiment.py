@@ -533,160 +533,90 @@ def probe_all_layers(
 # =============================================================================
 
 class HumorIntervention:
-    """
-    Activation steering and ablation for humor in GPT-2 using transformer_lens hooks.
-    
-    Implements:
-    - Steering: Add scaled humor direction to residual stream
-    - Ablation: Project out humor direction (orthogonal projection)
-    """
-    
-    def __init__(
-        self,
-        model: HookedTransformer,
-        humor_direction: torch.Tensor,
-        layer: int = 7
-    ):
-        """
-        Initialize the intervention handler.
-        
-        Args:
-            model: HookedTransformer model (GPT-2)
-            humor_direction: Normalized humor direction vector (d_model,)
-            layer: Layer to apply intervention at
-        """
+    def __init__(self, model: HookedTransformer, humor_direction: torch.Tensor, layer: int = 7):
         self.model = model
         self.layer = layer
         self.device = next(model.parameters()).device
         
-        # Ensure humor direction is on correct device and normalized
         if isinstance(humor_direction, np.ndarray):
             humor_direction = torch.from_numpy(humor_direction)
         self.humor_direction = humor_direction.float().to(self.device)
         self.humor_direction = self.humor_direction / self.humor_direction.norm()
         
     def _get_steering_hook(self, alpha: float):
-        """
-        Create hook function for steering.
-        
-        Adds alpha * humor_direction to the residual stream.
-        """
         def hook_fn(activation, hook):
             # activation shape: (batch, seq_len, d_model)
-            # Add steering vector to all positions
             steering = alpha * self.humor_direction
-            return activation + steering.unsqueeze(0).unsqueeze(0)
+            return activation + steering.view(1, 1, -1)
         return hook_fn
     
     def _get_ablation_hook(self):
-        """
-        Create hook function for ablation.
-        
-        Projects out the humor direction: x_new = x - (x · v̂) v̂
-        """
         def hook_fn(activation, hook):
-            # activation shape: (batch, seq_len, d_model)
-            # Project out humor direction for each position
             v = self.humor_direction
-            # Compute dot product along d_model dimension
+            # Project out humor direction: x - (x · v)v
             proj_coef = torch.einsum('bsd,d->bs', activation, v)
-            # Subtract projection
             projection = proj_coef.unsqueeze(-1) * v
             return activation - projection
         return hook_fn
     
-    def steer_humor(
-        self,
-        prompt: str,
-        alpha: float = 1.0,
-        max_new_tokens: int = 50,
-        temperature: float = 1.0
-    ) -> str:
-        """
-        Generate text with humor steering applied.
-        
-        Args:
-            prompt: Input prompt
-            alpha: Steering strength (positive = more humor, negative = less)
-            max_new_tokens: Number of tokens to generate
-            temperature: Sampling temperature
-            
-        Returns:
-            Generated text with steering applied
-        """
+    def steer_humor(self, prompt: str, alpha: float = 1.0, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
         hook_name = f"blocks.{self.layer}.hook_resid_post"
         hook_fn = self._get_steering_hook(alpha)
         
+        # Correctly apply hooks using context manager
         with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
                 prompt,
                 max_new_tokens=max_new_tokens,
-                temperature=temperature
+                temperature=temperature,
+                prepend_bos=True,
+                verbose=False
             )
-        
         return self.model.to_string(output[0])
     
-    def ablate_humor(
-        self,
-        prompt: str,
-        max_new_tokens: int = 50,
-        temperature: float = 1.0
-    ) -> str:
-        """
-        Generate text with humor direction ablated (removed).
-        
-        Args:
-            prompt: Input prompt
-            max_new_tokens: Number of tokens to generate
-            temperature: Sampling temperature
-            
-        Returns:
-            Generated text with humor feature removed
-        """
+    def ablate_humor(self, prompt: str, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
         hook_name = f"blocks.{self.layer}.hook_resid_post"
         hook_fn = self._get_ablation_hook()
         
+        # Correctly apply hooks using context manager
         with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
                 prompt,
                 max_new_tokens=max_new_tokens,
-                temperature=temperature
+                temperature=temperature,
+                prepend_bos=True,
+                verbose=False
             )
-        
         return self.model.to_string(output[0])
     
-    def get_ablated_activations(
-        self,
-        texts: List[str],
-        batch_size: int = 32
-    ) -> np.ndarray:
-        """
-        Extract activations with humor direction ablated.
-        
-        Useful for comparing probe accuracy on original vs ablated activations.
-        """
+    def get_ablated_activations(self, texts: List[str], batch_size: int = 32) -> np.ndarray:
         hook_name = f"blocks.{self.layer}.hook_resid_post"
-        hook_fn = self._get_ablation_hook()
+        ablation_hook = self._get_ablation_hook()
         
-        all_activations = []
-        
+        all_ablated_acts = []
+
+        # Define a secondary hook to capture the result of the ablation
+        def capture_hook(activation, hook):
+            # This 'activation' is the value returned by the previous hook (ablation)
+            all_ablated_acts.append(activation.detach().cpu())
+            return activation
+
         for i in range(0, len(texts), batch_size):
             batch_texts = texts[i:i+batch_size]
             tokens = self.model.to_tokens(batch_texts, prepend_bos=True)
             seq_lengths = (tokens != self.model.tokenizer.pad_token_id).sum(dim=1) - 1
             
-            with torch.no_grad():
-                with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-                    _, cache = self.model.run_with_cache(tokens)
+            # Apply both the ablation and the capture hook
+            with self.model.hooks(fwd_hooks=[(hook_name, ablation_hook), (hook_name, capture_hook)]):
+                self.model(tokens)
             
-            activations = cache[hook_name]
+            # Extract final token position from the captured batch
+            batch_acts = all_ablated_acts.pop() # (batch, seq, dim)
             for j in range(len(batch_texts)):
-                final_pos = min(seq_lengths[j].item(), activations.shape[1] - 1)
-                all_activations.append(activations[j, final_pos, :].cpu().numpy())
-            
-            del cache
+                final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
+                all_ablated_acts.insert(0, batch_acts[j, final_pos, :].numpy())
         
-        return np.array(all_activations)
+        return np.array(all_ablated_acts)
 
 
 # =============================================================================
