@@ -65,7 +65,15 @@ def extract_sae_features(
         
         # 1. Get model activations
         # We need the residual stream activations at the target layer
-        hook_name = sae.cfg.hook_name
+        if hasattr(sae.cfg, "hook_name"):
+            hook_name = sae.cfg.hook_name
+        elif hasattr(sae.cfg, "hook_point"):
+            hook_name = sae.cfg.hook_point
+        else:
+            # Fallback for some versions or just use the one passed to loader if stored
+            # Assuming GPT-2 Small Layer 11 Residual Post
+            hook_name = "blocks.11.hook_resid_post"
+            print(f"Warning: Could not find hook_name in sae.cfg. Using default: {hook_name}")
         
         # Tokenize
         tokens = model.to_tokens(batch_texts, prepend_bos=True)
