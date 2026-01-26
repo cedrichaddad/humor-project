@@ -564,12 +564,13 @@ class HumorIntervention:
         hook_fn = self._get_steering_hook(alpha)
         
         # Correctly apply hooks using context manager
+        tokens = self.model.to_tokens(prompt, prepend_bos=True)
         with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
-                prompt,
+                tokens,
                 max_new_tokens=max_new_tokens,
                 temperature=temperature,
-                prepend_bos=True,
+                prepend_bos=False,  # Already prepended
                 verbose=False
             )
         return self.model.to_string(output[0])
@@ -579,12 +580,13 @@ class HumorIntervention:
         hook_fn = self._get_ablation_hook()
         
         # Correctly apply hooks using context manager
+        tokens = self.model.to_tokens(prompt, prepend_bos=True)
         with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
             output = self.model.generate(
-                prompt,
+                tokens,
                 max_new_tokens=max_new_tokens,
                 temperature=temperature,
-                prepend_bos=True,
+                prepend_bos=False,  # Already prepended
                 verbose=False
             )
         return self.model.to_string(output[0])
