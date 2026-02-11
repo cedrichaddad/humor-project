@@ -1,0 +1,248 @@
+{
+  "top_features": [
+    {
+      "feature_idx": 13160,
+      "diff": 29.40143585205078,
+      "humor_mean": 30.121068954467773,
+      "unfun_mean": 0.7196338772773743
+    },
+    {
+      "feature_idx": 12078,
+      "diff": 24.756559371948242,
+      "humor_mean": 24.899978637695312,
+      "unfun_mean": 0.1434188038110733
+    },
+    {
+      "feature_idx": 11615,
+      "diff": 24.493057250976562,
+      "humor_mean": 236.0063934326172,
+      "unfun_mean": 211.51333618164062
+    },
+    {
+      "feature_idx": 14908,
+      "diff": 19.49496078491211,
+      "humor_mean": 20.29787826538086,
+      "unfun_mean": 0.8029166460037231
+    },
+    {
+      "feature_idx": 20646,
+      "diff": 18.461545944213867,
+      "humor_mean": 18.48173713684082,
+      "unfun_mean": 0.020191289484500885
+    },
+    {
+      "feature_idx": 11464,
+      "diff": 17.747371673583984,
+      "humor_mean": 69.3030776977539,
+      "unfun_mean": 51.55570602416992
+    },
+    {
+      "feature_idx": 10624,
+      "diff": 16.08376121520996,
+      "humor_mean": 18.182851791381836,
+      "unfun_mean": 2.099090814590454
+    },
+    {
+      "feature_idx": 10492,
+      "diff": 14.662738800048828,
+      "humor_mean": 50.35655212402344,
+      "unfun_mean": 35.69381332397461
+    },
+    {
+      "feature_idx": 17712,
+      "diff": 14.435272216796875,
+      "humor_mean": 64.06063842773438,
+      "unfun_mean": 49.6253662109375
+    },
+    {
+      "feature_idx": 6820,
+      "diff": 11.71006965637207,
+      "humor_mean": 12.179254531860352,
+      "unfun_mean": 0.46918490529060364
+    }
+  ],
+  "interpretations": {
+    "13160": [
+      " teasp",
+      " pione",
+      " dont",
+      " eleph",
+      "tumblr",
+      "jpg",
+      "sorry",
+      "ategory",
+      " yeah",
+      " practition"
+    ],
+    "12078": [
+      " dont",
+      " ur",
+      " u",
+      " didnt",
+      " doesnt",
+      " i",
+      " im",
+      "uminati",
+      " hes",
+      " thats"
+    ],
+    "11615": [
+      "Untitled",
+      "Abstract",
+      "CLOSE",
+      "WASHINGTON",
+      "Description",
+      "Overview",
+      "SAN",
+      "Welcome",
+      "Quote",
+      "Community"
+    ],
+    "14908": [
+      "ccording",
+      " eleph",
+      " pione",
+      " srf",
+      " practition",
+      " However",
+      " Hence",
+      " Instead",
+      " Whilst",
+      " Though"
+    ],
+    "20646": [
+      "Stock",
+      "Shares",
+      "Phones",
+      "Pad",
+      "wi",
+      "Frames",
+      "386",
+      "ota",
+      "Message",
+      "irc"
+    ],
+    "11464": [
+      "ighthouse",
+      "utor",
+      "ults",
+      "annel",
+      "ivas",
+      "eport",
+      "anooga",
+      "arse",
+      "eteen",
+      "eneg"
+    ],
+    "10624": [
+      " :)",
+      " doesnt",
+      " ;)",
+      " lol",
+      " dont",
+      "!!!!",
+      " :(",
+      " tho",
+      " haha",
+      " sucks"
+    ],
+    "10492": [
+      "\n",
+      "'t",
+      "}",
+      "''",
+      "]",
+      "(",
+      "---",
+      "/-",
+      "\\",
+      "~"
+    ],
+    "17712": [
+      "},\"",
+      "advertising",
+      "\"],",
+      "\"]",
+      "\"],\"",
+      "Developer",
+      "Analysis",
+      "\"},\"",
+      "},",
+      "],\""
+    ],
+    "6820": [
+      " english",
+      " google",
+      " pc",
+      " reddit",
+      " pokemon",
+      " cs",
+      " github",
+      " david",
+      " facebook",
+      " mc"
+    ]
+  },
+  "validation": [
+    {
+      "feature_idx": 13160,
+      "top_tokens": [
+        " teasp",
+        " pione",
+        " dont",
+        " eleph",
+        "tumblr"
+      ],
+      "steering": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road? Why would it poison the pot in hot conversations with someone else in the car then again would we say it's fuel junkiness? Once inside the car everyone stopped what you were doing. They go quickly to cordon off as much smog hist",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about how bored I was because I had a collection that also included these stock PhotoT Bye is awesome look\n\ngreat i love how amazing the accessories look the dark green Meme it is a slushy amalgam\n\nSo what are they Made",
+        "The weather today is": "<|endoftext|>The weather today is good my boyfriend loves it too. Concepts like Sewers BBQ and Jacuzzis are both fine addition ways to keep you here and keep you warm. You don't want to spend the same amount or t u have perfect sleep after then although it can"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road?. Peters, Ker. Jr.. Kell. Williams, Jr. Kell. Williams. Williams. Williams. Kell. Williams. Kell. Williams. Kell. Williams. Kell. Williams. Kell. Williams. Kell. Williams. Kell. Williams.",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about, 'Labor's Pacific: Labor's East, Labor's West, Labor's South, Labor's South, Labor's West, Labor's West, Labor's West, Labor's West, Labor's West, Labor's West, Labor's West,",
+        "The weather today is": "<|endoftext|>The weather today is. Gulf Arabia, Gulf North Africa, Central Asia, Asia, Central Asia, Central North Africa, Central East Asia, Central North Africa, Central North African, Central North African, Central North African, Central North African, Central North African, Central North"
+      }
+    },
+    {
+      "feature_idx": 12078,
+      "top_tokens": [
+        " dont",
+        " ur",
+        " u",
+        " didnt",
+        " doesnt"
+      ],
+      "steering": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road?\n\nThe chicken in Itsowa was the most ancient Medieval chicken in Japan from Between the ages of \\www\\_ \\u28s era. Why? Because the kami kami, like the kapsu kami, were curious",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about my loss but she laughed out loud like Glee, like Glee is a chameleon like Glee but they never gave me the right sick joke. She wore hilarious jeans and a cap and not even her stomach protect against it.\n\n",
+        "The weather today is": "<|endoftext|>The weather today is expected to be nearly perfect tomorrow so hopefully that won't hold too well this afternoon.<|endoftext|>"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road? Source: Sh\u014d Service Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Break Down Farming Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Companies Quarters Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing Companies Enterprise \u2013 Manufacturing",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about \u2013 The Budget \u2013 Governor Ball\u2014 Governor Ball\u2014 Governor Ball\u2014 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2014 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor Ball\u2013 Governor",
+        "The weather today is": "<|endoftext|>The weather today is largely merely funnel clouds surrounding\u2026 Petersville, Mich\u2026 Carnegie Mellon University Libraries \u2013 McGovers Medal \u2013 Search Guidelines \u2013 General \u2013 Weather \u2013 Weather Commentary \u2013 Weather \u2013 Weather Research \u2013 Additional Special Events \u2013 General \u2013 General \u2013 General \u2013 Weather Research \u2013 Additional Special"
+      }
+    },
+    {
+      "feature_idx": 11615,
+      "top_tokens": [
+        "Untitled",
+        "Abstract",
+        "CLOSE",
+        "WASHINGTON",
+        "Description"
+      ],
+      "steering": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road?\n\nImportant: It may seem that you know. Although hewful and blue-collar skills, which often include driving, having fun, and keeping a tidy house.\n\nChickens do not need high-powered handles as they provide",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about taking on being unlucky.She\u200beWithinAdvertisementInter were people who\u200bsay I'd be pulling out a rabbit#a$h.~A$HWhen every theres\u200bwho willandup all But\non\u200b\u200bPARKBELL",
+        "The weather today is": "<|endoftext|>The weather today is driest. But on this bike you get a tricky maneuver! Remember to use650GreenHRTAlrightAwayIf you run\"Tips\"On\"After When To jot up the DKSWRCULYWELPHowever, I"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<|endoftext|>Why did the chicken cross the road? Cause Vietnamese women first recognized his hand arc eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph",
+        "I told my friend a joke about": "<|endoftext|>I told my friend a joke about age difference last time she met me on the road last week eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph",
+        "The weather today is": "<|endoftext|>The weather today is foul weather eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph eleph"
+      }
+    }
+  ]
+}

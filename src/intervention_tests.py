@@ -72,7 +72,7 @@ FUNNY_PROMPTS = [
 def run_steering_experiments(
     model: HookedTransformer,
     humor_direction: torch.Tensor,
-    layer: int = 7,
+    layer: int = 11,
     alphas: List[float] = None
 ) -> Dict:
     """
@@ -145,7 +145,7 @@ def run_steering_experiments(
 def run_ablation_experiments(
     model: HookedTransformer,
     humor_direction: torch.Tensor,
-    layer: int = 7
+    layer: int = 11
 ) -> Dict:
     """
     Run ablation experiments to remove humor feature.
@@ -207,7 +207,7 @@ def run_ablation_experiments(
 def evaluate_probe_on_ablated_activations(
     model: HookedTransformer,
     humor_direction: torch.Tensor,
-    layer: int = 7,
+    layer: int = 11,
     n_samples: int = 200
 ) -> Dict:
     """
@@ -305,20 +305,20 @@ def main():
     
     # 1. Steering experiments
     steering_results = run_steering_experiments(
-        model, humor_direction, layer=7
+        model, humor_direction, layer=11
     )
     all_results.update(steering_results)
     
     # 2. Ablation experiments
     ablation_results = run_ablation_experiments(
-        model, humor_direction, layer=7
+        model, humor_direction, layer=11
     )
     all_results.update(ablation_results)
     
     # 3. Probe ablation impact
     try:
         impact_results = evaluate_probe_on_ablated_activations(
-            model, humor_direction, layer=7, n_samples=200
+            model, humor_direction, layer=11, n_samples=200
         )
         all_results.update(impact_results)
     except Exception as e:

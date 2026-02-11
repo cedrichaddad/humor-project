@@ -1,0 +1,342 @@
+{
+  "steering_results": [
+    {
+      "prompt": "Why did the chicken cross the road?",
+      "generations": {
+        "-2.0": "<|endoftext|>Why did the chicken cross the road?\n\nImage copyright AP Image caption The baby chickens were raised in the low-population areas of the village\n\nThe act of raising chickens in cities",
+        "-1.0": "<|endoftext|>Why did the chicken cross the road? In an interview with the Los Angeles Times, Jon M. Hoenke, a veterinarian in Portland, Ore., speculated that the chicken could have been",
+        "-0.5": "<|endoftext|>Why did the chicken cross the road?\n\nThe chicken cross the road is probably the most common accident that occurs when you get a chicken running across the road. The person who tried to",
+        "0.0": "<|endoftext|>Why did the chicken cross the road?\n\nAfter a while, after a while, after a while, it's kind of hard to get a good picture of what was going on.",
+        "0.5": "<|endoftext|>Why did the chicken cross the road?\n\nThe reason why the chicken crossed the road is that there were two populations of chickens in the area, the northerly chickens and the north",
+        "1.0": "<|endoftext|>Why did the chicken cross the road?\n\nChicken was one of the most popular foods in India and its popularity is highly sought after. It has been widely known for its easy and delicious",
+        "2.0": "<|endoftext|>Why did the chicken cross the road?\n\nChicken crossed the road would have been a big deal in the early 1900's. The railroad system was already very bad and there were a lot"
+      },
+      "logit_diffs": {
+        "-2.0": {
+          "humor_logit": 2.98746395111084,
+          "serious_logit": 1.6010470390319824,
+          "logit_difference": 1.3864169120788574
+        },
+        "-1.0": {
+          "humor_logit": 2.9941327571868896,
+          "serious_logit": 1.608939290046692,
+          "logit_difference": 1.3851934671401978
+        },
+        "-0.5": {
+          "humor_logit": 2.9974613189697266,
+          "serious_logit": 1.6128841638565063,
+          "logit_difference": 1.3845771551132202
+        },
+        "0.0": {
+          "humor_logit": 3.0007917881011963,
+          "serious_logit": 1.6168299913406372,
+          "logit_difference": 1.383961796760559
+        },
+        "0.5": {
+          "humor_logit": 3.004122734069824,
+          "serious_logit": 1.6207724809646606,
+          "logit_difference": 1.3833502531051636
+        },
+        "1.0": {
+          "humor_logit": 3.007448196411133,
+          "serious_logit": 1.6247152090072632,
+          "logit_difference": 1.3827329874038696
+        },
+        "2.0": {
+          "humor_logit": 3.0140981674194336,
+          "serious_logit": 1.6325968503952026,
+          "logit_difference": 1.381501317024231
+        }
+      }
+    },
+    {
+      "prompt": "What do you call a fish without eyes?",
+      "generations": {
+        "-2.0": "<|endoftext|>What do you call a fish without eyes?\n\n\nThis fish is the most common type of fish found in the Piedmont Rio Grande Valley. The fish is found in the Gulf of Mexico",
+        "-1.0": "<|endoftext|>What do you call a fish without eyes?\n\nA fish without eyes is a fish without the fins.\n\nBut there are an even more interesting category of fish which you could call \"",
+        "-0.5": "<|endoftext|>What do you call a fish without eyes?\n\nIt's a concept that isn't just something that you've heard about but actually existed in the wild. The fish has been around for thousands",
+        "0.0": "<|endoftext|>What do you call a fish without eyes? A great example is in the United States, where most people call it a fish without eyes. However, in some parts of the world, fish have",
+        "0.5": "<|endoftext|>What do you call a fish without eyes? A fish without eyes is one of the most common misconceptions about the animal. Many people mistakenly think that a fish without eyes is an animal that doesn't",
+        "1.0": "<|endoftext|>What do you call a fish without eyes? So bad that the only way to tell if one is a fish or a cat is to look at it.It's called \"fish without eyes\"",
+        "2.0": "<|endoftext|>What do you call a fish without eyes? A fish without the mind? A fish without taste or smell? A fish without any instincts? A fish without survival instincts? A fish without taste or"
+      },
+      "logit_diffs": {
+        "-2.0": {
+          "humor_logit": 2.7640583515167236,
+          "serious_logit": 0.6334630846977234,
+          "logit_difference": 2.1305952668190002
+        },
+        "-1.0": {
+          "humor_logit": 2.770789861679077,
+          "serious_logit": 0.6414202451705933,
+          "logit_difference": 2.129369616508484
+        },
+        "-0.5": {
+          "humor_logit": 2.7741546630859375,
+          "serious_logit": 0.6453964710235596,
+          "logit_difference": 2.128758192062378
+        },
+        "0.0": {
+          "humor_logit": 2.7775180339813232,
+          "serious_logit": 0.6493739485740662,
+          "logit_difference": 2.128144085407257
+        },
+        "0.5": {
+          "humor_logit": 2.78088116645813,
+          "serious_logit": 0.653351366519928,
+          "logit_difference": 2.127529799938202
+        },
+        "1.0": {
+          "humor_logit": 2.7842400074005127,
+          "serious_logit": 0.6573300957679749,
+          "logit_difference": 2.126909911632538
+        },
+        "2.0": {
+          "humor_logit": 2.7909603118896484,
+          "serious_logit": 0.6652844548225403,
+          "logit_difference": 2.125675857067108
+        }
+      }
+    },
+    {
+      "prompt": "I told my friend a joke about",
+      "generations": {
+        "-2.0": "<|endoftext|>I told my friend a joke about it and he said \"it's a joke\" and then I said \"how was that?\" and he said \"it's a joke.\" I think",
+        "-1.0": "<|endoftext|>I told my friend a joke about the fact that I'm a Christian and that I'd go for a coffee and a bike, maybe even a moped. I'm not a Catholic",
+        "-0.5": "<|endoftext|>I told my friend a joke about how I'd travelled the country with friends in the 1980s, and he laughed and added, \"I don't know. I like to think that",
+        "0.0": "<|endoftext|>I told my friend a joke about it, but my friend wasn't capable of caring. I grabbed the phone and called him. \"I'm just talking to you, I'm just",
+        "0.5": "<|endoftext|>I told my friend a joke about going to the gym with my friends.\n\nI know, we used to hang out in the gym all the time and my friends would come up",
+        "1.0": "<|endoftext|>I told my friend a joke about the video and he said that it was funny because he said the person talking about the video is the prostitute. I told my friend that he is a",
+        "2.0": "<|endoftext|>I told my friend a joke about the late '80s. I said, \"You know, I've never seen Rock and Roll as much as I did this year. I don"
+      },
+      "logit_diffs": {
+        "-2.0": {
+          "humor_logit": 0.2394227385520935,
+          "serious_logit": -1.678407073020935,
+          "logit_difference": 1.9178298115730286
+        },
+        "-1.0": {
+          "humor_logit": 0.2469574213027954,
+          "serious_logit": -1.6694804430007935,
+          "logit_difference": 1.9164378643035889
+        },
+        "-0.5": {
+          "humor_logit": 0.25072556734085083,
+          "serious_logit": -1.665014624595642,
+          "logit_difference": 1.915740191936493
+        },
+        "0.0": {
+          "humor_logit": 0.25449568033218384,
+          "serious_logit": -1.6605464220046997,
+          "logit_difference": 1.9150421023368835
+        },
+        "0.5": {
+          "humor_logit": 0.25826892256736755,
+          "serious_logit": -1.65607488155365,
+          "logit_difference": 1.9143438041210175
+        },
+        "1.0": {
+          "humor_logit": 0.2620413601398468,
+          "serious_logit": -1.6516008377075195,
+          "logit_difference": 1.9136421978473663
+        },
+        "2.0": {
+          "humor_logit": 0.26959341764450073,
+          "serious_logit": -1.642645001411438,
+          "logit_difference": 1.9122384190559387
+        }
+      }
+    },
+    {
+      "prompt": "Knock knock, who's there?",
+      "generations": {
+        "-2.0": "<|endoftext|>Knock knock, who's there?\n\nKnock knockers.\n\nKnock knockers.\n\nKnock knockers.\n\nKnock knockers.\n\n",
+        "-1.0": "<|endoftext|>Knock knock, who's there? Oh, yeah. Come on, do you see a piece of paper? It's all right, people. This is really important, right? When",
+        "-0.5": "<|endoftext|>Knock knock, who's there? A fine, smart, and very friendly guy who is every bit as good as you. He is the kind of guy you want to see on a",
+        "0.0": "<|endoftext|>Knock knock, who's there? No one, no one. Please join me as I explain how to follow the rules of this game.\n\nThe rules are simple. I will",
+        "0.5": "<|endoftext|>Knock knock, who's there?\n\nOh yeah, I'm gonna swing my arms up and down in front of my face.\n\nThe cameras were rolling, and I was",
+        "1.0": "<|endoftext|>Knock knock, who's there?\n\nIn the case of the Toronto Maple Leafs' defense, their biggest offensive deficiencies are being able to hold down defencemen.\n\nThe Wings",
+        "2.0": "<|endoftext|>Knock knock, who's there? My 5 year old son needs some help with his homework and his homework is outside, so I go outside, I knock knock knock.\n\nKn"
+      },
+      "logit_diffs": {
+        "-2.0": {
+          "humor_logit": 2.9483134746551514,
+          "serious_logit": 0.16879625618457794,
+          "logit_difference": 2.7795172184705734
+        },
+        "-1.0": {
+          "humor_logit": 2.9544060230255127,
+          "serious_logit": 0.1760164499282837,
+          "logit_difference": 2.778389573097229
+        },
+        "-0.5": {
+          "humor_logit": 2.9574496746063232,
+          "serious_logit": 0.17962826788425446,
+          "logit_difference": 2.777821406722069
+        },
+        "0.0": {
+          "humor_logit": 2.960495948791504,
+          "serious_logit": 0.18323934078216553,
+          "logit_difference": 2.7772566080093384
+        },
+        "0.5": {
+          "humor_logit": 2.96353816986084,
+          "serious_logit": 0.18684954941272736,
+          "logit_difference": 2.7766886204481125
+        },
+        "1.0": {
+          "humor_logit": 2.9665801525115967,
+          "serious_logit": 0.19046087563037872,
+          "logit_difference": 2.776119276881218
+        },
+        "2.0": {
+          "humor_logit": 2.9726579189300537,
+          "serious_logit": 0.19768381118774414,
+          "logit_difference": 2.7749741077423096
+        }
+      }
+    },
+    {
+      "prompt": "The weather today is",
+      "generations": {
+        "-2.0": "<|endoftext|>The weather today is so hot that I can't believe I'm not wearing a hat and a hat hat. I'm wearing a hat hat. I'm wearing a hat",
+        "-1.0": "<|endoftext|>The weather today is called a depression today, which means it has started to get cold, and as the cold warms, the rain is coming.\n\nYou can",
+        "-0.5": "<|endoftext|>The weather today is beautiful and the sky is so clear that we can't help but look forward to seeing the sun rise in the evening.\n\nThe amount of snow",
+        "0.0": "<|endoftext|>The weather today is not so bad. It's just that as you watch the weather forecast, some things feel even better than others.\n\nAccording to the Pikes",
+        "0.5": "<|endoftext|>The weather today is so cloudy that ice is broken into numerous pieces, and it rains heavily.\n\n\nThe snow on the Ice Barrier is so thick that they are not",
+        "1.0": "<|endoftext|>The weather today is cold and wet, and it's starting to get too cold for breakfast. You can't afford to walk around in the cold, so you'll end",
+        "2.0": "<|endoftext|>The weather today is colder than ever, and snow is falling.\n\nThe combination of the cold and snow makes for an amazing day for the city. This is weather"
+      },
+      "logit_diffs": {
+        "-2.0": {
+          "humor_logit": -0.24120394885540009,
+          "serious_logit": -1.824007511138916,
+          "logit_difference": 1.582803562283516
+        },
+        "-1.0": {
+          "humor_logit": -0.2343626767396927,
+          "serious_logit": -1.815893530845642,
+          "logit_difference": 1.5815308541059494
+        },
+        "-0.5": {
+          "humor_logit": -0.23094360530376434,
+          "serious_logit": -1.8118315935134888,
+          "logit_difference": 1.5808879882097244
+        },
+        "0.0": {
+          "humor_logit": -0.22751766443252563,
+          "serious_logit": -1.8077694177627563,
+          "logit_difference": 1.5802517533302307
+        },
+        "0.5": {
+          "humor_logit": -0.22409272193908691,
+          "serious_logit": -1.803704857826233,
+          "logit_difference": 1.579612135887146
+        },
+        "1.0": {
+          "humor_logit": -0.22066764533519745,
+          "serious_logit": -1.7996368408203125,
+          "logit_difference": 1.578969195485115
+        },
+        "2.0": {
+          "humor_logit": -0.21381044387817383,
+          "serious_logit": -1.7914971113204956,
+          "logit_difference": 1.5776866674423218
+        }
+      }
+    }
+  ],
+  "alphas": [
+    -2.0,
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0,
+    2.0
+  ],
+  "ablation_results": [
+    {
+      "prompt": "Why did the chicken cross the road?",
+      "original_generation": "<|endoftext|>Why did the chicken cross the road?\n\nWhen the shock came on May 1842 that Lancaster's Land was dying, it had already had two operations. StayAlert, the thatched",
+      "ablated_generation": "<|endoftext|>Why did the chicken cross the road?\n\nGood question. The timing is simply amazing. When the top flight abandoned their linear-wave gates one night, and the rest of their cars",
+      "original_logits": {
+        "humor_logit": 3.0007917881011963,
+        "serious_logit": 1.6168299913406372,
+        "logit_difference": 1.383961796760559
+      },
+      "ablated_logits": {
+        "humor_logit": 3.0007917881011963,
+        "serious_logit": 1.6168299913406372,
+        "logit_difference": 1.383961796760559
+      }
+    },
+    {
+      "prompt": "What do you call a fish without eyes?",
+      "original_generation": "<|endoftext|>What do you call a fish without eyes?a red thread? Call The 18 Guys in your Daddies association discuss this question and deadly snakes across 388 Channel 2, from Warren, NC to",
+      "ablated_generation": "<|endoftext|>What do you call a fish without eyes? A spider without eyes. Pretty clever, right? Not exactly. Nope. And they do eat fish without being your twinkling deodosaur",
+      "original_logits": {
+        "humor_logit": 2.7775180339813232,
+        "serious_logit": 0.6493739485740662,
+        "logit_difference": 2.128144085407257
+      },
+      "ablated_logits": {
+        "humor_logit": 2.7775180339813232,
+        "serious_logit": 0.6493739485740662,
+        "logit_difference": 2.128144085407257
+      }
+    },
+    {
+      "prompt": "I told my friend a joke about",
+      "original_generation": "<|endoftext|>I told my friend a joke about her and said that if we get to chapter 33 and stay at that hotel Dr. LeRoy not waking up every morning will be tough, and might",
+      "ablated_generation": "<|endoftext|>I told my friend a joke about 1996's MOO Heroes. Then I told her that it was terrible. And it sounds like what I assumed was up to now. Gradually I",
+      "original_logits": {
+        "humor_logit": 0.25449568033218384,
+        "serious_logit": -1.6605464220046997,
+        "logit_difference": 1.9150421023368835
+      },
+      "ablated_logits": {
+        "humor_logit": 0.25449568033218384,
+        "serious_logit": -1.6605464220046997,
+        "logit_difference": 1.9150421023368835
+      }
+    },
+    {
+      "prompt": "Knock knock, who's there?",
+      "original_generation": "<|endoftext|>Knock knock, who's there? If there are other citizens who find out whose children have been killed in the towns who speak incredibly, \"Hurray, 'em two!\" \u2013 painful",
+      "ablated_generation": "<|endoftext|>Knock knock, who's there? An America and an Africa endeavour! Warrior World began several years ago . PT World 5: Slave Removal / Malcolm X was number 26 on NPs metrics",
+      "original_logits": {
+        "humor_logit": 2.960495948791504,
+        "serious_logit": 0.18323934078216553,
+        "logit_difference": 2.7772566080093384
+      },
+      "ablated_logits": {
+        "humor_logit": 2.960495948791504,
+        "serious_logit": 0.18323934078216553,
+        "logit_difference": 2.7772566080093384
+      }
+    },
+    {
+      "prompt": "The weather today is",
+      "original_generation": "<|endoftext|>The weather today is nothing short of gloomy, with gusty winds flaring in directions that could lead to fires, downed powerlines, stab wounds and tragic deaths\u2014both",
+      "ablated_generation": "<|endoftext|>The weather today is fantastic and heck quite cloudy for those hoping to use the watercooler in the building water cooler.\n\nThe weather is great\n\nWe think",
+      "original_logits": {
+        "humor_logit": -0.22751766443252563,
+        "serious_logit": -1.8077694177627563,
+        "logit_difference": 1.5802517533302307
+      },
+      "ablated_logits": {
+        "humor_logit": -0.22751766443252563,
+        "serious_logit": -1.8077694177627563,
+        "logit_difference": 1.5802517533302307
+      }
+    }
+  ],
+  "ablation_impact": {
+    "original_accuracy": 0.9,
+    "ablated_accuracy": 0.475,
+    "accuracy_drop": 0.42500000000000004,
+    "drop_percentage": 47.22222222222223
+  },
+  "n_test_samples": 40
+}
