@@ -8,7 +8,7 @@ the trained humor direction from experiment.py.
 Usage:
     python src/intervention_tests.py
 """
-
+import matplotlib.pyplot as plt
 import os
 import json
 import warnings
@@ -66,7 +66,83 @@ FUNNY_PROMPTS = [
 ]
 
 # =============================================================================
-# Steering Experiments
+# Steering Across All Layers
+# =============================================================================
+
+def run_steering_all_layers(
+    model: HookedTransformer,
+    humor_direction: torch.Tensor,
+    alphas: List[float] = None,
+    n_layers: int = 12
+) -> Dict:
+    """
+    Run steering at each layer separately and measure the effect.
+    Produces a bar chart showing which layer gives the strongest steering effect.
+    """
+    if alphas is None:
+        alphas = [-10.0, -5.0, 0.0, 5.0, 10.0]
+    
+    prompts = CONTROL_PROMPTS[:5]
+    
+    print(f"\n{'='*60}")
+    print("Steering Across All Layers")
+    print(f"{'='*60}")
+    
+    # For each layer, compute average effect across prompts
+    layer_effects = []
+    
+    for layer in tqdm(range(n_layers), desc="Layers"):
+        intervention = HumorIntervention(model, humor_direction, layer)
+        
+        prompt_effects = []
+        for prompt in prompts:
+            diffs = {}
+            for alpha in alphas:
+                try:
+                    logit_diff = compute_logit_difference(
+                        model, prompt,
+                        intervention=intervention,
+                        alpha=alpha
+                    )
+                    diffs[alpha] = logit_diff['logit_difference']
+                except:
+                    diffs[alpha] = None
+            
+            # Effect = difference between highest and lowest alpha
+            if diffs[alphas[-1]] is not None and diffs[alphas[0]] is not None:
+                effect = diffs[alphas[-1]] - diffs[alphas[0]]
+                prompt_effects.append(effect)
+        
+        avg_effect = np.mean(prompt_effects) if prompt_effects else 0
+        layer_effects.append({
+            'layer': layer,
+            'avg_effect': avg_effect,
+            'per_prompt_effects': prompt_effects
+        })
+        print(f"  Layer {layer}: avg effect = {avg_effect:.4f}")
+    
+    # Plot: bar chart of steering effect by layer
+    fig, ax = plt.subplots(figsize=(10, 6))
+    layers = [r['layer'] for r in layer_effects]
+    effects = [r['avg_effect'] for r in layer_effects]
+    colors = ['steelblue' if e >= 0 else 'salmon' for e in effects]
+    ax.bar(layers, effects, color=colors)
+    ax.set_xlabel('Layer', fontsize=12)
+    ax.set_ylabel('Avg Steering Effect\n(Logit Diff at α=10 minus α=-10)', fontsize=11)
+    ax.set_title('Steering Effect by Layer (Humor Direction from Layer 11)', fontsize=14)
+    ax.set_xticks(range(n_layers))
+    ax.grid(True, alpha=0.3, axis='y')
+    ax.axhline(y=0, color='r', linestyle='--')
+    plt.tight_layout()
+    plt.savefig('figures/steering_by_layer.png', dpi=150)
+    plt.close()
+    print("Saved: figures/steering_by_layer.png")
+    
+    return {'steering_by_layer': layer_effects}
+
+
+# =============================================================================
+# Steering Experiments (single layer, detailed)
 # =============================================================================
 
 def run_steering_experiments(
@@ -76,28 +152,19 @@ def run_steering_experiments(
     alphas: List[float] = None
 ) -> Dict:
     """
-    Run steering experiments with various alpha values.
-    
-    Args:
-        model: HookedTransformer model
-        humor_direction: Normalized humor direction
-        layer: Layer to intervene at
-        alphas: List of steering strengths to test
-        
-    Returns:
-        Dict with steering results
+    Run steering experiments with various alpha values at a single layer.
     """
     if alphas is None:
-        alphas = [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0]
+        alphas = [-10.0, -5.0, -2.0, 0.0, 2.0, 5.0, 10.0]
     
     intervention = HumorIntervention(model, humor_direction, layer)
     results = []
     
     print(f"\n{'='*60}")
-    print("Steering Experiments")
+    print(f"Steering Experiments (Layer {layer})")
     print(f"{'='*60}")
     
-    for prompt in tqdm(CONTROL_PROMPTS[:5], desc="Steering"):  # Limit for speed
+    for prompt in tqdm(CONTROL_PROMPTS[:5], desc="Steering"):
         prompt_results = {
             'prompt': prompt,
             'generations': {},
@@ -133,8 +200,30 @@ def run_steering_experiments(
         # Print sample
         print(f"\nPrompt: {prompt}")
         print(f"  α=0.0: {prompt_results['generations'].get('0.0', 'N/A')[:60]}...")
-        print(f"  α=2.0: {prompt_results['generations'].get('2.0', 'N/A')[:60]}...")
+        print(f"  α=10.0: {prompt_results['generations'].get('10.0', 'N/A')[:60]}...")
     
+    # Plot logit difference vs alpha
+    fig, ax = plt.subplots(figsize=(10, 6))
+    for r in results:
+        alphas_plot = []
+        diffs_plot = []
+        for alpha in alphas:
+            ld = r['logit_diffs'].get(str(alpha), {})
+            if 'logit_difference' in ld:
+                alphas_plot.append(alpha)
+                diffs_plot.append(ld['logit_difference'])
+        ax.plot(alphas_plot, diffs_plot, '-o', label=r['prompt'][:30])
+
+    ax.set_xlabel('Alpha (Steering Strength)')
+    ax.set_ylabel('Logit Difference (Humor - Serious)')
+    ax.set_title(f'Steering: Humor Logit Difference vs Alpha (Layer {layer})')
+    ax.legend(fontsize=8)
+    ax.grid(True, alpha=0.3)
+    ax.axhline(y=0, color='r', linestyle='--')
+    plt.tight_layout()
+    plt.savefig('figures/steering_logit_diff.png', dpi=150)
+    plt.close()
+    print("Saved: figures/steering_logit_diff.png")
     return {'steering_results': results, 'alphas': alphas}
 
 
@@ -149,15 +238,12 @@ def run_ablation_experiments(
 ) -> Dict:
     """
     Run ablation experiments to remove humor feature.
-    
-    Returns:
-        Dict with ablation results
     """
     intervention = HumorIntervention(model, humor_direction, layer)
     results = []
     
     print(f"\n{'='*60}")
-    print("Ablation Experiments")
+    print(f"Ablation Experiments (Layer {layer})")
     print(f"{'='*60}")
     
     for prompt in tqdm(CONTROL_PROMPTS[:5], desc="Ablating"):
@@ -179,7 +265,7 @@ def run_ablation_experiments(
             ablated_logits = compute_logit_difference(
                 model, prompt, 
                 intervention=intervention,
-                alpha=0.0  # We'll use ablation hook separately
+                alpha=0.0
             )
         except Exception as e:
             original_logits = {'error': str(e)}
@@ -213,12 +299,14 @@ def evaluate_probe_on_ablated_activations(
     """
     Evaluate how ablation affects probe accuracy.
     
-    Trains a probe on original activations, then tests on ablated activations.
+    Trains a probe on original activations at the SAME layer,
+    then tests on ablated activations. This ensures the probe
+    and the ablation direction are in the same activation space.
     """
     from datasets import load_dataset
     
     print(f"\n{'='*60}")
-    print("Evaluating Ablation Impact on Probe")
+    print(f"Evaluating Ablation Impact on Probe (Layer {layer})")
     print(f"{'='*60}")
     
     device = next(model.parameters()).device
@@ -263,6 +351,22 @@ def evaluate_probe_on_ablated_activations(
     print(f"  Ablated accuracy:  {impact['ablated_accuracy']:.3f}")
     print(f"  Accuracy drop:     {impact['accuracy_drop']:.3f} ({impact['drop_percentage']:.1f}%)")
     
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(
+        ['Original', 'Ablated'],
+        [impact['original_accuracy'], impact['ablated_accuracy']],
+        color=['steelblue', 'salmon']
+    )
+    ax.set_ylabel('Probe Accuracy')
+    ax.set_title(f'Ablation Impact on Humor Probe at Layer {layer}\n(Drop: {impact["drop_percentage"]:.1f}%)')
+    ax.set_ylim(0, 1)
+    ax.axhline(y=0.5, color='r', linestyle='--', label='Chance')
+    ax.legend()
+    plt.tight_layout()
+    plt.savefig('figures/ablation_impact.png', dpi=150)
+    plt.close()
+    print("Saved: figures/ablation_impact.png")
+
     return {
         'ablation_impact': impact,
         'n_test_samples': len(texts) - split_idx
@@ -279,12 +383,13 @@ def main():
     
     # Create results directory
     RESULTS_DIR.mkdir(exist_ok=True)
+    Path("figures").mkdir(exist_ok=True)
     
     print("="*60)
     print("Intervention Tests for Humor Recognition")
     print("="*60)
     
-    # Load humor direction
+    # Load humor direction (extracted from layer 11 by experiment.py)
     humor_direction_path = RESULTS_DIR / "humor_direction.pt"
     if not humor_direction_path.exists():
         print(f"\nError: {humor_direction_path} not found!")
@@ -300,25 +405,34 @@ def main():
     model, device = load_model()
     humor_direction = humor_direction.to(device)
     
+    # The humor direction was extracted from layer 11.
+    # We use layer 11 for ablation (must match probe layer).
+    # For steering, we test ALL layers to find the most effective one.
+    BEST_LAYER = 11
+    
     # Run experiments
     all_results = {}
     
-    # 1. Steering experiments
+    # 1. Steering across all layers (find best layer for steering)
+    layer_steering = run_steering_all_layers(model, humor_direction)
+    all_results.update(layer_steering)
+    
+    # 2. Detailed steering at layer 11 (with generations)
     steering_results = run_steering_experiments(
-        model, humor_direction, layer=11
+        model, humor_direction, layer=BEST_LAYER
     )
     all_results.update(steering_results)
     
-    # 2. Ablation experiments
+    # 3. Ablation experiments at layer 11 (matches humor direction)
     ablation_results = run_ablation_experiments(
-        model, humor_direction, layer=11
+        model, humor_direction, layer=BEST_LAYER
     )
     all_results.update(ablation_results)
     
-    # 3. Probe ablation impact
+    # 4. Probe ablation impact at layer 11 (matches humor direction)
     try:
         impact_results = evaluate_probe_on_ablated_activations(
-            model, humor_direction, layer=11, n_samples=200
+            model, humor_direction, layer=BEST_LAYER, n_samples=200
         )
         all_results.update(impact_results)
     except Exception as e:
@@ -351,6 +465,10 @@ def main():
     print("INTERVENTION TESTS COMPLETE")
     print(f"{'='*60}")
     print(f"\nResults saved to: {results_path}")
+    print(f"\nFigures generated:")
+    print(f"  - figures/steering_by_layer.png")
+    print(f"  - figures/steering_logit_diff.png")
+    print(f"  - figures/ablation_impact.png")
     
     return all_results
 

@@ -9,7 +9,7 @@ This script:
 4. Validates features via Steering and Ablation interventions.
 5. Generates a report.
 """
-
+import matplotlib.pyplot as plt
 import os
 import json
 import torch
@@ -72,6 +72,27 @@ def main():
     top_features_df = identify_humor_features(feature_acts, subset_labels, top_k=10)
     print("\nTop 10 Humor Features:")
     print(top_features_df)
+
+    top_features_df = identify_humor_features(feature_acts, subset_labels, top_k=10)
+    print("\nTop 10 Humor Features:")
+    print(top_features_df)
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.barh(
+        [f"Feature {i}" for i in top_features_df['feature_idx']],
+        top_features_df['diff'],
+        color='steelblue'
+    )
+    ax.set_xlabel('Mean Activation Difference (Humor - Non-Humor)')
+    ax.set_title('Top 10 SAE Features Correlated with Humor')
+    ax.invert_yaxis()
+    plt.tight_layout()
+    plt.savefig('figures/sae_top_features.png', dpi=150)
+    plt.close()
+    print("Saved: figures/sae_top_features.png")
+    
+    # Analyze interpretation (logit lens)   <-- existing code continues
+    top_indices = top_features_df['feature_idx'].tolist()
     
     # Analyze interpretation (logit lens)
     top_indices = top_features_df['feature_idx'].tolist()
