@@ -54,7 +54,7 @@ FIGURES_DIR = Path("figures")
 MODEL_DISPLAY_NAMES = {
     "gpt2": "GPT-2 Small",
     "gemma-2-2b": "Gemma-2 2B",
-    "gemma-2-9b": "Gemma-2 9B",
+    "gemma-2-2b": "Gemma-2 2B",
 }
 
 def set_model(model_name: str):
@@ -989,7 +989,7 @@ def run_experiment(model_name: str = None):
     Run the full experiment pipeline.
     
     Args:
-        model_name: Model to use (e.g. "gpt2", "gemma-2-2b", "gemma-2-9b").
+        model_name: Model to use (e.g. "gpt2", "gemma-2-2b", "gemma-2-2b").
                     If None, uses the global MODEL_NAME.
     """
     if model_name:

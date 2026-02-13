@@ -3,9 +3,9 @@
 Run the full humor experiment pipeline for multiple models.
 
 Usage:
-    python run_all_models.py                          # run both GPT-2 and Gemma-2-9B
+    python run_all_models.py                          # run both GPT-2 and Gemma-2-2B
     python run_all_models.py gpt2                     # run GPT-2 only
-    python run_all_models.py gemma-2-9b               # run Gemma only
+    python run_all_models.py gemma-2-2b               # run Gemma only
 """
 import sys
 import os
@@ -19,7 +19,7 @@ from experiment import run_experiment
 from intervention_tests import run_interventions
 
 # Models to run (add/remove as needed)
-DEFAULT_MODELS = ["gpt2", "gemma-2-9b"]
+DEFAULT_MODELS = ["gpt2", "gemma-2-2b"]
 
 def main():
     if len(sys.argv) > 1:
