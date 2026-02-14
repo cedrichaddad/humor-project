@@ -48,7 +48,7 @@ BATCH_SIZE = 32
 MAX_LENGTH = 128
 N_SAMPLES = 10000
 RESULTS_DIR = Path("results")
-FIGURES_DIR = Path("figures")
+FIGURES_DIR = RESULTS_DIR / "figures"
 
 # Display name mapping for plot titles
 MODEL_DISPLAY_NAMES = {
@@ -58,11 +58,10 @@ MODEL_DISPLAY_NAMES = {
 }
 
 def set_model(model_name: str):
-    """Set the active model and update output directories."""
     global MODEL_NAME, RESULTS_DIR, FIGURES_DIR
     MODEL_NAME = model_name
     RESULTS_DIR = Path(f"results/{model_name}")
-    FIGURES_DIR = Path(f"figures/{model_name}")
+    FIGURES_DIR = RESULTS_DIR / "figures"
 
 def get_display_name(model_name: str = None) -> str:
     """Get human-readable model name for plot titles."""
@@ -120,56 +119,80 @@ def load_humor_dataset(n_samples: int = N_SAMPLES) -> Dict[str, Dataset]:
 
 def load_unfun_dataset(n_samples: int = None) -> Dict[str, Dict]:
     """
-    Load Dataset A: Aligned humor/serious pairs from local Excel file.
+    Load Dataset A: Aligned humor/serious pairs from local Excel file,
+    and split *by pair_id* so pairs never leak across train/val/test.
     """
     print("Loading Dataset A (aligned pairs) from local file...")
-    
+
     dataset_path = Path("datasets/dataset_a_paired.xlsx")
     if not dataset_path.exists():
         raise FileNotFoundError(
             f"Dataset A not found at {dataset_path}. "
-            "Please run Unfun.ipynb to generate the aligned pairs dataset."
+            "Please generate dataset_a_paired.xlsx with pair_id, text, humor."
         )
-    
+
     df = pd.read_excel(dataset_path)
-    
-    df.dropna(subset=['text'], inplace=True)
-    df['text'] = df['text'].astype(str)
-    
-    print(f"  Loaded {len(df)} samples from {dataset_path}")
-    
-    df = df.sample(frac=1, random_state=SEED).reset_index(drop=True)
-    
-    if n_samples and n_samples < len(df):
-        df = df.head(n_samples)
-    
-    texts = df['text'].tolist()
-    labels = [1 if h else 0 for h in df['humor'].tolist()]
-    
-    n = len(texts)
-    train_size = int(0.8 * n)
-    val_size = int(0.1 * n)
-    
-    splits = {
-        'train': {
-            'texts': texts[:train_size],
-            'labels': labels[:train_size]
-        },
-        'val': {
-            'texts': texts[train_size:train_size + val_size],
-            'labels': labels[train_size:train_size + val_size]
-        },
-        'test': {
-            'texts': texts[train_size + val_size:],
-            'labels': labels[train_size + val_size:]
+
+    # Basic cleaning
+    required_cols = {"pair_id", "text", "humor"}
+    missing = required_cols - set(df.columns)
+    if missing:
+        raise ValueError(f"Dataset A is missing columns: {missing}. Need {required_cols}.")
+
+    df = df.dropna(subset=["pair_id", "text", "humor"]).copy()
+    df["text"] = df["text"].astype(str)
+    df["humor"] = df["humor"].astype(bool)
+
+    # Keep only complete pairs (exactly 2 rows: one humor True, one False)
+    g = df.groupby("pair_id")
+    df = df[g["humor"].transform("nunique") == 2]  # has both classes
+    df = df[g["text"].transform("size") == 2]      # exactly 2 rows per pair
+
+    # Optional subsample by number of pairs (not rows)
+    pair_ids = df["pair_id"].drop_duplicates().sample(frac=1, random_state=SEED).tolist()
+    if n_samples is not None:
+        # Interpret n_samples as "number of pairs"
+        pair_ids = pair_ids[: min(n_samples, len(pair_ids))]
+        df = df[df["pair_id"].isin(pair_ids)].copy()
+
+    # Now do *pair-wise* split
+    n_pairs = len(pair_ids)
+    train_pairs = int(0.8 * n_pairs)
+    val_pairs = int(0.1 * n_pairs)
+
+    train_pair_ids = set(pair_ids[:train_pairs])
+    val_pair_ids   = set(pair_ids[train_pairs:train_pairs + val_pairs])
+    test_pair_ids  = set(pair_ids[train_pairs + val_pairs:])
+
+    def make_split(pids: set) -> Dict[str, List]:
+        sub = df[df["pair_id"].isin(pids)].copy()
+        # Shuffle rows within split for batching, but pairs remain inside split
+        sub = sub.sample(frac=1, random_state=SEED).reset_index(drop=True)
+        return {
+            "texts": sub["text"].tolist(),
+            "labels": [1 if h else 0 for h in sub["humor"].tolist()],
+            "pair_ids": sub["pair_id"].tolist(),
         }
+
+    splits = {
+        "train": make_split(train_pair_ids),
+        "val":   make_split(val_pair_ids),
+        "test":  make_split(test_pair_ids),
     }
-    
-    print(f"Dataset A splits:")
+
+    print(f"  Loaded {len(df)} rows = {n_pairs} pairs from {dataset_path}")
+    print("Dataset A splits (PAIR-WISE):")
     for split_name, split_data in splits.items():
-        humor_count = sum(split_data['labels'])
-        print(f"  {split_name}: {humor_count}/{len(split_data['labels'])} humor ({100*humor_count/len(split_data['labels']):.1f}%)")
-    
+        humor_count = sum(split_data["labels"])
+        total = len(split_data["labels"])
+        n_unique_pairs = len(set(split_data["pair_ids"]))
+        print(f"  {split_name}: {humor_count}/{total} humor ({100*humor_count/total:.1f}%) | pairs={n_unique_pairs}")
+
+    # Safety check: no pair_id overlap across splits
+    assert set(splits["train"]["pair_ids"]).isdisjoint(set(splits["val"]["pair_ids"]))
+    assert set(splits["train"]["pair_ids"]).isdisjoint(set(splits["test"]["pair_ids"]))
+    assert set(splits["val"]["pair_ids"]).isdisjoint(set(splits["test"]["pair_ids"]))
+
     return splits
 
 

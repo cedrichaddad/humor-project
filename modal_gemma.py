@@ -54,6 +54,17 @@ SHARED_KWARGS = dict(
     ],
 )
 
+DOWNLOAD_KWARGS = dict(
+    image=image,
+    cpu=2.0,
+    memory=4096,
+    timeout=30 * 60,  # 30 min
+    volumes={
+        "/root/humor_project/results": results_vol,
+    },
+)
+
+
 # ---------------------------------------------------------------------------
 # Experiment function (runs on GPU)
 # ---------------------------------------------------------------------------
@@ -123,46 +134,39 @@ def run_experiment(model_name: str = "gemma-2-2b"):
 # ---------------------------------------------------------------------------
 # Download results function
 # ---------------------------------------------------------------------------
-@app.function(**SHARED_KWARGS)
+@app.function(**DOWNLOAD_KWARGS)
 def download_results(model_name: str = "gemma-2-2b"):
-    """Download results from volume."""
+    """Create a zip and return it to the local machine."""
     import os
     import subprocess
-    
+
     model_safe = model_name.replace("/", "_")
-    
-    # Check if results exist
-    results_path = f"/root/humor_project/results/{model_name}"
-    if not os.path.exists(results_path):
-        print(f"❌ No results found at {results_path}")
+    results_dir = f"/root/humor_project/results/{model_name}"
+    if not os.path.exists(results_dir):
+        print(f"❌ No results found at {results_dir}")
+        print("Available:", os.listdir("/root/humor_project/results"))
         return None
-    
-    # Create zip
+
     zip_name = f"{model_safe}_complete_results.zip"
+    tmp_zip = f"/tmp/{zip_name}"
+
     print(f"📦 Creating {zip_name}...")
-    
-    subprocess.run([
-        "zip", "-r", f"/tmp/{zip_name}",
-        f"results/{model_name}",
-        f"figures/{model_name}"
-    ], cwd="/root/humor_project", check=True, capture_output=True)
-    
-    # Read zip
-    with open(f"/tmp/{zip_name}", "rb") as f:
+    subprocess.run(
+        ["zip", "-r", tmp_zip, model_name],
+        cwd="/root/humor_project/results",
+        check=True
+    )
+
+    with open(tmp_zip, "rb") as f:
         zip_bytes = f.read()
-    
-    print(f"✅ Created {len(zip_bytes) / 1e6:.1f} MB archive")
-    
-    return {
-        "zip_name": zip_name,
-        "zip_data": zip_bytes,
-        "size_mb": len(zip_bytes) / 1e6
-    }
+
+    print(f"✅ Created {len(zip_bytes)/1e6:.1f} MB archive")
+    return {"zip_name": zip_name, "zip_data": zip_bytes}
 
 # ---------------------------------------------------------------------------
 # Check status function
 # ---------------------------------------------------------------------------
-@app.function(**SHARED_KWARGS)
+@app.function(**DOWNLOAD_KWARGS)
 def check_status(model_name: str = "gemma-2-2b"):
     """Check if results exist and show key findings."""
     import os
@@ -248,20 +252,17 @@ def main(model: str = "gemma-2-2b", detach: bool = False):
 def download(model: str = "gemma-2-2b"):
     """Download results to local machine."""
     print(f"📥 Downloading results for {model}...")
-    
+
     result = download_results.remote(model_name=model)
-    
     if result is None:
         print("❌ No results found. Has the experiment completed?")
         return
-    
-    # Save locally
-    zip_name = result["zip_name"]
+
+    zip_name = result.get("zip_name", f"{model.replace('/', '_')}_complete_results.zip")
+    zip_bytes = result["zip_data"]
+
     with open(zip_name, "wb") as f:
-        f.write(result["zip_data"])
-    
+        f.write(zip_bytes)
+
     import os
-    print(f"\n✅ SUCCESS!")
-    print(f"📁 Saved to: {os.path.abspath(zip_name)}")
-    print(f"📊 Size: {result['size_mb']:.1f} MB")
-    print(f"\n📂 Extract with: unzip {zip_name}")
+    print(f"\n✅ Saved to: {os.path.abspath(zip_name)}")
