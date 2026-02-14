@@ -1109,6 +1109,10 @@ def run_experiment(model_name: str = None):
     )
     
     humor_direction = torch.tensor(best_probe_result['normalized_weights'], dtype=torch.float32)
+    # Ensure positive direction increases humor
+    test_proj = (train_activations[best_layer_idx] @ best_probe_result['normalized_weights'])
+    if np.mean(test_proj[train_labels == 1]) < np.mean(test_proj[train_labels == 0]):
+        humor_direction = -humor_direction
     humor_direction_path = RESULTS_DIR / "humor_direction.pt"
     torch.save(humor_direction, humor_direction_path)
     print(f"  Saved humor direction to: {humor_direction_path}")
