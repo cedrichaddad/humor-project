@@ -1099,25 +1099,107 @@ def run_experiment(model_name: str = None):
     print(f"  AUC: {best_layer['probe_auc']:.4f}")
 
     best_layer_idx = int(best_layer['layer'])
-    print(f"\nExtracting humor direction from layer {best_layer_idx}...")
     
-    best_probe_result = train_linear_probe(
-        train_activations[best_layer_idx],
-        train_labels,
-        test_activations[best_layer_idx],
-        test_labels
-    )
+    # =========================================================================
+    # Step 3b: Extract Layer-Specific Humor Directions
+    # =========================================================================
+    print("\n" + "="*60)
+    print("Step 3b: Extracting Layer-Specific Humor Directions")
+    print("="*60)
     
-    humor_direction = torch.tensor(best_probe_result['normalized_weights'], dtype=torch.float32)
-    # Ensure positive direction increases humor
-    test_proj = (train_activations[best_layer_idx] @ best_probe_result['normalized_weights'])
-    if np.mean(test_proj[train_labels == 1]) < np.mean(test_proj[train_labels == 0]):
-        humor_direction = -humor_direction
+    # Create directions subdirectory
+    directions_dir = RESULTS_DIR / "directions"
+    directions_dir.mkdir(parents=True, exist_ok=True)
+    
+    layer_directions = {}
+    
+    for layer_idx in range(model.cfg.n_layers):
+        print(f"\nLayer {layer_idx}...")
+        
+        # Train probe for this layer (reuse if it's the best layer)
+        if layer_idx == best_layer_idx:
+            layer_probe_result = train_linear_probe(
+                train_activations[layer_idx],
+                train_labels,
+                test_activations[layer_idx],
+                test_labels
+            )
+            best_probe_result = layer_probe_result  # Save for later
+        else:
+            layer_probe_result = train_linear_probe(
+                train_activations[layer_idx],
+                train_labels,
+                test_activations[layer_idx],
+                test_labels
+            )
+        
+        # Get the probe and use its decision function
+        probe = layer_probe_result['probe']
+        direction = torch.tensor(
+            layer_probe_result['normalized_weights'], 
+            dtype=torch.float32
+        )
+
+        # CRITICAL: Use probe's decision function on TEST data
+        decisions = probe.decision_function(test_activations[layer_idx])
+        humor_decisions = decisions[test_labels == 1]
+        serious_decisions = decisions[test_labels == 0]
+
+        mean_humor_proj = np.mean(humor_decisions)
+        mean_serious_proj = np.mean(serious_decisions)
+        
+        needs_flip = mean_humor_proj > mean_serious_proj
+        if needs_flip:
+            print(f"  WARNING: Flipping direction (humor={mean_humor_proj:.3f} < serious={mean_serious_proj:.3f})")
+            direction = -direction
+        else:
+            print(f"  OK: Direction correct (humor={mean_humor_proj:.3f} > serious={mean_serious_proj:.3f})")
+        
+        # Save this layer's direction
+        direction_path = directions_dir / f"layer{layer_idx}.pt"
+        torch.save(direction, direction_path)
+        
+        layer_directions[layer_idx] = {
+            'direction': direction,
+            'accuracy': layer_probe_result['accuracy'],
+            'mean_humor_proj': mean_humor_proj if not needs_flip else -mean_humor_proj,
+            'mean_serious_proj': mean_serious_proj if not needs_flip else -mean_serious_proj,
+            'separation': abs(mean_humor_proj - mean_serious_proj),
+            'needs_flip': needs_flip
+        }
+        
+        print(f"  Saved to: {direction_path.name}")
+        print(f"  Accuracy: {layer_probe_result['accuracy']:.4f}")
+        print(f"  Separation: {abs(mean_humor_proj - mean_serious_proj):.4f}")
+    
+    # Save summary of all layer directions
+    directions_summary = {
+        str(layer): {
+            'accuracy': float(info['accuracy']),
+            'separation': float(info['separation']),
+            'flipped': bool(info['needs_flip'])
+        }
+        for layer, info in layer_directions.items()
+    }
+    
+    with open(directions_dir / "summary.json", 'w') as f:
+        json.dump(directions_summary, f, indent=2)
+    
+    print(f"\nLayer-specific directions saved!")
+    print(f"  Location: {directions_dir}/")
+    print(f"  Summary: {directions_dir / 'summary.json'}")
+    
+    # Also save the best layer direction as "humor_direction.pt" for backward compatibility
+    humor_direction = layer_directions[best_layer_idx]['direction']
     humor_direction_path = RESULTS_DIR / "humor_direction.pt"
     torch.save(humor_direction, humor_direction_path)
-    print(f"  Saved humor direction to: {humor_direction_path}")
+    print(f"\nBest layer ({best_layer_idx}) direction also saved to: {humor_direction_path.name}")
     print(f"  Direction shape: {humor_direction.shape}")
     print(f"  Direction norm: {humor_direction.norm().item():.4f}")
+    
+    # Save a copy in the directions folder too
+    torch.save(humor_direction, directions_dir / f"best_layer{best_layer_idx}.pt")
+    print(f"  Also saved as: {directions_dir / f'best_layer{best_layer_idx}.pt'}")
     
     best_probe = best_probe_result['probe']
 

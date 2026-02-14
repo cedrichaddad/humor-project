@@ -2,318 +2,345 @@
   "steering_by_layer": [
     {
       "layer": 0,
-      "avg_effect": 0.14886345863342285,
+      "avg_effect": 0.2933049201965332,
       "per_prompt_effects": [
-        -1.026390790939331,
-        0.12325930595397949,
-        -0.38515281677246094,
-        0.5874736309051514,
-        1.4451279640197754
-      ]
+        0.7261576652526855,
+        0.35652923583984375,
+        0.287280797958374,
+        0.4790346622467041,
+        -0.3824777603149414
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 1,
-      "avg_effect": 0.03292169570922852,
+      "avg_effect": -0.04919257164001465,
       "per_prompt_effects": [
-        -0.9161942005157471,
-        -0.03529953956604004,
-        -0.3206171989440918,
-        0.11186599731445312,
-        1.3248534202575684
-      ]
+        0.7611284255981445,
+        0.07619953155517578,
+        0.1898794174194336,
+        -0.43159937858581543,
+        -0.8415708541870117
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 2,
-      "avg_effect": 0.05577874183654785,
+      "avg_effect": -0.11686415672302246,
       "per_prompt_effects": [
-        -0.708061695098877,
-        -0.1293654441833496,
-        -0.3663055896759033,
-        0.12116003036499023,
-        1.361466407775879
-      ]
+        0.4262821674346924,
+        0.6607184410095215,
+        0.19484663009643555,
+        -1.1033473014831543,
+        -0.7628207206726074
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 3,
-      "avg_effect": 0.07600870132446289,
+      "avg_effect": -0.057324552536010744,
       "per_prompt_effects": [
-        -0.502659797668457,
-        0.13153433799743652,
-        -0.3463149070739746,
-        -0.18654942512512207,
-        1.2840332984924316
-      ]
+        0.8982880115509033,
+        0.9472460746765137,
+        -0.16966629028320312,
+        -0.2839193344116211,
+        -1.6785712242126465
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 4,
-      "avg_effect": 0.1437692165374756,
+      "avg_effect": -0.26895999908447266,
       "per_prompt_effects": [
-        -0.6160435676574707,
-        0.268857479095459,
-        -0.3157031536102295,
-        0.29994964599609375,
-        1.0817856788635254
-      ]
+        0.577404260635376,
+        0.26853346824645996,
+        0.21196365356445312,
+        -0.5201458930969238,
+        -1.8825554847717285
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 5,
-      "avg_effect": 0.03857488632202148,
+      "avg_effect": -0.09739723205566406,
       "per_prompt_effects": [
-        -0.533344030380249,
-        0.06260824203491211,
-        -0.1501154899597168,
-        -0.2935621738433838,
-        1.107287883758545
-      ]
+        0.5539371967315674,
+        0.3536045551300049,
+        0.3959779739379883,
+        0.4754033088684082,
+        -2.265909194946289
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 6,
-      "avg_effect": -0.010176563262939453,
+      "avg_effect": -0.19752702713012696,
       "per_prompt_effects": [
-        -1.1087746620178223,
-        0.09716081619262695,
-        0.03036808967590332,
-        -0.3998901844024658,
-        1.3302531242370605
-      ]
+        0.527989387512207,
+        0.1453266143798828,
+        0.12025713920593262,
+        -0.11174273490905762,
+        -1.6694655418395996
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 7,
-      "avg_effect": -0.10495905876159668,
+      "avg_effect": 0.026875972747802734,
       "per_prompt_effects": [
-        -1.4468884468078613,
-        -0.01177978515625,
-        -0.08922314643859863,
-        -0.08772420883178711,
-        1.1108202934265137
-      ]
+        1.042811393737793,
+        0.5408272743225098,
+        0.04970407485961914,
+        0.014606952667236328,
+        -1.5135698318481445
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 8,
-      "avg_effect": -0.32886462211608886,
+      "avg_effect": 0.004105424880981446,
       "per_prompt_effects": [
-        -1.4530110359191895,
-        -0.3336327075958252,
-        -0.4050016403198242,
-        -0.44155454635620117,
-        0.9888768196105957
-      ]
+        1.221808671951294,
+        0.10838460922241211,
+        0.3567233085632324,
+        -0.30385732650756836,
+        -1.362532138824463
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 9,
-      "avg_effect": -0.3233094930648804,
+      "avg_effect": 0.20398406982421874,
       "per_prompt_effects": [
-        -1.293168544769287,
-        -0.40966665744781494,
-        -0.5123419761657715,
-        -0.4590585231781006,
-        1.0576882362365723
-      ]
+        1.4014782905578613,
+        0.02877330780029297,
+        0.662621021270752,
+        0.14196109771728516,
+        -1.2149133682250977
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 10,
-      "avg_effect": -0.31221814155578614,
+      "avg_effect": 0.02626962661743164,
       "per_prompt_effects": [
-        -1.4172148704528809,
-        -0.574329137802124,
-        -0.46957969665527344,
-        -0.24581050872802734,
-        1.145843505859375
-      ]
+        1.00374436378479,
+        0.04109501838684082,
+        0.6129064559936523,
+        -0.05068206787109375,
+        -1.4757156372070312
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 11,
-      "avg_effect": -0.391843843460083,
+      "avg_effect": -0.02968769073486328,
       "per_prompt_effects": [
-        -1.6522610187530518,
-        -0.651707649230957,
-        -0.6369750499725342,
-        -0.29752564430236816,
-        1.279250144958496
-      ]
+        1.089080572128296,
+        -0.22206544876098633,
+        0.6146111488342285,
+        -0.05697274208068848,
+        -1.573091983795166
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 12,
-      "avg_effect": -0.5691271781921386,
+      "avg_effect": 0.0677480697631836,
       "per_prompt_effects": [
-        -2.0717153549194336,
-        -0.687828540802002,
-        -0.603858470916748,
-        -0.7045531272888184,
-        1.2223196029663086
-      ]
+        1.6218082904815674,
+        -0.3368649482727051,
+        0.487595796585083,
+        -0.008839130401611328,
+        -1.424959659576416
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 13,
-      "avg_effect": -0.5401723384857178,
+      "avg_effect": 0.25517001152038576,
       "per_prompt_effects": [
-        -1.8054406642913818,
-        -0.6171474456787109,
-        -0.7135365009307861,
-        -0.5644376277923584,
-        0.9997005462646484
-      ]
+        1.3726019859313965,
+        0.04621553421020508,
+        0.5611824989318848,
+        0.401287317276001,
+        -1.1054372787475586
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 14,
-      "avg_effect": -0.3479465961456299,
+      "avg_effect": 0.1648998737335205,
       "per_prompt_effects": [
-        -1.443068504333496,
-        -0.20378375053405762,
-        -0.5395853519439697,
-        -0.5181829929351807,
-        0.9648876190185547
-      ]
+        1.0806081295013428,
+        -0.022614479064941406,
+        0.5833497047424316,
+        0.24533653259277344,
+        -1.062180519104004
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 15,
-      "avg_effect": -0.10711832046508789,
+      "avg_effect": 0.10711832046508789,
       "per_prompt_effects": [
-        -1.0512683391571045,
-        -0.15844392776489258,
-        -0.16117501258850098,
-        -0.0002570152282714844,
-        0.8355526924133301
-      ]
+        1.0512683391571045,
+        0.15844392776489258,
+        0.16117501258850098,
+        0.0002570152282714844,
+        -0.8355526924133301
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 16,
-      "avg_effect": -0.20160346031188964,
+      "avg_effect": 0.3102743148803711,
       "per_prompt_effects": [
-        -1.2954771518707275,
-        0.07657575607299805,
-        -0.3754596710205078,
-        -0.22603702545166016,
-        0.8123807907104492
-      ]
+        1.3424243927001953,
+        0.12942147254943848,
+        0.5010151863098145,
+        0.3713986873626709,
+        -0.7928881645202637
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 17,
-      "avg_effect": -0.09326567649841308,
+      "avg_effect": 0.2397219181060791,
       "per_prompt_effects": [
-        -1.011664867401123,
-        -0.05457592010498047,
-        -0.13917851448059082,
-        0.08538532257080078,
-        0.6537055969238281
-      ]
+        1.0293769836425781,
+        0.058165788650512695,
+        0.20258712768554688,
+        0.1957688331604004,
+        -0.2872891426086426
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 18,
-      "avg_effect": -0.20003666877746581,
+      "avg_effect": 0.1436315059661865,
       "per_prompt_effects": [
-        -1.093691110610962,
-        -0.17825913429260254,
-        -0.10087203979492188,
-        -0.15321755409240723,
-        0.5258564949035645
-      ]
+        0.9882814884185791,
+        -0.060307979583740234,
+        0.10155200958251953,
+        0.14871549606323242,
+        -0.4600834846496582
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 19,
-      "avg_effect": -0.07770843505859375,
+      "avg_effect": 0.11778545379638672,
       "per_prompt_effects": [
-        -0.4887073040008545,
-        -0.12775182723999023,
-        -0.054058074951171875,
-        0.05725884437561035,
-        0.2247161865234375
-      ]
+        0.6110234260559082,
+        0.015172719955444336,
+        -0.005290031433105469,
+        0.33116841316223145,
+        -0.3631472587585449
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 20,
-      "avg_effect": -0.1400273323059082,
+      "avg_effect": 0.20035667419433595,
       "per_prompt_effects": [
-        -0.5318055152893066,
-        -0.09458136558532715,
-        -0.04065203666687012,
-        -0.19353771209716797,
-        0.16043996810913086
-      ]
+        0.6233978271484375,
+        0.2015702724456787,
+        0.07794189453125,
+        0.36956095695495605,
+        -0.2706875801086426
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 21,
-      "avg_effect": -0.1666471004486084,
+      "avg_effect": 0.26061835289001467,
       "per_prompt_effects": [
-        -0.4750235080718994,
-        -0.17861199378967285,
-        0.05617547035217285,
-        -0.18208551406860352,
-        -0.05368995666503906
-      ]
+        0.5806379318237305,
+        0.31835103034973145,
+        -0.04962587356567383,
+        0.4079122543334961,
+        0.04581642150878906
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 22,
-      "avg_effect": -0.30004315376281737,
+      "avg_effect": 0.28514704704284666,
       "per_prompt_effects": [
-        -0.587486743927002,
-        -0.27098917961120605,
-        -0.1882157325744629,
-        -0.320737361907959,
-        -0.13278675079345703
-      ]
+        0.6832480430603027,
+        0.1501607894897461,
+        0.16759514808654785,
+        0.46053647994995117,
+        -0.03580522537231445
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 23,
-      "avg_effect": -0.04906625747680664,
+      "avg_effect": 0.16089825630187987,
       "per_prompt_effects": [
-        -0.2218003273010254,
-        0.042801618576049805,
-        -0.03667330741882324,
-        -0.049925804138183594,
-        0.02026653289794922
-      ]
+        0.37532567977905273,
+        0.06917166709899902,
+        0.14715099334716797,
+        0.27685546875,
+        -0.06401252746582031
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 24,
-      "avg_effect": 0.07464122772216797,
+      "avg_effect": 0.10808429718017579,
       "per_prompt_effects": [
-        0.0631866455078125,
-        0.1316230297088623,
-        -0.022783279418945312,
-        0.10767960548400879,
-        0.09350013732910156
-      ]
+        0.12904858589172363,
+        0.029368877410888672,
+        0.21976518630981445,
+        0.1469571590423584,
+        0.01528167724609375
+      ],
+      "used_layer_specific": true
     },
     {
       "layer": 25,
-      "avg_effect": 0.042585563659667966,
+      "avg_effect": -0.017277002334594727,
       "per_prompt_effects": [
-        0.04357194900512695,
-        0.024456024169921875,
-        0.05761981010437012,
-        0.020818471908569336,
-        0.06646156311035156
-      ]
+        -0.017040729522705078,
+        0.013621091842651367,
+        -0.04721689224243164,
+        0.0008592605590820312,
+        -0.03660774230957031
+      ],
+      "used_layer_specific": true
     }
   ],
+  "used_layer_specific": true,
   "steering_results": [
     {
       "prompt": "Why did the chicken cross the road?",
       "generations": {
-        "-10.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side of the road, of course!\n\nIn the early 1960s, chicken crossing the road was",
-        "-5.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side, of course!\n\nAnd why did the other chicken cross the road?\n\nObviously to get to the other side",
+        "-10.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side of course!\n\nBut, did you know that there are funny names for different types of chicken crossing the road?",
+        "-5.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side.\n\nThat\u2019s the answer given by the chicken, at least.\n\nBut what if we told you that",
         "-2.0": "<bos>Why did the chicken cross the road?\n\nFor 11-year-old Christopher and his buddies, the answer was simple: they were trying to get to the other side.\n\n",
         "0.0": "<bos>Why did the chicken cross the road? To get to the other side!\n\nThis is the second time in two days that I have had to go to the other side.\n\nYesterday I",
         "2.0": "<bos>Why did the chicken cross the road?\n\n[User 0001]\n\nWell, I didn't know what to say when a chicken crossed the road this morning. The",
-        "5.0": "<bos>Why did the chicken cross the road?\n\nIt\u2019s a little known fact that chickens love to cross the road. They\u2019re just going about their business and then, suddenly, they",
-        "10.0": "<bos>Why did the chicken cross the road?\n\nThe answer was to get to the other side.\n\nA group of chickens in California recently made the same decision, crossing the road to get away"
+        "5.0": "<bos>Why did the chicken cross the road?\n\nIt\u2019s a question that\u2019s been asked for years and has spawned a plethora of memes and jokes.\n\nBut, did you know that",
+        "10.0": "<bos>Why did the chicken cross the road?\n\nThe answer was to get to the other side.\n\nA better answer might be: \u201cto get to the other side of the road.\u201d\n\n"
       },
       "logit_diffs": {
         "-10.0": {
-          "humor_logit": 2.3774092197418213,
-          "serious_logit": -5.463504791259766,
-          "logit_difference": 7.840914011001587
+          "humor_logit": 3.7507712841033936,
+          "serious_logit": -3.038874387741089,
+          "logit_difference": 6.789645671844482
         },
         "-5.0": {
-          "humor_logit": 2.682624340057373,
-          "serious_logit": -4.9623026847839355,
-          "logit_difference": 7.644927024841309
+          "humor_logit": 3.3679513931274414,
+          "serious_logit": -3.7620925903320312,
+          "logit_difference": 7.130043983459473
         },
         "-2.0": {
-          "humor_logit": 2.87764310836792,
-          "serious_logit": -4.632080078125,
-          "logit_difference": 7.50972318649292
+          "humor_logit": 3.151637554168701,
+          "serious_logit": -4.15330171585083,
+          "logit_difference": 7.304939270019531
         },
         "0.0": {
           "humor_logit": 3.0126256942749023,
@@ -321,48 +348,48 @@
           "logit_difference": 7.411094665527344
         },
         "2.0": {
-          "humor_logit": 3.151637554168701,
-          "serious_logit": -4.15330171585083,
-          "logit_difference": 7.304939270019531
+          "humor_logit": 2.87764310836792,
+          "serious_logit": -4.632080078125,
+          "logit_difference": 7.50972318649292
         },
         "5.0": {
-          "humor_logit": 3.3679513931274414,
-          "serious_logit": -3.7620925903320312,
-          "logit_difference": 7.130043983459473
+          "humor_logit": 2.682624340057373,
+          "serious_logit": -4.9623026847839355,
+          "logit_difference": 7.644927024841309
         },
         "10.0": {
-          "humor_logit": 3.7507712841033936,
-          "serious_logit": -3.038874387741089,
-          "logit_difference": 6.789645671844482
+          "humor_logit": 2.3774092197418213,
+          "serious_logit": -5.463504791259766,
+          "logit_difference": 7.840914011001587
         }
       }
     },
     {
       "prompt": "What do you call a fish without eyes?",
       "generations": {
-        "-10.0": "<bos>What do you call a fish without eyes?\n\nA blind man says he was discriminated against by a restaurant owner who refused to serve him and other people who were blind or visually impaired.\n\nHe",
+        "-10.0": "<bos>What do you call a fish without eyes?\n\nA blind man says he was discriminated against by his local council because he is blind.\n\nA blind man says he was discriminated against by his local",
         "-5.0": "<bos>What do you call a fish without eyes? A blind fish.\n\nWhat do you call a fish without a head? A fish without a head.\n\nWhat would you call a fish without a",
-        "-2.0": "<bos>What do you call a fish without eyes? A fish without a fish.\n\nWhen I was a kid growing up on a farm in northern Wisconsin, I was never allowed to go fishing without my",
+        "-2.0": "<bos>What do you call a fish without eyes? A fish without a fish.\n\nWhen I was a kid growing up on a farm in northern Wisconsin, I was never allowed to go fishing without a",
         "0.0": "<bos>What do you call a fish without eyes?\n\nWhat is the meaning of the word \u2018fertile\u2019?\n\nWhat is the meaning of the word \u2018discourage\u2019?\n\nWhat is the meaning of",
-        "2.0": "<bos>What do you call a fish without eyes? A frog.\n\nWhat do you call a fish without a face? A frog.\n\nWhat do you call a fish without a body? A fry",
+        "2.0": "<bos>What do you call a fish without eyes? A blind fish.\n\nWhat do you call a fish with no eyes? A blind fish.\n\nWhat do you call a fish with only one eye",
         "5.0": "<bos>What do you call a fish without eyes? An eye fish. Sorry. I had to.\n\nI\u2019m sure you\u2019ve seen the video of the fish with its eye on the front",
-        "10.0": "<bos>What do you call a fish without eyes?\n\nA sardine.\nI was in a restaurant and I was served a sardine.\nI didn't like it.\n\nNo,"
+        "10.0": "<bos>What do you call a fish without eyes?\n\nA sardine.\nCan you spot the hidden word?\n(Click to enlarge)\n\nA sardine?\nIt looks like a sard"
       },
       "logit_diffs": {
         "-10.0": {
-          "humor_logit": 6.3500494956970215,
-          "serious_logit": 2.3540406227111816,
-          "logit_difference": 3.99600887298584
+          "humor_logit": 7.786959648132324,
+          "serious_logit": 3.949394702911377,
+          "logit_difference": 3.8375649452209473
         },
         "-5.0": {
-          "humor_logit": 6.646105766296387,
-          "serious_logit": 2.6882636547088623,
-          "logit_difference": 3.9578421115875244
+          "humor_logit": 7.352118492126465,
+          "serious_logit": 3.472379207611084,
+          "logit_difference": 3.879739284515381
         },
         "-2.0": {
-          "humor_logit": 6.839595794677734,
-          "serious_logit": 2.9047746658325195,
-          "logit_difference": 3.934821128845215
+          "humor_logit": 7.12058162689209,
+          "serious_logit": 3.216888427734375,
+          "logit_difference": 3.903693199157715
         },
         "0.0": {
           "humor_logit": 6.97648811340332,
@@ -370,48 +397,48 @@
           "logit_difference": 3.919342517852783
         },
         "2.0": {
-          "humor_logit": 7.12058162689209,
-          "serious_logit": 3.216888427734375,
-          "logit_difference": 3.903693199157715
+          "humor_logit": 6.839595794677734,
+          "serious_logit": 2.9047746658325195,
+          "logit_difference": 3.934821128845215
         },
         "5.0": {
-          "humor_logit": 7.352118492126465,
-          "serious_logit": 3.472379207611084,
-          "logit_difference": 3.879739284515381
+          "humor_logit": 6.646105766296387,
+          "serious_logit": 2.6882636547088623,
+          "logit_difference": 3.9578421115875244
         },
         "10.0": {
-          "humor_logit": 7.786959648132324,
-          "serious_logit": 3.949394702911377,
-          "logit_difference": 3.8375649452209473
+          "humor_logit": 6.3500494956970215,
+          "serious_logit": 2.3540406227111816,
+          "logit_difference": 3.99600887298584
         }
       }
     },
     {
       "prompt": "I told my friend a joke about",
       "generations": {
-        "-10.0": "<bos>I told my friend a joke about a girl who was riding a bike.\n\n\u201cWhy were you wearing a helmet?\u201d I asked. \u201cWere you going to ride a car?\u201d\n\n",
+        "-10.0": "<bos>I told my friend a joke about a joke and he said, \u201cI just puked in my mouth.\u201d\n\nI told my friend a joke about a joke and he said, \u201c",
         "-5.0": "<bos>I told my friend a joke about how the other day my mom was making chicken noodle soup in the crock pot and she was so excited. I told him she was so excited she started",
         "-2.0": "<bos>I told my friend a joke about me putting a knife in the microwave. I told him to move the knife to a safe place. He said he would move it. Then, he",
         "0.0": "<bos>I told my friend a joke about how the whole world is a joke. And she said I should make a joke about how they\u2019re all laughing at me. I told her I",
         "2.0": "<bos>I told my friend a joke about my new dog and she said, \"Oh, I didn't know you had a dog.\" I said, \"No, not really.\" Then",
-        "5.0": "<bos>I told my friend a joke about the guy who went to the dentist and was asked to stand up. The guy did so, and the dentist said, \u201cNow, put your right",
-        "10.0": "<bos>I told my friend a joke about how she should be the one to take the final exam\n\nand she was mad at me and now she won't stop talking about it\n\nand"
+        "5.0": "<bos>I told my friend a joke about the guy who wanted to make a list of rules for his children. The first rule was, \u201cNo one will ever know.\u201d\n\nHe was a",
+        "10.0": "<bos>I told my friend a joke about a guy with a big penis.\n\n\nWhen I got home, a cop had pulled over and questioned me.\n\n\nHe asked, \u201cDo you have"
       },
       "logit_diffs": {
         "-10.0": {
-          "humor_logit": 3.1397769451141357,
-          "serious_logit": -8.583316802978516,
-          "logit_difference": 11.723093748092651
+          "humor_logit": 3.9008240699768066,
+          "serious_logit": -7.661094665527344,
+          "logit_difference": 11.56191873550415
         },
         "-5.0": {
-          "humor_logit": 3.3105006217956543,
-          "serious_logit": -8.411474227905273,
-          "logit_difference": 11.721974849700928
+          "humor_logit": 3.687617063522339,
+          "serious_logit": -7.9606451988220215,
+          "logit_difference": 11.64826226234436
         },
         "-2.0": {
-          "humor_logit": 3.417611598968506,
-          "serious_logit": -8.293931007385254,
-          "logit_difference": 11.71154260635376
+          "humor_logit": 3.5679776668548584,
+          "serious_logit": -8.11496353149414,
+          "logit_difference": 11.682941198348999
         },
         "0.0": {
           "humor_logit": 3.491588592529297,
@@ -419,48 +446,48 @@
           "logit_difference": 11.699552536010742
         },
         "2.0": {
-          "humor_logit": 3.5679776668548584,
-          "serious_logit": -8.11496353149414,
-          "logit_difference": 11.682941198348999
+          "humor_logit": 3.417611598968506,
+          "serious_logit": -8.293931007385254,
+          "logit_difference": 11.71154260635376
         },
         "5.0": {
-          "humor_logit": 3.687617063522339,
-          "serious_logit": -7.9606451988220215,
-          "logit_difference": 11.64826226234436
+          "humor_logit": 3.3105006217956543,
+          "serious_logit": -8.411474227905273,
+          "logit_difference": 11.721974849700928
         },
         "10.0": {
-          "humor_logit": 3.9008240699768066,
-          "serious_logit": -7.661094665527344,
-          "logit_difference": 11.56191873550415
+          "humor_logit": 3.1397769451141357,
+          "serious_logit": -8.583316802978516,
+          "logit_difference": 11.723093748092651
         }
       }
     },
     {
       "prompt": "Knock knock, who's there?",
       "generations": {
-        "-10.0": "<bos>Knock knock, who's there?\n\nI'm sorry, who's there?\n\n\"Knock knock, who's there?\"\n\nI'm sorry, who's",
-        "-5.0": "<bos>Knock knock, who's there?\n\nMy name is Rachel.\n\nMy name is Rachel?\n\nNo, my name is Rachel.\n\nBut my name is Rachel.\n\nWhat'",
+        "-10.0": "<bos>Knock knock, who's there?\n\nI don't know, you don't know?\n\nI don't know, who's there?\n\nWell, you do",
+        "-5.0": "<bos>Knock knock, who's there?\n\nMy name is Rachel.\n\nMy name is Rachel?\n\nNo. My name is Rachel.\n\nBut my name's not Rachel. My",
         "-2.0": "<bos>Knock knock, who's there? I'm your door.\n\nDon't play the door. It's a trap.\n\nI'm a door.\n\nWhich door",
         "0.0": "<bos>Knock knock, who's there?\nThe <b><i>Black</i></b> Death.\n\nThere are many <b><i>Black</i></b> people out there who think they're a ",
         "2.0": "<bos>Knock knock, who's there? It's your chance to have some Halloween fun!\n\nIf you are looking for a way to celebrate the spookiest time of the year,",
         "5.0": "<bos>Knock knock, who's there?\n\nMe, the Google-loving, social media-savvy, online marketer, you hired to build your business.\n\nWhy would I need to do",
-        "10.0": "<bos>Knock knock, who's there? I'm not sure, but she's a little bit of a crazy person.\n\nThe fact that you don't know who's"
+        "10.0": "<bos>Knock knock, who's there? I'm not sure, but she's a little bit of a diva. <b>Eva Longoria</b> is heading to the Big Apple to"
       },
       "logit_diffs": {
         "-10.0": {
-          "humor_logit": 6.170043468475342,
-          "serious_logit": -4.925218105316162,
-          "logit_difference": 11.095261573791504
+          "humor_logit": 7.993396282196045,
+          "serious_logit": -3.1016082763671875,
+          "logit_difference": 11.095004558563232
         },
         "-5.0": {
-          "humor_logit": 6.6138105392456055,
-          "serious_logit": -4.498481750488281,
-          "logit_difference": 11.112292289733887
+          "humor_logit": 7.515836238861084,
+          "serious_logit": -3.6042258739471436,
+          "logit_difference": 11.120062112808228
         },
         "-2.0": {
-          "humor_logit": 6.884826183319092,
-          "serious_logit": -4.225796699523926,
-          "logit_difference": 11.110622882843018
+          "humor_logit": 7.240658760070801,
+          "serious_logit": -3.8749098777770996,
+          "logit_difference": 11.1155686378479
         },
         "0.0": {
           "humor_logit": 7.062248229980469,
@@ -468,19 +495,19 @@
           "logit_difference": 11.110741138458252
         },
         "2.0": {
-          "humor_logit": 7.240658760070801,
-          "serious_logit": -3.8749098777770996,
-          "logit_difference": 11.1155686378479
+          "humor_logit": 6.884826183319092,
+          "serious_logit": -4.225796699523926,
+          "logit_difference": 11.110622882843018
         },
         "5.0": {
-          "humor_logit": 7.515836238861084,
-          "serious_logit": -3.6042258739471436,
-          "logit_difference": 11.120062112808228
+          "humor_logit": 6.6138105392456055,
+          "serious_logit": -4.498481750488281,
+          "logit_difference": 11.112292289733887
         },
         "10.0": {
-          "humor_logit": 7.993396282196045,
-          "serious_logit": -3.1016082763671875,
-          "logit_difference": 11.095004558563232
+          "humor_logit": 6.170043468475342,
+          "serious_logit": -4.925218105316162,
+          "logit_difference": 11.095261573791504
         }
       }
     },
@@ -491,25 +518,25 @@
         "-5.0": "<bos>The weather today is almost identical to yesterday. It\u2019s a bit cooler but not noticeably so. This is a good day to get out and about, and the day",
         "-2.0": "<bos>The weather today is very sunny, warm, and bright. It\u2019s a good day to walk. I\u2019m in the process of writing a paper on the origin",
         "0.0": "<bos>The weather today is perfect for a walk.  It is very warm, but not too hot, and there is a slight breeze.  It\u2019s a bit overcast",
-        "2.0": "<bos>The weather today is a lot like the weather here in the desert. There is a cool breeze coming in from the west and we have a low chance of rain. There",
-        "5.0": "<bos>The weather today is mixed, cloudy and sunny with a chance of showers throughout the day. High tide is at 12:12PM with low tide at ",
+        "2.0": "<bos>The weather today is a lot like the weather I found when I first moved to Japan. I had just gotten off the plane after flying over 12 hours. I",
+        "5.0": "<bos>The weather today is mixed, cloudy and sunny with a chance of showers throughout the day. Highs will be in the low to mid 50s but feels like",
         "10.0": "<bos>The weather today is a perfect 75 and sunny. I love that. What a day to walk my dog. It is a beautiful day out. After a long"
       },
       "logit_diffs": {
         "-10.0": {
-          "humor_logit": -6.135980129241943,
-          "serious_logit": -8.458181381225586,
-          "logit_difference": 2.3222012519836426
+          "humor_logit": -4.881702423095703,
+          "serious_logit": -8.039456367492676,
+          "logit_difference": 3.1577539443969727
         },
         "-5.0": {
-          "humor_logit": -5.854640960693359,
-          "serious_logit": -8.37586784362793,
-          "logit_difference": 2.5212268829345703
+          "humor_logit": -5.226183891296387,
+          "serious_logit": -8.16621208190918,
+          "logit_difference": 2.940028190612793
         },
         "-2.0": {
-          "humor_logit": -5.674980163574219,
-          "serious_logit": -8.31912612915039,
-          "logit_difference": 2.644145965576172
+          "humor_logit": -5.423445701599121,
+          "serious_logit": -8.235230445861816,
+          "logit_difference": 2.8117847442626953
         },
         "0.0": {
           "humor_logit": -5.550884246826172,
@@ -517,19 +544,19 @@
           "logit_difference": 2.72745418548584
         },
         "2.0": {
-          "humor_logit": -5.423445701599121,
-          "serious_logit": -8.235230445861816,
-          "logit_difference": 2.8117847442626953
+          "humor_logit": -5.674980163574219,
+          "serious_logit": -8.31912612915039,
+          "logit_difference": 2.644145965576172
         },
         "5.0": {
-          "humor_logit": -5.226183891296387,
-          "serious_logit": -8.16621208190918,
-          "logit_difference": 2.940028190612793
+          "humor_logit": -5.854640960693359,
+          "serious_logit": -8.37586784362793,
+          "logit_difference": 2.5212268829345703
         },
         "10.0": {
-          "humor_logit": -4.881702423095703,
-          "serious_logit": -8.039456367492676,
-          "logit_difference": 3.1577539443969727
+          "humor_logit": -6.135980129241943,
+          "serious_logit": -8.458181381225586,
+          "logit_difference": 2.3222012519836426
         }
       }
     }

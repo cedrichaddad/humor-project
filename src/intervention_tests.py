@@ -71,10 +71,21 @@ def get_figures_dir():
 
 def run_steering_all_layers(
     model: HookedTransformer,
-    humor_direction: torch.Tensor,
+    humor_direction: torch.Tensor = None,  # Now optional
     alphas: List[float] = None,
-    n_layers: int = None
+    n_layers: int = None,
+    use_layer_specific: bool = True
 ) -> Dict:
+    """
+    Steer using layer-specific humor directions (if available).
+    
+    Args:
+        model: The transformer model
+        humor_direction: Fallback direction (optional if layer-specific exist)
+        alphas: List of steering strengths to test
+        n_layers: Number of layers (defaults to model.cfg.n_layers)
+        use_layer_specific: If True, load layer-specific directions.
+    """
     if n_layers is None:
         n_layers = model.cfg.n_layers
     if alphas is None:
@@ -82,14 +93,42 @@ def run_steering_all_layers(
     
     prompts = CONTROL_PROMPTS[:5]
     display_name = get_display_name()
+    results_dir = get_results_dir()
+    directions_dir = results_dir / "directions"
+    device = next(model.parameters()).device
     
-    print(f"\n{'='*60}")
-    print(f"Steering Across All Layers ({display_name})")
-    print(f"{'='*60}")
+    # Check if layer-specific directions exist
+    layer_specific_exists = (directions_dir / "layer0.pt").exists()
+    
+    if use_layer_specific and layer_specific_exists:
+        print(f"\n{'='*60}")
+        print(f"Steering Across All Layers with Layer-Specific Directions ({display_name})")
+        print(f"  Loading from: {directions_dir}/")
+        print(f"{'='*60}")
+        use_specific = True
+    else:
+        print(f"\n{'='*60}")
+        print(f"Steering Across All Layers ({display_name})")
+        print(f"{'='*60}")
+        if use_layer_specific and not layer_specific_exists:
+            print("⚠️  Layer-specific directions not found, using fallback direction")
+            print(f"    (Checked: {directions_dir / 'layer0.pt'})")
+        use_specific = False
+        if humor_direction is None:
+            # Load fallback from file
+            humor_direction = torch.load(results_dir / "humor_direction.pt").to(device)
+        fallback_direction = humor_direction
     
     layer_effects = []
     
     for layer in tqdm(range(n_layers), desc="Layers"):
+        # Load appropriate direction for this layer
+        if use_specific:
+            direction_path = directions_dir / f"layer{layer}.pt"
+            humor_direction = torch.load(direction_path).to(device)
+        else:
+            humor_direction = fallback_direction
+        
         intervention = HumorIntervention(model, humor_direction, layer)
         prompt_effects = []
         for prompt in prompts:
@@ -106,7 +145,12 @@ def run_steering_all_layers(
                 effect = diffs[alphas[-1]] - diffs[alphas[0]]
                 prompt_effects.append(effect)
         avg_effect = np.mean(prompt_effects) if prompt_effects else 0
-        layer_effects.append({'layer': layer, 'avg_effect': avg_effect, 'per_prompt_effects': prompt_effects})
+        layer_effects.append({
+            'layer': layer, 
+            'avg_effect': avg_effect, 
+            'per_prompt_effects': prompt_effects,
+            'used_layer_specific': use_specific
+        })
         print(f"  Layer {layer}: avg effect = {avg_effect:.4f}")
     
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -116,17 +160,20 @@ def run_steering_all_layers(
     ax.bar(layers, effects, color=colors)
     ax.set_xlabel('Layer', fontsize=12)
     ax.set_ylabel('Avg Steering Effect\n(Logit Diff at α=10 minus α=-10)', fontsize=11)
-    ax.set_title(f'Steering Effect by Layer ({display_name})', fontsize=14)
+    title_suffix = "(Layer-Specific)" if use_specific else ""
+    ax.set_title(f'Steering Effect by Layer {title_suffix} ({display_name})', fontsize=14)
     ax.set_xticks(range(n_layers))
     ax.grid(True, alpha=0.3, axis='y')
     ax.axhline(y=0, color='r', linestyle='--')
     plt.tight_layout()
     
     figures_dir = get_figures_dir()
-    plt.savefig(figures_dir / 'steering_by_layer.png', dpi=150)
+    filename = 'steering_by_layer_fixed.png' if use_specific else 'steering_by_layer.png'
+    plt.savefig(figures_dir / filename, dpi=150)
     plt.close()
-    print(f"Saved: {figures_dir / 'steering_by_layer.png'}")
-    return {'steering_by_layer': layer_effects}
+    print(f"Saved: {figures_dir / filename}")
+    return {'steering_by_layer': layer_effects, 'used_layer_specific': use_specific}
+
 
 
 def run_steering_experiments(
