@@ -24,6 +24,7 @@ from transformer_lens import HookedTransformer
 from experiment import (
     HumorIntervention,
     compute_logit_difference,
+    compute_activation_projection,
     evaluate_ablation_impact,
     train_linear_probe,
     extract_activations,
@@ -36,25 +37,52 @@ from experiment import (
 
 warnings.filterwarnings('ignore')
 
-CONTROL_PROMPTS = [
+# ---------------------------------------------------------------------------
+# Prompt sets — 7 per category, 21 total
+# ---------------------------------------------------------------------------
+# Humor prompts: baseline already humor-biased; tests amplification
+HUMOR_PROMPTS = [
     "Why did the chicken cross the road?",
     "What do you call a fish without eyes?",
-    "I told my friend a joke about",
     "Knock knock, who's there?",
+    "A man walked into a bar and",
+    "A priest, a rabbi, and an imam walk into",
+    "Tell me something funny about",
+    "So a penguin walks into a",
+]
+
+# Neutral prompts: no humor or formality bias; tests creation from nothing
+NEUTRAL_PROMPTS = [
     "The weather today is",
     "I went to the store and bought",
     "My favorite food is",
+    "She opened the door and saw",
+    "The dog ran across the",
+    "Last weekend I decided to",
+    "When I was a kid, I used to",
+]
+
+# Serious prompts: formal/academic baseline; tests creation against anti-humor
+SERIOUS_PROMPTS = [
     "The quarterly earnings report shows that",
     "According to the latest research,",
     "In conclusion, the evidence suggests",
     "The primary objective of this project is to",
+    "The committee has determined that",
+    "Recent developments in the field indicate",
+    "The data clearly demonstrates that",
 ]
 
-FUNNY_PROMPTS = [
-    "Tell me something funny about",
-    "Why did the mathematician",
-    "A priest, a rabbi, and an imam walk into",
-]
+ALL_PROMPTS = HUMOR_PROMPTS + NEUTRAL_PROMPTS + SERIOUS_PROMPTS
+
+# Map each prompt to its category for per-category analysis
+PROMPT_CATEGORIES = {}
+for p in HUMOR_PROMPTS:
+    PROMPT_CATEGORIES[p] = 'humor'
+for p in NEUTRAL_PROMPTS:
+    PROMPT_CATEGORIES[p] = 'neutral'
+for p in SERIOUS_PROMPTS:
+    PROMPT_CATEGORIES[p] = 'serious'
 
 
 def get_results_dir():
@@ -78,20 +106,14 @@ def run_steering_all_layers(
 ) -> Dict:
     """
     Steer using layer-specific humor directions (if available).
-    
-    Args:
-        model: The transformer model
-        humor_direction: Fallback direction (optional if layer-specific exist)
-        alphas: List of steering strengths to test
-        n_layers: Number of layers (defaults to model.cfg.n_layers)
-        use_layer_specific: If True, load layer-specific directions.
+    Produces three plots: overall, neutral+serious only, humor only.
     """
     if n_layers is None:
         n_layers = model.cfg.n_layers
     if alphas is None:
-        alphas = [-10.0, -5.0, 0.0, 5.0, 10.0]
+        alphas = [-15.0, -10.0, -5.0, 0.0, 5.0, 10.0, 15.0]
     
-    prompts = CONTROL_PROMPTS[:5]
+    prompts = ALL_PROMPTS
     display_name = get_display_name()
     results_dir = get_results_dir()
     directions_dir = results_dir / "directions"
@@ -104,6 +126,8 @@ def run_steering_all_layers(
         print(f"\n{'='*60}")
         print(f"Steering Across All Layers with Layer-Specific Directions ({display_name})")
         print(f"  Loading from: {directions_dir}/")
+        print(f"  Using {len(prompts)} prompts (7 humor, 7 neutral, 7 serious)")
+        print(f"  Alphas: {alphas}")
         print(f"{'='*60}")
         use_specific = True
     else:
@@ -115,7 +139,6 @@ def run_steering_all_layers(
             print(f"    (Checked: {directions_dir / 'layer0.pt'})")
         use_specific = False
         if humor_direction is None:
-            # Load fallback from file
             humor_direction = torch.load(results_dir / "humor_direction.pt").to(device)
         fallback_direction = humor_direction
     
@@ -130,48 +153,77 @@ def run_steering_all_layers(
             humor_direction = fallback_direction
         
         intervention = HumorIntervention(model, humor_direction, layer)
-        prompt_effects = []
+        
+        # Track effects per prompt with category
+        prompt_results = []
         for prompt in prompts:
             diffs = {}
             for alpha in alphas:
                 try:
                     logit_diff = compute_logit_difference(
-                        model, prompt, intervention=intervention, alpha=alpha
+                        model, prompt, humor_direction, intervention=intervention, alpha=alpha
                     )
                     diffs[alpha] = logit_diff['logit_difference']
                 except:
                     diffs[alpha] = None
             if diffs[alphas[-1]] is not None and diffs[alphas[0]] is not None:
                 effect = diffs[alphas[-1]] - diffs[alphas[0]]
-                prompt_effects.append(effect)
-        avg_effect = np.mean(prompt_effects) if prompt_effects else 0
+                prompt_results.append({
+                    'prompt': prompt,
+                    'category': PROMPT_CATEGORIES[prompt],
+                    'effect': effect,
+                })
+        
+        # Compute per-category averages
+        all_effects = [r['effect'] for r in prompt_results]
+        humor_effects = [r['effect'] for r in prompt_results if r['category'] == 'humor']
+        control_effects = [r['effect'] for r in prompt_results if r['category'] in ('neutral', 'serious')]
+        
         layer_effects.append({
             'layer': layer, 
-            'avg_effect': avg_effect, 
-            'per_prompt_effects': prompt_effects,
-            'used_layer_specific': use_specific
+            'avg_effect': np.mean(all_effects) if all_effects else 0,
+            'avg_humor': np.mean(humor_effects) if humor_effects else 0,
+            'avg_control': np.mean(control_effects) if control_effects else 0,
+            'per_prompt': prompt_results,
+            'used_layer_specific': use_specific,
         })
-        print(f"  Layer {layer}: avg effect = {avg_effect:.4f}")
+        print(f"  Layer {layer}: all={layer_effects[-1]['avg_effect']:.4f}  "
+              f"control={layer_effects[-1]['avg_control']:.4f}  "
+              f"humor={layer_effects[-1]['avg_humor']:.4f}")
     
-    fig, ax = plt.subplots(figsize=(10, 6))
-    layers = [r['layer'] for r in layer_effects]
-    effects = [r['avg_effect'] for r in layer_effects]
-    colors = ['steelblue' if e >= 0 else 'salmon' for e in effects]
-    ax.bar(layers, effects, color=colors)
-    ax.set_xlabel('Layer', fontsize=12)
-    ax.set_ylabel('Avg Steering Effect\n(Logit Diff at α=10 minus α=-10)', fontsize=11)
-    title_suffix = "(Layer-Specific)" if use_specific else ""
-    ax.set_title(f'Steering Effect by Layer {title_suffix} ({display_name})', fontsize=14)
-    ax.set_xticks(range(n_layers))
-    ax.grid(True, alpha=0.3, axis='y')
-    ax.axhline(y=0, color='r', linestyle='--')
-    plt.tight_layout()
-    
+    # --- Helper to make a bar chart ---
     figures_dir = get_figures_dir()
-    filename = 'steering_by_layer_fixed.png' if use_specific else 'steering_by_layer.png'
-    plt.savefig(figures_dir / filename, dpi=150)
-    plt.close()
-    print(f"Saved: {figures_dir / filename}")
+    title_suffix = "(Layer-Specific)" if use_specific else ""
+    
+    def _save_bar_chart(effects_list, title_extra, filename):
+        fig, ax = plt.subplots(figsize=(10, 6))
+        layers = list(range(n_layers))
+        colors = ['steelblue' if e >= 0 else 'salmon' for e in effects_list]
+        ax.bar(layers, effects_list, color=colors)
+        ax.set_xlabel('Layer', fontsize=12)
+        ax.set_ylabel(f'Avg Steering Effect\n(Logit Diff at α={alphas[-1]} minus α={alphas[0]})', fontsize=11)
+        ax.set_title(f'Steering Effect by Layer {title_suffix} {title_extra} ({display_name})', fontsize=13)
+        ax.set_xticks(range(n_layers))
+        ax.grid(True, alpha=0.3, axis='y')
+        ax.axhline(y=0, color='r', linestyle='--')
+        plt.tight_layout()
+        plt.savefig(figures_dir / filename, dpi=150)
+        plt.close()
+        print(f"Saved: {figures_dir / filename}")
+    
+    # Plot 1: Overall (all 21 prompts)
+    all_effs = [r['avg_effect'] for r in layer_effects]
+    suffix = '_fixed' if use_specific else ''
+    _save_bar_chart(all_effs, '— All Prompts', f'steering_by_layer{suffix}.png')
+    
+    # Plot 2: Neutral + Serious only (creation from non-humorous baseline)
+    ctrl_effs = [r['avg_control'] for r in layer_effects]
+    _save_bar_chart(ctrl_effs, '— Neutral + Serious', f'steering_by_layer_control{suffix}.png')
+    
+    # Plot 3: Humor only (amplification of existing humor)
+    humor_effs = [r['avg_humor'] for r in layer_effects]
+    _save_bar_chart(humor_effs, '— Humor Prompts', f'steering_by_layer_humor{suffix}.png')
+    
     return {'steering_by_layer': layer_effects, 'used_layer_specific': use_specific}
 
 
@@ -183,7 +235,7 @@ def run_steering_experiments(
     alphas: List[float] = None
 ) -> Dict:
     if alphas is None:
-        alphas = [-10.0, -5.0, -2.0, 0.0, 2.0, 5.0, 10.0]
+        alphas = [-15.0, -10.0, -5.0, -2.0, 0.0, 2.0, 5.0, 10.0, 15.0]
     
     display_name = get_display_name()
     intervention = HumorIntervention(model, humor_direction, layer)
@@ -191,27 +243,40 @@ def run_steering_experiments(
     
     print(f"\n{'='*60}")
     print(f"Steering Experiments (Layer {layer}, {display_name})")
+    print(f"  Using {len(ALL_PROMPTS)} prompts, alphas={alphas}")
     print(f"{'='*60}")
     
-    for prompt in tqdm(CONTROL_PROMPTS[:5], desc="Steering"):
-        prompt_results = {'prompt': prompt, 'generations': {}, 'logit_diffs': {}}
+    for prompt in tqdm(ALL_PROMPTS, desc="Steering"):
+        prompt_results = {'prompt': prompt, 'generations': {}, 'logit_diffs': {}, 'projections': {}}
+
         for alpha in alphas:
             try:
                 generated = intervention.steer_humor(prompt, alpha=alpha, max_new_tokens=30, temperature=0.7)
                 prompt_results['generations'][str(alpha)] = generated
+                
             except Exception as e:
                 prompt_results['generations'][str(alpha)] = f"Error: {str(e)}"
             try:
-                logit_diff = compute_logit_difference(model, prompt, intervention=intervention, alpha=alpha)
+                logit_diff = compute_logit_difference(
+                    model, prompt, humor_direction, intervention=intervention, alpha=alpha
+                )
                 prompt_results['logit_diffs'][str(alpha)] = logit_diff
             except Exception as e:
                 prompt_results['logit_diffs'][str(alpha)] = {'error': str(e)}
+            try:
+                proj = compute_activation_projection(
+                    model, prompt, humor_direction, layer, 
+                    intervention=intervention, alpha=alpha # Added these
+                )
+                prompt_results['projections'][str(alpha)] = proj
+            except Exception as e:
+                prompt_results['projections'][str(alpha)] = None
         results.append(prompt_results)
         print(f"\nPrompt: {prompt}")
-        print(f"  α=0.0: {prompt_results['generations'].get('0.0', 'N/A')[:60]}...")
-        print(f"  α=10.0: {prompt_results['generations'].get('10.0', 'N/A')[:60]}...")
+        print(f"  α=0.0:  {prompt_results['generations'].get('0.0', 'N/A')[:60]}...")
+        print(f"  α=15.0: {prompt_results['generations'].get('15.0', 'N/A')[:60]}...")
     
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(12, 7))
     for r in results:
         alphas_plot, diffs_plot = [], []
         for alpha in alphas:
@@ -219,11 +284,11 @@ def run_steering_experiments(
             if 'logit_difference' in ld:
                 alphas_plot.append(alpha)
                 diffs_plot.append(ld['logit_difference'])
-        ax.plot(alphas_plot, diffs_plot, '-o', label=r['prompt'][:30])
+        ax.plot(alphas_plot, diffs_plot, '-o', label=r['prompt'][:30], markersize=4)
     ax.set_xlabel('Alpha (Steering Strength)')
     ax.set_ylabel('Logit Difference (Humor - Serious)')
     ax.set_title(f'Steering: Logit Diff vs Alpha (Layer {layer}, {display_name})')
-    ax.legend(fontsize=8)
+    ax.legend(fontsize=7, ncol=2)
     ax.grid(True, alpha=0.3)
     ax.axhline(y=0, color='r', linestyle='--')
     plt.tight_layout()
@@ -232,8 +297,37 @@ def run_steering_experiments(
     plt.savefig(figures_dir / 'steering_logit_diff.png', dpi=150)
     plt.close()
     print(f"Saved: {figures_dir / 'steering_logit_diff.png'}")
-    return {'steering_results': results, 'alphas': alphas}
 
+    # New Visualization: The Triangulation Plot
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    
+    # Panel 1: Activation Projection Plot
+    for r in results:
+        alphas_p = sorted([float(a) for a in r['projections'].keys()])
+        projs = [r['projections'][str(a)] for a in alphas_p]
+        axes[0].plot(alphas_p, projs, alpha=0.3)
+    axes[0].set_title("Internal: Activation Projection")
+    axes[0].set_xlabel("Alpha")
+    axes[0].set_ylabel("Alignment Score")
+    axes[0].grid(True, alpha=0.3)
+    
+    # Panel 2: Logit Difference Plot
+    for r in results:
+        alphas_l = sorted([float(a) for a in r['logit_diffs'].keys()])
+        ldiffs = [r['logit_diffs'][str(a)]['logit_difference'] for a in alphas_l]
+        axes[1].plot(alphas_l, ldiffs, alpha=0.3)
+    axes[1].set_title("Internal: Robust Logit Diff")
+    axes[1].set_xlabel("Alpha")
+    axes[1].set_ylabel("Logit Difference")
+    axes[1].grid(True, alpha=0.3)
+
+    plt.suptitle(f"Steering Analysis (Layer {layer}, {display_name})")
+    plt.tight_layout()
+    plt.savefig(figures_dir / 'steering_triangulation.png', dpi=150)
+    plt.close()
+    print(f"Saved: {figures_dir / 'steering_triangulation.png'}")
+
+    return {'steering_results': results, 'alphas': alphas}
 
 def run_ablation_experiments(
     model: HookedTransformer,
@@ -246,9 +340,10 @@ def run_ablation_experiments(
     
     print(f"\n{'='*60}")
     print(f"Ablation Experiments (Layer {layer}, {display_name})")
+    print(f"  Using {len(ALL_PROMPTS)} prompts")
     print(f"{'='*60}")
     
-    for prompt in tqdm(CONTROL_PROMPTS[:5], desc="Ablating"):
+    for prompt in tqdm(ALL_PROMPTS, desc="Ablating"):
         try:
             original = intervention.steer_humor(prompt, alpha=0.0, max_new_tokens=30)
         except Exception as e:
@@ -258,8 +353,9 @@ def run_ablation_experiments(
         except Exception as e:
             ablated = f"Error: {str(e)}"
         try:
-            original_logits = compute_logit_difference(model, prompt)
-            ablated_logits = compute_logit_difference(model, prompt, intervention=intervention, alpha=0.0)
+            # For both original and ablated calls
+            original_logits = compute_logit_difference(model, prompt, humor_direction)
+            ablated_logits = compute_logit_difference(model, prompt, humor_direction, intervention=intervention, alpha=0.0)
         except Exception as e:
             original_logits = {'error': str(e)}
             ablated_logits = {'error': str(e)}
@@ -350,6 +446,7 @@ def run_interventions(model_name: str = None):
     
     print("="*60)
     print(f"Intervention Tests ({display_name})")
+    print(f"  Prompts: {len(ALL_PROMPTS)} total ({len(NEUTRAL_PROMPTS)} neutral, {len(SERIOUS_PROMPTS)} serious)")
     print("="*60)
     
     humor_direction_path = results_dir / "humor_direction.pt"

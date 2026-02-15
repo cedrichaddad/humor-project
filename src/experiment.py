@@ -613,42 +613,70 @@ class HumorIntervention:
 def compute_logit_difference(
     model: HookedTransformer,
     prompt: str,
-    humor_tokens: List[str] = None,
-    serious_tokens: List[str] = None,
+    humor_direction: torch.Tensor, # Added this
+    n_top_tokens: int = 200,       # Now looks at 200 tokens
     intervention: Optional[HumorIntervention] = None,
     alpha: float = 0.0
 ) -> Dict[str, float]:
-    """Compute logit difference between humor and serious tokens."""
-    if humor_tokens is None:
-        humor_tokens = ["haha", "lol", "funny", "joke", "hilarious", "laugh"]
-    if serious_tokens is None:
-        serious_tokens = ["however", "therefore", "thus", "indeed", "importantly", "specifically"]
+    """Robustly computes logit difference by projecting the humor direction into the vocab."""
+    device = next(model.parameters()).device
+    h_dir = humor_direction.to(device)
     
-    humor_ids = [model.to_tokens(t, prepend_bos=False)[0, 0].item() for t in humor_tokens]
-    serious_ids = [model.to_tokens(t, prepend_bos=False)[0, 0].item() for t in serious_tokens]
-    
+    # Dynamic word selection: Find what this specific model thinks is 'humorous'
+    with torch.no_grad():
+        vocab_scores = h_dir @ model.W_U 
+        top_h_indices = torch.topk(vocab_scores, n_top_tokens).indices
+        top_s_indices = torch.topk(-vocab_scores, n_top_tokens).indices
+
     tokens = model.to_tokens(prompt, prepend_bos=True)
     
+    # Run with potential intervention hooks
     if intervention and alpha != 0:
         hook_name = f"blocks.{intervention.layer}.hook_resid_post"
         hook_fn = intervention._get_steering_hook(alpha)
-        with torch.no_grad():
-            with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-                logits = model(tokens)
+        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            logits = model(tokens)
     else:
         with torch.no_grad():
             logits = model(tokens)
+
+    log_probs = torch.log_softmax(logits[0, -1, :], dim=-1)
     
-    final_logits = logits[0, -1, :]
-    
-    humor_logit = final_logits[humor_ids].mean().item()
-    serious_logit = final_logits[serious_ids].mean().item()
+    # Sum the probabilities of the entire 'Humor' and 'Serious' categories
+    humor_logp = torch.logsumexp(log_probs[top_h_indices], dim=0).item()
+    serious_logp = torch.logsumexp(log_probs[top_s_indices], dim=0).item()
     
     return {
-        'humor_logit': humor_logit,
-        'serious_logit': serious_logit,
-        'logit_difference': humor_logit - serious_logit
+        'logit_difference': humor_logp - serious_logp,
+        'humor_prob': np.exp(humor_logp) 
     }
+
+def compute_activation_projection(
+    model: HookedTransformer,
+    prompt: str,
+    humor_direction: torch.Tensor,
+    layer: int,
+    intervention: Optional[HumorIntervention] = None,
+    alpha: float = 0.0
+) -> float:
+    """Measures internal alignment with the Humor Direction vector."""
+    tokens = model.to_tokens(prompt, prepend_bos=True)
+    device = next(model.parameters()).device
+    
+    # We must measure this WHILE the intervention is active to see the shift
+    if intervention and alpha != 0:
+        hook_name = f"blocks.{intervention.layer}.hook_resid_post"
+        hook_fn = intervention._get_steering_hook(alpha)
+        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n == hook_name)
+            resid = cache[hook_name][0, -1, :]
+    else:
+        with torch.no_grad():
+            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n.endswith("resid_post"))
+            resid = cache[f"blocks.{layer}.hook_resid_post"][0, -1, :]
+    
+    direction = humor_direction.to(device)
+    return torch.dot(resid, direction / direction.norm()).item()
 
 
 def evaluate_ablation_impact(
@@ -1133,51 +1161,50 @@ def run_experiment(model_name: str = None):
                 test_labels
             )
         
-        # Get the probe and use its decision function
+        # Extract the probe's weight vector as the humor direction.
+        # No flipping: coef_[0] points toward class 1 (humor) by sklearn
+        # convention. Whether steering along this direction causally
+        # increases humor output is an empirical question tested in
+        # intervention_tests.py — negative steering effects at some
+        # layers reveal a mismatch between discriminative and generative
+        # roles, which is itself an interesting finding.
         probe = layer_probe_result['probe']
         direction = torch.tensor(
             layer_probe_result['normalized_weights'], 
             dtype=torch.float32
         )
 
-        # CRITICAL: Use probe's decision function on TEST data
+        # Record representational separation for metadata
         decisions = probe.decision_function(test_activations[layer_idx])
         humor_decisions = decisions[test_labels == 1]
         serious_decisions = decisions[test_labels == 0]
-
         mean_humor_proj = np.mean(humor_decisions)
         mean_serious_proj = np.mean(serious_decisions)
         
-        needs_flip = mean_humor_proj > mean_serious_proj
-        if needs_flip:
-            print(f"  WARNING: Flipping direction (humor={mean_humor_proj:.3f} < serious={mean_serious_proj:.3f})")
-            direction = -direction
-        else:
-            print(f"  OK: Direction correct (humor={mean_humor_proj:.3f} > serious={mean_serious_proj:.3f})")
-        
-        # Save this layer's direction
+        # Save this layer's direction (probe direction, unmodified)
         direction_path = directions_dir / f"layer{layer_idx}.pt"
         torch.save(direction, direction_path)
         
         layer_directions[layer_idx] = {
             'direction': direction,
             'accuracy': layer_probe_result['accuracy'],
-            'mean_humor_proj': mean_humor_proj if not needs_flip else -mean_humor_proj,
-            'mean_serious_proj': mean_serious_proj if not needs_flip else -mean_serious_proj,
+            'mean_humor_proj': float(mean_humor_proj),
+            'mean_serious_proj': float(mean_serious_proj),
             'separation': abs(mean_humor_proj - mean_serious_proj),
-            'needs_flip': needs_flip
         }
         
         print(f"  Saved to: {direction_path.name}")
         print(f"  Accuracy: {layer_probe_result['accuracy']:.4f}")
         print(f"  Separation: {abs(mean_humor_proj - mean_serious_proj):.4f}")
+        print(f"  Humor proj: {mean_humor_proj:.4f}, Serious proj: {mean_serious_proj:.4f}")
     
     # Save summary of all layer directions
     directions_summary = {
         str(layer): {
             'accuracy': float(info['accuracy']),
             'separation': float(info['separation']),
-            'flipped': bool(info['needs_flip'])
+            'mean_humor_proj': info['mean_humor_proj'],
+            'mean_serious_proj': info['mean_serious_proj'],
         }
         for layer, info in layer_directions.items()
     }

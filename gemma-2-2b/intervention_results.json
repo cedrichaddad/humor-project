@@ -2,313 +2,2965 @@
   "steering_by_layer": [
     {
       "layer": 0,
-      "avg_effect": 0.2933049201965332,
-      "per_prompt_effects": [
-        0.7261576652526855,
-        0.35652923583984375,
-        0.287280797958374,
-        0.4790346622467041,
-        -0.3824777603149414
+      "avg_effect": 0.16233775729224795,
+      "avg_humor": 0.2717372349330357,
+      "avg_control": 0.10763801847185407,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.9643363952636719
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": -0.5986852645874023
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": -0.7922801971435547
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.9966564178466797
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 0.31172752380371094
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.8758134841918945
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.14459228515625
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.32213687896728516
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": -0.6049785614013672
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": -0.2744579315185547
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.3491630554199219
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": -1.3063507080078125
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.17535924911499023
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": -0.0070037841796875
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": -0.6185855865478516
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.2004613876342773
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": -1.055109977722168
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.5754714012145996
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.3271656036376953
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.07583999633789062
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.3478212356567383
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 1,
-      "avg_effect": -0.04919257164001465,
-      "per_prompt_effects": [
-        0.7611284255981445,
-        0.07619953155517578,
-        0.1898794174194336,
-        -0.43159937858581543,
-        -0.8415708541870117
+      "avg_effect": -0.3054857367560977,
+      "avg_humor": -0.2701390470777239,
+      "avg_control": -0.3231590815952846,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": -0.5430346727371216
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.3107684850692749
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": -0.6325006484985352
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.04496145248413086
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": -0.23471832275390625
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.020437240600585938
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": -0.8568868637084961
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.6480698585510254
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": -0.7205462455749512
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 0.02091073989868164
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.07176589965820312
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": -0.5312185287475586
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.8945977687835693
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": -0.2873806953430176
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.2446756362915039
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.09566688537597656
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": -4.7766008377075195
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.06577038764953613
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": -0.4049797058105469
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.06234455108642578
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.23622894287109375
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 2,
-      "avg_effect": -0.11686415672302246,
-      "per_prompt_effects": [
-        0.4262821674346924,
-        0.6607184410095215,
-        0.19484663009643555,
-        -1.1033473014831543,
-        -0.7628207206726074
+      "avg_effect": 0.31741801897684735,
+      "avg_humor": 0.6598533902849469,
+      "avg_control": 0.1462003333227975,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.5264892578125
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.7318172454833984
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 0.4751729965209961
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.1057043075561523
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 0.7784128189086914
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.3939857482910156
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.607391357421875
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.8692684173583984
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": -0.4381542205810547
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": -0.0047588348388671875
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.036632537841796875
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.17102622985839844
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": -0.5541057586669922
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.5353708267211914
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": -0.37284398078918457
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.25325965881347656
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.7751960754394531
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.20735454559326172
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": -0.03088998794555664
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.08147525787353516
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": -0.40876102447509766
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 3,
-      "avg_effect": -0.057324552536010744,
-      "per_prompt_effects": [
-        0.8982880115509033,
-        0.9472460746765137,
-        -0.16966629028320312,
-        -0.2839193344116211,
-        -1.6785712242126465
+      "avg_effect": 0.6305239768255324,
+      "avg_humor": 0.8521463530404227,
+      "avg_control": 0.5197127887180873,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.6982669830322266
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.16680908203125
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 0.9777145385742188
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.5414886474609375
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": -0.4134979248046875
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.8846502304077148
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.1095929145812988
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.869173049926758
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.0340604782104492
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 0.9304018020629883
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.19736003875732422
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": -0.06415843963623047
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.17485809326171875
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.5748634338378906
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": -0.46518611907958984
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.37503719329833984
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": -0.7500095367431641
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.041718482971191406
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.33355236053466797
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.1836299896240234
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": -0.15932178497314453
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 4,
-      "avg_effect": -0.26895999908447266,
-      "per_prompt_effects": [
-        0.577404260635376,
-        0.26853346824645996,
-        0.21196365356445312,
-        -0.5201458930969238,
-        -1.8825554847717285
+      "avg_effect": 0.4225176629566011,
+      "avg_humor": 0.567040034702846,
+      "avg_control": 0.3502564770834787,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.5838222503662109
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.3532466888427734
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 0.13648700714111328
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.11784172058105469
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.206892967224121
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.8680763244628906
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": -0.2970867156982422
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.8733577728271484
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 2.0149545669555664
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": -0.4625816345214844
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.48273181915283203
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": -0.7657651901245117
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.796175479888916
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": -0.48642635345458984
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.0646800994873047
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.0440521240234375
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": -0.7516584396362305
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.39283084869384766
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.8321256637573242
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.22994422912597656
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.6046333312988281
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 5,
-      "avg_effect": -0.09739723205566406,
-      "per_prompt_effects": [
-        0.5539371967315674,
-        0.3536045551300049,
-        0.3959779739379883,
-        0.4754033088684082,
-        -2.265909194946289
+      "avg_effect": 0.17571999913170225,
+      "avg_humor": -0.07069247109549386,
+      "avg_control": 0.2989262342453003,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": -0.13578224182128906
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.147684097290039
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": -4.14022159576416
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.7923555374145508
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 0.726689338684082
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.03133392333984375
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.08309364318847656
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.22410106658935547
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": -1.2708520889282227
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.0009899139404297
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.0368108749389648
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.43773531913757324
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": -0.2053065299987793
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.0831327438354492
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.49131202697753906
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": -0.0061092376708984375
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": -1.454331398010254
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.9705028533935547
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.033682823181152344
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.8877439498901367
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.9555549621582031
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 6,
-      "avg_effect": -0.19752702713012696,
-      "per_prompt_effects": [
-        0.527989387512207,
-        0.1453266143798828,
-        0.12025713920593262,
-        -0.11174273490905762,
-        -1.6694655418395996
+      "avg_effect": 0.6519629841759091,
+      "avg_humor": -0.39477361951555523,
+      "avg_control": 1.1753312860216414,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": -0.33419036865234375
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": -0.19150161743164062
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": -4.212506294250488
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.3060932159423828
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.2757768630981445
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.2958412170410156
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.09707164764404297
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.905439853668213
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 3.0203351974487305
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.0807018280029297
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.3308658599853516
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.468109130859375
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.3970623016357422
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.22637939453125
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": -0.004307746887207031
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.4273681640625
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.5459327697753906
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.19764232635498047
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.375584602355957
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.5245990753173828
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.9589252471923828
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 7,
-      "avg_effect": 0.026875972747802734,
-      "per_prompt_effects": [
-        1.042811393737793,
-        0.5408272743225098,
-        0.04970407485961914,
-        0.014606952667236328,
-        -1.5135698318481445
+      "avg_effect": 1.4506694475809734,
+      "avg_humor": 1.1638624327523368,
+      "avg_control": 1.5940729549952917,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": -1.5214900970458984
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.9504547119140625
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.6931695938110352
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.7113628387451172
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.466219902038574
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.1577019691467285
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.6896181106567383
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.2380142211914062
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 2.0023107528686523
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.1041460037231445
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 2.319456100463867
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.2065000534057617
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.31847381591796875
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.1913375854492188
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 2.105362892150879
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.6493015289306641
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 2.3096189498901367
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.7742033004760742
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.4398527145385742
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.4472227096557617
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 2.2112207412719727
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 8,
-      "avg_effect": 0.004105424880981446,
-      "per_prompt_effects": [
-        1.221808671951294,
-        0.10838460922241211,
-        0.3567233085632324,
-        -0.30385732650756836,
-        -1.362532138824463
+      "avg_effect": 0.978715215410505,
+      "avg_humor": 0.6094927787780762,
+      "avg_control": 1.1633264337267195,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": -0.6411261558532715
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.8906841278076172
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": -0.3626279830932617
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.8814916610717773
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 0.3603477478027344
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.7228822708129883
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.4147977828979492
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.489668846130371
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.9274559020996094
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.1197104454040527
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.4091062545776367
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.635828971862793
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.3878793716430664
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 0.9288158416748047
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.5404539108276367
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.3452625274658203
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.0437755584716797
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.1045761108398438
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.9254217147827148
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.0336246490478516
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.3949899673461914
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 9,
-      "avg_effect": 0.20398406982421874,
-      "per_prompt_effects": [
-        1.4014782905578613,
-        0.02877330780029297,
-        0.662621021270752,
-        0.14196109771728516,
-        -1.2149133682250977
+      "avg_effect": 1.4798047826403664,
+      "avg_humor": 1.0581040212086268,
+      "avg_control": 1.6906551633562361,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.6783664226531982
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.2214882373809814
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.1102145910263062
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 2.0439600944519043
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.7678146362304688
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.7070679664611816
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": -0.12218379974365234
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.7726106643676758
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.044661521911621094
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.6134324073791504
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.5091433525085449
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.2426824569702148
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 3.328160285949707
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.5080032348632812
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.39656639099121094
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 2.5251922607421875
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.427962303161621
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.263364791870117
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.6757192611694336
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.6896095275878906
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 2.6720638275146484
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 10,
-      "avg_effect": 0.02626962661743164,
-      "per_prompt_effects": [
-        1.00374436378479,
-        0.04109501838684082,
-        0.6129064559936523,
-        -0.05068206787109375,
-        -1.4757156372070312
+      "avg_effect": 1.71100305943262,
+      "avg_humor": 1.1307659319468908,
+      "avg_control": 2.001121623175485,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.938209056854248
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.1314899921417236
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.498388648033142
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.6867918968200684
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.7668704986572266
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.9309659004211426
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.9626455307006836
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.36334228515625
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.7485127449035645
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.4510607719421387
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.7288565635681152
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.7176551818847656
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 3.163694381713867
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.341197967529297
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 2.2247180938720703
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 2.0705575942993164
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.527634620666504
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.3676061630249023
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.683584213256836
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.9278564453125
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 2.69942569732666
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 11,
-      "avg_effect": -0.02968769073486328,
-      "per_prompt_effects": [
-        1.089080572128296,
-        -0.22206544876098633,
-        0.6146111488342285,
-        -0.05697274208068848,
-        -1.573091983795166
+      "avg_effect": 1.4589681909197854,
+      "avg_humor": 1.1112098864146642,
+      "avg_control": 1.6328473431723458,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.7518634796142578
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.7994911670684814
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.1711257696151733
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.5348925590515137
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.2048282623291016
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.9094915390014648
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.4067764282226562
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.3078908920288086
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.66615629196167
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.6318607330322266
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.9389643669128418
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.9600839614868164
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 0.5754461288452148
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.4808893203735352
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.1408472061157227
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 2.3998374938964844
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.878814697265625
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": -0.41972923278808594
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 2.042712688446045
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.4539604187011719
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 2.8021278381347656
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 12,
-      "avg_effect": 0.0677480697631836,
-      "per_prompt_effects": [
-        1.6218082904815674,
-        -0.3368649482727051,
-        0.487595796585083,
-        -0.008839130401611328,
-        -1.424959659576416
+      "avg_effect": 1.2399546759469169,
+      "avg_humor": 0.9118759291512626,
+      "avg_control": 1.403994049344744,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.0614346861839294
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.7862786650657654
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.1705666780471802
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.1327366828918457
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.33743953704834
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.0859241485595703
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": -0.19124889373779297
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.66804838180542
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.4023418426513672
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.5704941749572754
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.40363597869873047
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.9536280632019043
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.5238728523254395
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.0159473419189453
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.459869384765625
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.342221736907959
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.407282829284668
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.7349176406860352
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.5985016822814941
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.6094141006469727
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.9657406806945801
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 13,
-      "avg_effect": 0.25517001152038576,
-      "per_prompt_effects": [
-        1.3726019859313965,
-        0.04621553421020508,
-        0.5611824989318848,
-        0.401287317276001,
-        -1.1054372787475586
+      "avg_effect": 0.9284766742161342,
+      "avg_humor": 1.3673583439418249,
+      "avg_control": 0.709035839353289,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 2.8408069610595703
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.1963224411010742
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.592188835144043
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.9021787643432617
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.007232666015625
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.5492801666259766
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.48349857330322266
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.8339600563049316
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.853520393371582
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.0261030197143555
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.617156982421875
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.2602195739746094
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": -0.0028438568115234375
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 0.29714012145996094
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.6458368301391602
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.43019676208496094
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.36065101623535156
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.04136848449707031
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.7487735748291016
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.7505531311035156
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.2981796264648438
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 14,
-      "avg_effect": 0.1648998737335205,
-      "per_prompt_effects": [
-        1.0806081295013428,
-        -0.022614479064941406,
-        0.5833497047424316,
-        0.24533653259277344,
-        -1.062180519104004
+      "avg_effect": 0.9928951717558361,
+      "avg_humor": 1.0190787996564592,
+      "avg_control": 0.9798033578055245,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 2.5672693252563477
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.1638631820678711
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 0.30423736572265625
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.249394416809082
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 0.9967479705810547
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 2.0010061264038086
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": -0.14896678924560547
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.9345102310180664
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": -0.45572662353515625
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 0.9961605072021484
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.17456531524658203
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 0.9086685180664062
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.2672386169433594
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.3668804168701172
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.44463443756103516
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.9016857147216797
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.5410423278808594
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 0.8831911087036133
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.7958335876464844
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.6760978698730469
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.6315956115722656
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 15,
-      "avg_effect": 0.10711832046508789,
-      "per_prompt_effects": [
-        1.0512683391571045,
-        0.15844392776489258,
-        0.16117501258850098,
-        0.0002570152282714844,
-        -0.8355526924133301
+      "avg_effect": 1.606826350802467,
+      "avg_humor": 1.6671816962105888,
+      "avg_control": 1.5766486780984061,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.9691171646118164
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 2.0348196029663086
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.8074817657470703
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 2.4111499786376953
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.350672721862793
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.3243608474731445
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.772669792175293
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.903994083404541
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 2.396717071533203
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.584016799926758
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.2311229705810547
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.46970272064209
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.0273962020874023
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.398500442504883
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.1325273513793945
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.529353141784668
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.9144449234008789
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.3911542892456055
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.8488054275512695
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.9292316436767578
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.3161144256591797
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 16,
-      "avg_effect": 0.3102743148803711,
-      "per_prompt_effects": [
-        1.3424243927001953,
-        0.12942147254943848,
-        0.5010151863098145,
-        0.3713986873626709,
-        -0.7928881645202637
+      "avg_effect": 1.4706433046431768,
+      "avg_humor": 1.69339234488351,
+      "avg_control": 1.3592687845230103,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 2.8566293716430664
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.4102087020874023
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.749699592590332
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.2566757202148438
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.575723648071289
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.9978909492492676
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.0069184303283691
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.0631561279296875
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.6843113899230957
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.9795541763305664
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.0139670372009277
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.2823266983032227
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.9359350204467773
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 2.723726272583008
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.0968847274780273
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.9846289157867432
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.9842286109924316
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.3573293685913086
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.5296800136566162
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.2195372581481934
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.174497365951538
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 17,
-      "avg_effect": 0.2397219181060791,
-      "per_prompt_effects": [
-        1.0293769836425781,
-        0.058165788650512695,
-        0.20258712768554688,
-        0.1957688331604004,
-        -0.2872891426086426
+      "avg_effect": 1.1582424072992235,
+      "avg_humor": 1.4108193261282784,
+      "avg_control": 1.031953947884696,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 3.173267364501953
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.2814421653747559
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.128666877746582
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.1085939407348633
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.103647232055664
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 0.38257646560668945
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 0.6975412368774414
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.5775384902954102
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.1542387008666992
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.790278434753418
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": -0.12683916091918945
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.5536060333251953
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 2.5713796615600586
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 0.16233444213867188
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.6712112426757812
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.7983932495117188
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.37248754501342773
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.6671829223632812
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.8745927810668945
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.5098114013671875
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.8711395263671875
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 18,
-      "avg_effect": 0.1436315059661865,
-      "per_prompt_effects": [
-        0.9882814884185791,
-        -0.060307979583740234,
-        0.10155200958251953,
-        0.14871549606323242,
-        -0.4600834846496582
+      "avg_effect": 1.6553278196425665,
+      "avg_humor": 1.9863170215061732,
+      "avg_control": 1.489833218710763,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 2.167302131652832
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.1305623054504395
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.878382682800293
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.4176506996154785
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.3761043548583984
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.6629672050476074
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 2.271249771118164
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.8373632431030273
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.6592178344726562
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.3380441665649414
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.9300227165222168
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.690340042114258
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 2.037281036376953
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 0.7929749488830566
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.7211694717407227
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.8407707214355469
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.33736610412597656
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.3130531311035156
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.0752193927764893
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.3281993865966797
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.9566428661346436
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 19,
-      "avg_effect": 0.11778545379638672,
-      "per_prompt_effects": [
-        0.6110234260559082,
-        0.015172719955444336,
-        -0.005290031433105469,
-        0.33116841316223145,
-        -0.3631472587585449
+      "avg_effect": 1.4952065717606318,
+      "avg_humor": 1.634746755872454,
+      "avg_control": 1.4254364797047205,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.9333219528198242
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.3399758338928223
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.8694729804992676
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 0.8038506507873535
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.546560287475586
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.299722671508789
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.6503229141235352
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.959320068359375
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.1627302169799805
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.0645885467529297
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.3867850303649902
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.6057958602905273
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.511286735534668
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.0319743156433105
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.2203021049499512
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.8826930522918701
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.8081650733947754
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.6181573867797852
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.7051520347595215
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.0426578521728516
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 0.9565024375915527
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 20,
-      "avg_effect": 0.20035667419433595,
-      "per_prompt_effects": [
-        0.6233978271484375,
-        0.2015702724456787,
-        0.07794189453125,
-        0.36956095695495605,
-        -0.2706875801086426
+      "avg_effect": 1.7850141071137928,
+      "avg_humor": 2.0305399213518416,
+      "avg_control": 1.6622511999947684,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.9067068099975586
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.1983952522277832
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.633725166320801
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.5644583702087402
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.3917675018310547
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.90179443359375
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 2.616931915283203
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.7619552612304688
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.5071253776550293
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.7765440940856934
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.5857768058776855
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 2.1754112243652344
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.9090843200683594
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 0.9134140014648438
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.7152419090270996
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.7035245895385742
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.377584457397461
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.9936513900756836
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.1905479431152344
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.190558910369873
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.4710965156555176
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 21,
-      "avg_effect": 0.26061835289001467,
-      "per_prompt_effects": [
-        0.5806379318237305,
-        0.31835103034973145,
-        -0.04962587356567383,
-        0.4079122543334961,
-        0.04581642150878906
+      "avg_effect": 1.6288093158176966,
+      "avg_humor": 1.7373990331377303,
+      "avg_control": 1.57451445715768,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.8448944091796875
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.2183141708374023
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.401719570159912
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.494920253753662
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.034512519836426
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.055513858795166
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 2.1119184494018555
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.061378002166748
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.4716506004333496
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.775233268737793
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.698561191558838
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.9194355010986328
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.6946220397949219
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.062650203704834
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.219296932220459
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.1363046169281006
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 0.9899439811706543
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.689023017883301
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.1828975677490234
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.885033130645752
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.2571723461151123
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 22,
-      "avg_effect": 0.28514704704284666,
-      "per_prompt_effects": [
-        0.6832480430603027,
-        0.1501607894897461,
-        0.16759514808654785,
-        0.46053647994995117,
-        -0.03580522537231445
+      "avg_effect": 1.740865707397461,
+      "avg_humor": 1.9406314577375139,
+      "avg_control": 1.6409828322274345,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.7357940673828125
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.2252492904663086
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.5884571075439453
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.818833827972412
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 2.3660268783569336
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.9484915733337402
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.9015674591064453
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.9499874114990234
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.8332977294921875
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.8432674407958984
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.7033586502075195
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.680459976196289
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.0994787216186523
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.7330923080444336
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.5617623329162598
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.1863925457000732
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.1617045402526855
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.002796173095703
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.3834171295166016
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.2729434967041016
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.5618011951446533
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 23,
-      "avg_effect": 0.16089825630187987,
-      "per_prompt_effects": [
-        0.37532567977905273,
-        0.06917166709899902,
-        0.14715099334716797,
-        0.27685546875,
-        -0.06401252746582031
+      "avg_effect": 1.623557033992949,
+      "avg_humor": 1.8006781850542342,
+      "avg_control": 1.5349964584623064,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.6716914176940918
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.6643824577331543
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 2.216041088104248
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.5693449974060059
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.979888916015625
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.6907505989074707
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.812647819519043
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 2.0225954055786133
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 1.3324012756347656
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 2.1922826766967773
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.2726101875305176
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.8077430725097656
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.9515924453735352
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.3326482772827148
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.3923497200012207
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.119786024093628
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.3280363082885742
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 2.0070600509643555
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 1.0240423679351807
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.2130308151245117
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.4937717914581299
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 24,
-      "avg_effect": 0.10808429718017579,
-      "per_prompt_effects": [
-        0.12904858589172363,
-        0.029368877410888672,
-        0.21976518630981445,
-        0.1469571590423584,
-        0.01528167724609375
+      "avg_effect": 1.108455362774077,
+      "avg_humor": 1.0124408176967077,
+      "avg_control": 1.1564626353127616,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 0.7145655155181885
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 0.722414493560791
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 0.747452974319458
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.1480693817138672
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.1660795211791992
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.1121759414672852
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.476327896118164
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 1.2417712211608887
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.7786769866943359
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.4424757957458496
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 0.9111697673797607
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.93048095703125
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 1.227647304534912
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.156461238861084
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 1.0849032402038574
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 0.8222126960754395
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.012019157409668
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.755620002746582
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.7706730365753174
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 1.047318458557129
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.009047031402588
+        }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 25,
-      "avg_effect": -0.017277002334594727,
-      "per_prompt_effects": [
-        -0.017040729522705078,
-        0.013621091842651367,
-        -0.04721689224243164,
-        0.0008592605590820312,
-        -0.03660774230957031
+      "avg_effect": 1.2297869523366292,
+      "avg_humor": 1.3161767550877161,
+      "avg_control": 1.1865920509610857,
+      "per_prompt": [
+        {
+          "prompt": "Why did the chicken cross the road?",
+          "category": "humor",
+          "effect": 1.3673181533813477
+        },
+        {
+          "prompt": "What do you call a fish without eyes?",
+          "category": "humor",
+          "effect": 1.2194452285766602
+        },
+        {
+          "prompt": "Knock knock, who's there?",
+          "category": "humor",
+          "effect": 1.2769355773925781
+        },
+        {
+          "prompt": "A man walked into a bar and",
+          "category": "humor",
+          "effect": 1.3075547218322754
+        },
+        {
+          "prompt": "A priest, a rabbi, and an imam walk into",
+          "category": "humor",
+          "effect": 1.3686223030090332
+        },
+        {
+          "prompt": "Tell me something funny about",
+          "category": "humor",
+          "effect": 1.229659080505371
+        },
+        {
+          "prompt": "So a penguin walks into a",
+          "category": "humor",
+          "effect": 1.443702220916748
+        },
+        {
+          "prompt": "The weather today is",
+          "category": "neutral",
+          "effect": 0.9652681350708008
+        },
+        {
+          "prompt": "I went to the store and bought",
+          "category": "neutral",
+          "effect": 0.8799817562103271
+        },
+        {
+          "prompt": "My favorite food is",
+          "category": "neutral",
+          "effect": 1.2724976539611816
+        },
+        {
+          "prompt": "She opened the door and saw",
+          "category": "neutral",
+          "effect": 1.0636115074157715
+        },
+        {
+          "prompt": "The dog ran across the",
+          "category": "neutral",
+          "effect": 1.674025058746338
+        },
+        {
+          "prompt": "Last weekend I decided to",
+          "category": "neutral",
+          "effect": 2.0365381240844727
+        },
+        {
+          "prompt": "When I was a kid, I used to",
+          "category": "neutral",
+          "effect": 1.6651544570922852
+        },
+        {
+          "prompt": "The quarterly earnings report shows that",
+          "category": "serious",
+          "effect": 0.6634535789489746
+        },
+        {
+          "prompt": "According to the latest research,",
+          "category": "serious",
+          "effect": 1.0403802394866943
+        },
+        {
+          "prompt": "In conclusion, the evidence suggests",
+          "category": "serious",
+          "effect": 1.12245512008667
+        },
+        {
+          "prompt": "The primary objective of this project is to",
+          "category": "serious",
+          "effect": 1.605422019958496
+        },
+        {
+          "prompt": "The committee has determined that",
+          "category": "serious",
+          "effect": 0.6318447589874268
+        },
+        {
+          "prompt": "Recent developments in the field indicate",
+          "category": "serious",
+          "effect": 0.9650506973266602
+        },
+        {
+          "prompt": "The data clearly demonstrates that",
+          "category": "serious",
+          "effect": 1.0266056060791016
+        }
       ],
       "used_layer_specific": true
     }
@@ -318,332 +2970,1610 @@
     {
       "prompt": "Why did the chicken cross the road?",
       "generations": {
-        "-10.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side of course!\n\nBut, did you know that there are funny names for different types of chicken crossing the road?",
-        "-5.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side.\n\nThat\u2019s the answer given by the chicken, at least.\n\nBut what if we told you that",
-        "-2.0": "<bos>Why did the chicken cross the road?\n\nFor 11-year-old Christopher and his buddies, the answer was simple: they were trying to get to the other side.\n\n",
-        "0.0": "<bos>Why did the chicken cross the road? To get to the other side!\n\nThis is the second time in two days that I have had to go to the other side.\n\nYesterday I",
-        "2.0": "<bos>Why did the chicken cross the road?\n\n[User 0001]\n\nWell, I didn't know what to say when a chicken crossed the road this morning. The",
-        "5.0": "<bos>Why did the chicken cross the road?\n\nIt\u2019s a question that\u2019s been asked for years and has spawned a plethora of memes and jokes.\n\nBut, did you know that",
-        "10.0": "<bos>Why did the chicken cross the road?\n\nThe answer was to get to the other side.\n\nA better answer might be: \u201cto get to the other side of the road.\u201d\n\n"
+        "-15.0": "<bos>Why did the chicken cross the road? It was just running away from something that was chasing it.\nA man called the police to report that his wife was having an affair with the mail",
+        "-10.0": "<bos>Why did the chicken cross the road?\n\nTo get to the other side, of course!\n\nAnd why did the other chicken cross the road?\n\nObviously to get to the other side",
+        "-5.0": "<bos>Why did the chicken cross the road?\n\nFor 11-year-old Christopher and his buddies, the answer was simple: they were trying to get to the other side.\n\n",
+        "-2.0": "<bos>Why did the chicken cross the road? To get to the other side!\n\nThis is the second time in two days that I have had to go to the hospital. The first time was",
+        "0.0": "<bos>Why did the chicken cross the road?\n\n[User 0001]\n\nWell, I didn't know what to say when a chicken crossed the road this morning. The",
+        "2.0": "<bos>Why did the chicken cross the road?\n\nIt\u2019s a little known fact that chickens love to cross the road. They\u2019re just going about their business and then, suddenly, they",
+        "5.0": "<bos>Why did the chicken cross the road?\n\nThe answer was to get to the other side.\n\nA better answer might be: to get away from the chickens.\n\nOn Saturday, the",
+        "10.0": "<bos>Why did the chicken cross the road?\n\nWell, it would seem that there was a study performed by the National Science Foundation that found 75% of chickens cross the road.\n\n",
+        "15.0": "<bos>Why did the chicken cross the road? To get to the other side, of course.\n\nBut wait \u2014 what if there\u2019s an accident on the other side? Maybe it\u2019s"
       },
       "logit_diffs": {
+        "-15.0": {
+          "logit_difference": -1.5928869247436523,
+          "humor_prob": 2.517476792490405e-07
+        },
         "-10.0": {
-          "humor_logit": 3.7507712841033936,
-          "serious_logit": -3.038874387741089,
-          "logit_difference": 6.789645671844482
+          "logit_difference": -1.4060049057006836,
+          "humor_prob": 2.8325545046144165e-07
         },
         "-5.0": {
-          "humor_logit": 3.3679513931274414,
-          "serious_logit": -3.7620925903320312,
-          "logit_difference": 7.130043983459473
+          "logit_difference": -1.202890396118164,
+          "humor_prob": 3.232202091486705e-07
         },
         "-2.0": {
-          "humor_logit": 3.151637554168701,
-          "serious_logit": -4.15330171585083,
-          "logit_difference": 7.304939270019531
+          "logit_difference": -1.0696535110473633,
+          "humor_prob": 3.5356453299031294e-07
         },
         "0.0": {
-          "humor_logit": 3.0126256942749023,
-          "serious_logit": -4.398468971252441,
-          "logit_difference": 7.411094665527344
+          "logit_difference": -0.9736776351928711,
+          "humor_prob": 3.7799516305441536e-07
         },
         "2.0": {
-          "humor_logit": 2.87764310836792,
-          "serious_logit": -4.632080078125,
-          "logit_difference": 7.50972318649292
+          "logit_difference": -0.8694925308227539,
+          "humor_prob": 4.0739567496346164e-07
         },
         "5.0": {
-          "humor_logit": 2.682624340057373,
-          "serious_logit": -4.9623026847839355,
-          "logit_difference": 7.644927024841309
+          "logit_difference": -0.6903772354125977,
+          "humor_prob": 4.6636438387723297e-07
         },
         "10.0": {
-          "humor_logit": 2.3774092197418213,
-          "serious_logit": -5.463504791259766,
-          "logit_difference": 7.840914011001587
+          "logit_difference": -0.2828044891357422,
+          "humor_prob": 6.51604031279213e-07
+        },
+        "15.0": {
+          "logit_difference": 0.37623023986816406,
+          "humor_prob": 1.1683313264439715e-06
         }
+      },
+      "projections": {
+        "-15.0": -18.755380630493164,
+        "-10.0": -13.755380630493164,
+        "-5.0": -8.755380630493164,
+        "-2.0": -5.755380153656006,
+        "0.0": -3.755380868911743,
+        "2.0": -1.7553819417953491,
+        "5.0": 1.2446197271347046,
+        "10.0": 6.244619369506836,
+        "15.0": 11.244619369506836
       }
     },
     {
       "prompt": "What do you call a fish without eyes?",
       "generations": {
-        "-10.0": "<bos>What do you call a fish without eyes?\n\nA blind man says he was discriminated against by his local council because he is blind.\n\nA blind man says he was discriminated against by his local",
-        "-5.0": "<bos>What do you call a fish without eyes? A blind fish.\n\nWhat do you call a fish without a head? A fish without a head.\n\nWhat would you call a fish without a",
-        "-2.0": "<bos>What do you call a fish without eyes? A fish without a fish.\n\nWhen I was a kid growing up on a farm in northern Wisconsin, I was never allowed to go fishing without a",
-        "0.0": "<bos>What do you call a fish without eyes?\n\nWhat is the meaning of the word \u2018fertile\u2019?\n\nWhat is the meaning of the word \u2018discourage\u2019?\n\nWhat is the meaning of",
-        "2.0": "<bos>What do you call a fish without eyes? A blind fish.\n\nWhat do you call a fish with no eyes? A blind fish.\n\nWhat do you call a fish with only one eye",
-        "5.0": "<bos>What do you call a fish without eyes? An eye fish. Sorry. I had to.\n\nI\u2019m sure you\u2019ve seen the video of the fish with its eye on the front",
-        "10.0": "<bos>What do you call a fish without eyes?\n\nA sardine.\nCan you spot the hidden word?\n(Click to enlarge)\n\nA sardine?\nIt looks like a sard"
+        "-15.0": "<bos>What do you call a fish without eyes? A fish without a fish?\n\nWhen I was a kid growing up on a farm in northern Wisconsin, I was never allowed to answer this silly question",
+        "-10.0": "<bos>What do you call a fish without eyes?\n\nWhat is the meaning of the word \u2018fertile\u2019?\n\nWhat is the meaning of the word \u2018discourage\u2019?\n\nWhat is the meaning of",
+        "-5.0": "<bos>What do you call a fish without eyes? A blind fish.\n\nWhat do you call a fish with no eyes? A blind fish.\n\nWhat do you call a fish with only one eye",
+        "-2.0": "<bos>What do you call a fish without eyes? An eye fish. Sorry. I had to.\n\nI\u2019m sure you\u2019ve seen the video of the fish with its eye on the front",
+        "0.0": "<bos>What do you call a fish without eyes?\n\nA sardine.\nCan you spot the hidden word?\n(Click to enlarge)\n\nA sardine?\nIt looks like a sard",
+        "2.0": "<bos>What do you call a fish without eyes? A fish without eyes. Yes, it is as simple as that. As fish are considered as the oldest animals to have ever walked the face of the",
+        "5.0": "<bos>What do you call a fish without eyes?\n\nWhat do you call a fish without eyes?\n\nThe answer is a blind fish.\n\nWe call it a blind fish because it can't",
+        "10.0": "<bos>What do you call a fish without eyes? Who? A fish without eyes. It's a fish without eyes. A fish without eyes. A fish without eyes. A fish without eyes.",
+        "15.0": "<bos>What do you call a fish without eyes?\nWhat do you call a fish without a mouth?\nWhat do you call a fish without a tail?\nWhat do you call a fish without"
       },
       "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 0.22475337982177734,
+          "humor_prob": 3.8761891166320595e-06
+        },
         "-10.0": {
-          "humor_logit": 7.786959648132324,
-          "serious_logit": 3.949394702911377,
-          "logit_difference": 3.8375649452209473
+          "logit_difference": 0.33120059967041016,
+          "humor_prob": 3.6174565850439407e-06
         },
         "-5.0": {
-          "humor_logit": 7.352118492126465,
-          "serious_logit": 3.472379207611084,
-          "logit_difference": 3.879739284515381
+          "logit_difference": 0.4662799835205078,
+          "humor_prob": 3.4594666318466732e-06
         },
         "-2.0": {
-          "humor_logit": 7.12058162689209,
-          "serious_logit": 3.216888427734375,
-          "logit_difference": 3.903693199157715
+          "logit_difference": 0.5727739334106445,
+          "humor_prob": 3.44969501787224e-06
         },
         "0.0": {
-          "humor_logit": 6.97648811340332,
-          "serious_logit": 3.057145595550537,
-          "logit_difference": 3.919342517852783
+          "logit_difference": 0.6606273651123047,
+          "humor_prob": 3.5001389123943454e-06
         },
         "2.0": {
-          "humor_logit": 6.839595794677734,
-          "serious_logit": 2.9047746658325195,
-          "logit_difference": 3.934821128845215
+          "logit_difference": 0.7670326232910156,
+          "humor_prob": 3.6164493616653834e-06
         },
         "5.0": {
-          "humor_logit": 6.646105766296387,
-          "serious_logit": 2.6882636547088623,
-          "logit_difference": 3.9578421115875244
+          "logit_difference": 0.9732332229614258,
+          "humor_prob": 3.9764254979818495e-06
         },
         "10.0": {
-          "humor_logit": 6.3500494956970215,
-          "serious_logit": 2.3540406227111816,
-          "logit_difference": 3.99600887298584
+          "logit_difference": 1.4883794784545898,
+          "humor_prob": 5.5125864278429955e-06
+        },
+        "15.0": {
+          "logit_difference": 2.259572982788086,
+          "humor_prob": 9.811019586687618e-06
         }
-      }
-    },
-    {
-      "prompt": "I told my friend a joke about",
-      "generations": {
-        "-10.0": "<bos>I told my friend a joke about a joke and he said, \u201cI just puked in my mouth.\u201d\n\nI told my friend a joke about a joke and he said, \u201c",
-        "-5.0": "<bos>I told my friend a joke about how the other day my mom was making chicken noodle soup in the crock pot and she was so excited. I told him she was so excited she started",
-        "-2.0": "<bos>I told my friend a joke about me putting a knife in the microwave. I told him to move the knife to a safe place. He said he would move it. Then, he",
-        "0.0": "<bos>I told my friend a joke about how the whole world is a joke. And she said I should make a joke about how they\u2019re all laughing at me. I told her I",
-        "2.0": "<bos>I told my friend a joke about my new dog and she said, \"Oh, I didn't know you had a dog.\" I said, \"No, not really.\" Then",
-        "5.0": "<bos>I told my friend a joke about the guy who wanted to make a list of rules for his children. The first rule was, \u201cNo one will ever know.\u201d\n\nHe was a",
-        "10.0": "<bos>I told my friend a joke about a guy with a big penis.\n\n\nWhen I got home, a cop had pulled over and questioned me.\n\n\nHe asked, \u201cDo you have"
       },
-      "logit_diffs": {
-        "-10.0": {
-          "humor_logit": 3.9008240699768066,
-          "serious_logit": -7.661094665527344,
-          "logit_difference": 11.56191873550415
-        },
-        "-5.0": {
-          "humor_logit": 3.687617063522339,
-          "serious_logit": -7.9606451988220215,
-          "logit_difference": 11.64826226234436
-        },
-        "-2.0": {
-          "humor_logit": 3.5679776668548584,
-          "serious_logit": -8.11496353149414,
-          "logit_difference": 11.682941198348999
-        },
-        "0.0": {
-          "humor_logit": 3.491588592529297,
-          "serious_logit": -8.207963943481445,
-          "logit_difference": 11.699552536010742
-        },
-        "2.0": {
-          "humor_logit": 3.417611598968506,
-          "serious_logit": -8.293931007385254,
-          "logit_difference": 11.71154260635376
-        },
-        "5.0": {
-          "humor_logit": 3.3105006217956543,
-          "serious_logit": -8.411474227905273,
-          "logit_difference": 11.721974849700928
-        },
-        "10.0": {
-          "humor_logit": 3.1397769451141357,
-          "serious_logit": -8.583316802978516,
-          "logit_difference": 11.723093748092651
-        }
+      "projections": {
+        "-15.0": -10.456048011779785,
+        "-10.0": -5.456048488616943,
+        "-5.0": -0.45604896545410156,
+        "-2.0": 2.5439505577087402,
+        "0.0": 4.543951988220215,
+        "2.0": 6.543951511383057,
+        "5.0": 9.543951988220215,
+        "10.0": 14.543950080871582,
+        "15.0": 19.5439510345459
       }
     },
     {
       "prompt": "Knock knock, who's there?",
       "generations": {
-        "-10.0": "<bos>Knock knock, who's there?\n\nI don't know, you don't know?\n\nI don't know, who's there?\n\nWell, you do",
-        "-5.0": "<bos>Knock knock, who's there?\n\nMy name is Rachel.\n\nMy name is Rachel?\n\nNo. My name is Rachel.\n\nBut my name's not Rachel. My",
-        "-2.0": "<bos>Knock knock, who's there? I'm your door.\n\nDon't play the door. It's a trap.\n\nI'm a door.\n\nWhich door",
-        "0.0": "<bos>Knock knock, who's there?\nThe <b><i>Black</i></b> Death.\n\nThere are many <b><i>Black</i></b> people out there who think they're a ",
-        "2.0": "<bos>Knock knock, who's there? It's your chance to have some Halloween fun!\n\nIf you are looking for a way to celebrate the spookiest time of the year,",
-        "5.0": "<bos>Knock knock, who's there?\n\nMe, the Google-loving, social media-savvy, online marketer, you hired to build your business.\n\nWhy would I need to do",
-        "10.0": "<bos>Knock knock, who's there? I'm not sure, but she's a little bit of a diva. <b>Eva Longoria</b> is heading to the Big Apple to"
+        "-15.0": "<bos>Knock knock, who's there?\n\nIt's the <em>SNL</em>-inspired sketch from last night that I'm dying to see again.\n\nIt's that",
+        "-10.0": "<bos>Knock knock, who's there?\n\nIt's the wall!\n\nYou've probably heard that joke at least once in your life. And if you haven't, well",
+        "-5.0": "<bos>Knock knock, who's there?\nA student who is always good at Mathematics?\nKnock knock, who's there?\nA student who is always good at Maths?\n",
+        "-2.0": "<bos>Knock knock, who's there?\n\nI'm sorry, who's there?\n\nIt's me, the person you're talking about.\n\nWell, you'",
+        "0.0": "<bos>Knock knock, who's there?\n\nMy name is Rachel.\n\nMy name is Rachel?\n\nNo, my name is Rachel.\n\nBut my name's not Rachel.\n\n",
+        "2.0": "<bos>Knock knock, who's there? I'm your door.\n\nDon't play the door. It's a trap.\n\nI'm a door.\n\nWhich door",
+        "5.0": "<bos>Knock knock, who's there?\nThe <b><i>Black</i></b> Death.\n\nThere are many <b><i>Black</i></b> death spells, but this one is the most ",
+        "10.0": "<bos>Knock knock, who's there? It's your chance to have some Halloween fun!\n\nIf you are looking for a way to celebrate the spookiest time of the year,",
+        "15.0": "<bos>Knock knock, who's there?\n\nMe, the Google-loving, social media-savvy, online marketer, you hired to build your business.\n\nAnd you know what I'"
       },
       "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 2.042290687561035,
+          "humor_prob": 3.207324170283397e-07
+        },
         "-10.0": {
-          "humor_logit": 7.993396282196045,
-          "serious_logit": -3.1016082763671875,
-          "logit_difference": 11.095004558563232
+          "logit_difference": 2.146697998046875,
+          "humor_prob": 3.2077493636980457e-07
         },
         "-5.0": {
-          "humor_logit": 7.515836238861084,
-          "serious_logit": -3.6042258739471436,
-          "logit_difference": 11.120062112808228
+          "logit_difference": 2.2522153854370117,
+          "humor_prob": 3.2954675383485966e-07
         },
         "-2.0": {
-          "humor_logit": 7.240658760070801,
-          "serious_logit": -3.8749098777770996,
-          "logit_difference": 11.1155686378479
+          "logit_difference": 2.3353891372680664,
+          "humor_prob": 3.44597440992249e-07
         },
         "0.0": {
-          "humor_logit": 7.062248229980469,
-          "serious_logit": -4.048492908477783,
-          "logit_difference": 11.110741138458252
+          "logit_difference": 2.411007881164551,
+          "humor_prob": 3.625138863055992e-07
         },
         "2.0": {
-          "humor_logit": 6.884826183319092,
-          "serious_logit": -4.225796699523926,
-          "logit_difference": 11.110622882843018
+          "logit_difference": 2.5023088455200195,
+          "humor_prob": 3.896512513146986e-07
         },
         "5.0": {
-          "humor_logit": 6.6138105392456055,
-          "serious_logit": -4.498481750488281,
-          "logit_difference": 11.112292289733887
+          "logit_difference": 2.676128387451172,
+          "humor_prob": 4.574339373847535e-07
         },
         "10.0": {
-          "humor_logit": 6.170043468475342,
-          "serious_logit": -4.925218105316162,
-          "logit_difference": 11.095261573791504
+          "logit_difference": 3.1153602600097656,
+          "humor_prob": 7.092203429057892e-07
+        },
+        "15.0": {
+          "logit_difference": 3.8497724533081055,
+          "humor_prob": 1.4995177342916349e-06
         }
+      },
+      "projections": {
+        "-15.0": -16.407791137695312,
+        "-10.0": -11.407793045043945,
+        "-5.0": -6.407792568206787,
+        "-2.0": -3.407792091369629,
+        "0.0": -1.4077931642532349,
+        "2.0": 0.5922079086303711,
+        "5.0": 3.592207193374634,
+        "10.0": 8.592206954956055,
+        "15.0": 13.592207908630371
+      }
+    },
+    {
+      "prompt": "A man walked into a bar and",
+      "generations": {
+        "-15.0": "<bos>A man walked into a bar and asked the bartender, \"Could you do a beer for me?\"\n\nThe bartender thought he had heard wrong, so he asked again, \"Could you",
+        "-10.0": "<bos>A man walked into a bar and said, \"I'm a lawyer and I'm looking for a drunk.\"\n\nThe barman said, \"You can have any drink you",
+        "-5.0": "<bos>A man walked into a bar and asked the bartender if he could have a shot of whiskey. The bartender replied, \u201cI\u2019m sorry, sir. I don\u2019t serve whiskey",
+        "-2.0": "<bos>A man walked into a bar and asked for a drink. The bartender poured him a glass of water and said, \u201cHere, you\u2019re probably thirsty.\u201d\n\nThe man replied,",
+        "0.0": "<bos>A man walked into a bar and asked the bartender, \u201cDo you serve beer?\u201d\n\n\u201cNo,\u201d the bartender replied.\n\n\u201cBut you do serve drinks,\u201d the man said.",
+        "2.0": "<bos>A man walked into a bar and asked the bartender, \"How much is my beer?\" \"It's $4,\" the bartender replied. The man said, \"Gimme one.\"",
+        "5.0": "<bos>A man walked into a bar and asked, \"Hey, how much is a drink?\"\n\nThe bartender said, \"A drink is $5.\" The man said, \"I'",
+        "10.0": "<bos>A man walked into a bar and ordered a round.\n\n\u201cWhat\u2019ll ya have?\u201d asked the bartender.\n\n\u201cGive me a shot of whiskey, two of tequila, and",
+        "15.0": "<bos>A man walked into a bar and asked the bartender for a drink.\n\nThe bartender poured him a shot of scotch.\n\n\u201cThat\u2019s too strong for me,\u201d he said,"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 3.0640010833740234,
+          "humor_prob": 1.0871558904239938e-07
+        },
+        "-10.0": {
+          "logit_difference": 3.324629783630371,
+          "humor_prob": 1.3899009267604346e-07
+        },
+        "-5.0": {
+          "logit_difference": 3.616392135620117,
+          "humor_prob": 1.8348984876038983e-07
+        },
+        "-2.0": {
+          "logit_difference": 3.8132553100585938,
+          "humor_prob": 2.21610226728216e-07
+        },
+        "0.0": {
+          "logit_difference": 3.956319808959961,
+          "humor_prob": 2.543527866887441e-07
+        },
+        "2.0": {
+          "logit_difference": 4.1106157302856445,
+          "humor_prob": 2.9527085949951896e-07
+        },
+        "5.0": {
+          "logit_difference": 4.366539001464844,
+          "humor_prob": 3.785929577088905e-07
+        },
+        "10.0": {
+          "logit_difference": 4.869534492492676,
+          "humor_prob": 6.19274729347677e-07
+        },
+        "15.0": {
+          "logit_difference": 5.475151062011719,
+          "humor_prob": 1.1251183822309133e-06
+        }
+      },
+      "projections": {
+        "-15.0": -18.642438888549805,
+        "-10.0": -13.642439842224121,
+        "-5.0": -8.642439842224121,
+        "-2.0": -5.642439365386963,
+        "0.0": -3.6424386501312256,
+        "2.0": -1.6424394845962524,
+        "5.0": 1.3575611114501953,
+        "10.0": 6.357561111450195,
+        "15.0": 11.357560157775879
+      }
+    },
+    {
+      "prompt": "A priest, a rabbi, and an imam walk into",
+      "generations": {
+        "-15.0": "<bos>A priest, a rabbi, and an imam walk into a bar.\n\nWait, no. Sorry. That's not how the story goes.\n\nBut the joke does have some truth to it.",
+        "-10.0": "<bos>A priest, a rabbi, and an imam walk into a bar.\n\nIt\u2019s a joke, but it\u2019s also the premise behind \u201cThe Three of Us,\u201d a one-act play that",
+        "-5.0": "<bos>A priest, a rabbi, and an imam walk into a bar...\n\nJust kidding! But if you\u2019ve ever been to a \u201cMulticultural Interfaith Service,\u201d you know that\u2019s what it",
+        "-2.0": "<bos>A priest, a rabbi, and an imam walk into a bar\u2026\n\nAnd they all agree the best way to celebrate the holidays would be with a good old-fashioned civil discourse.\n\nThat was the",
+        "0.0": "<bos>A priest, a rabbi, and an imam walk into a bar \u2013 and talk about the problems with the American health care system.\n\nThese three religious leaders, who come from different backgrounds, are not having",
+        "2.0": "<bos>A priest, a rabbi, and an imam walk into a bar...\n\nThe three religious leaders have decided to go out for drinks after their services for the day, and the rabbi suggests the three make a",
+        "5.0": "<bos>A priest, a rabbi, and an imam walk into a bar...\n\n...well, it's not quite that simple, but there is a good chance that has happened at some point or other depending",
+        "10.0": "<bos>A priest, a rabbi, and an imam walk into a bar. It\u2019s an old joke, but it\u2019s one that has lost some of its punch over the past two years as the three",
+        "15.0": "<bos>A priest, a rabbi, and an imam walk into a bar\u2026\n\nNo, it\u2019s not the start of a joke, it\u2019s actually the start of a panel discussion in a new ("
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 4.511552810668945,
+          "humor_prob": 1.30761634489474e-07
+        },
+        "-10.0": {
+          "logit_difference": 4.736673355102539,
+          "humor_prob": 1.4850450715470636e-07
+        },
+        "-5.0": {
+          "logit_difference": 4.9538116455078125,
+          "humor_prob": 1.6870636390857407e-07
+        },
+        "-2.0": {
+          "logit_difference": 5.08042049407959,
+          "humor_prob": 1.8231437546040173e-07
+        },
+        "0.0": {
+          "logit_difference": 5.163643836975098,
+          "humor_prob": 1.9218515960175266e-07
+        },
+        "2.0": {
+          "logit_difference": 5.246343612670898,
+          "humor_prob": 2.0286780266221953e-07
+        },
+        "5.0": {
+          "logit_difference": 5.370898246765137,
+          "humor_prob": 2.209861629231713e-07
+        },
+        "10.0": {
+          "logit_difference": 5.590488433837891,
+          "humor_prob": 2.6120584115495223e-07
+        },
+        "15.0": {
+          "logit_difference": 5.862225532531738,
+          "humor_prob": 3.3290327437359223e-07
+        }
+      },
+      "projections": {
+        "-15.0": -13.845871925354004,
+        "-10.0": -8.84587287902832,
+        "-5.0": -3.845872163772583,
+        "-2.0": -0.8458725810050964,
+        "0.0": 1.154127597808838,
+        "2.0": 3.154128074645996,
+        "5.0": 6.15412712097168,
+        "10.0": 11.15412712097168,
+        "15.0": 16.15412712097168
+      }
+    },
+    {
+      "prompt": "Tell me something funny about",
+      "generations": {
+        "-15.0": "<bos>Tell me something funny about my name.\n\n[User 0001]\n\nI just want to know what you guys think about my name, or what you think",
+        "-10.0": "<bos>Tell me something funny about yourself\n\n[User 0001]\n\nI am a pretty shy person, so I'm not sure what to say, but I",
+        "-5.0": "<bos>Tell me something funny about yourself!\n\n[User 0001]\n\nI used to be a <i>really</i> bad bowler. I was like 88",
+        "-2.0": "<bos>Tell me something funny about your day!\n\n[User 0001]\n\nI know it's a little late, but I thought it would be fun to",
+        "0.0": "<bos>Tell me something funny about the weather I'm not gonna say it was cold, I'm not going to say it was warm. It was just a little less than",
+        "2.0": "<bos>Tell me something funny about yourself and I\u2019ll tell you something about you.\n\nWhat\u2019s the first thing you notice about someone?\n\nWhat\u2019s the best way",
+        "5.0": "<bos>Tell me something funny about your job, please.\n\nIt is a good question.\n\nI have a good friend who works for the federal government, so I know that they",
+        "10.0": "<bos>Tell me something funny about yourself.\n\n[User 0001]\n\nI'm so sorry you guys are going through this. I have no words of wisdom",
+        "15.0": "<bos>Tell me something funny about your dog?\n\n[User 0001]\n\n<blockquote>My dog ate the entire package of dog food that was left out. I'"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 3.8664989471435547,
+          "humor_prob": 4.473237800951148e-06
+        },
+        "-10.0": {
+          "logit_difference": 4.083610534667969,
+          "humor_prob": 5.3402005742813995e-06
+        },
+        "-5.0": {
+          "logit_difference": 4.300995826721191,
+          "humor_prob": 6.446815151688179e-06
+        },
+        "-2.0": {
+          "logit_difference": 4.430248260498047,
+          "humor_prob": 7.25138436078285e-06
+        },
+        "0.0": {
+          "logit_difference": 4.515890121459961,
+          "humor_prob": 7.856424125916981e-06
+        },
+        "2.0": {
+          "logit_difference": 4.601326942443848,
+          "humor_prob": 8.523360003273699e-06
+        },
+        "5.0": {
+          "logit_difference": 4.730099678039551,
+          "humor_prob": 9.656113949125486e-06
+        },
+        "10.0": {
+          "logit_difference": 4.951761245727539,
+          "humor_prob": 1.1975800993716272e-05
+        },
+        "15.0": {
+          "logit_difference": 5.190859794616699,
+          "humor_prob": 1.4994012375635475e-05
+        }
+      },
+      "projections": {
+        "-15.0": -14.019018173217773,
+        "-10.0": -9.019018173217773,
+        "-5.0": -4.019018173217773,
+        "-2.0": -1.0190191268920898,
+        "0.0": 0.980980634689331,
+        "2.0": 2.9809820652008057,
+        "5.0": 5.98098087310791,
+        "10.0": 10.980981826782227,
+        "15.0": 15.980979919433594
+      }
+    },
+    {
+      "prompt": "So a penguin walks into a",
+      "generations": {
+        "-15.0": "<bos>So a penguin walks into a bar\u2026\u2026..\n<strong>\nMy wife and I went to the Penguin Walk in the Antarctic over the Thanksgiving weekend.</strong> When we arrived at the bar,",
+        "-10.0": "<bos>So a penguin walks into a bar. The bartender says, \u201cI don\u2019t serve penguins.\u201d The penguin says, \u201cBut I\u2019m a seagull.\u201d\n\nThe bartender",
+        "-5.0": "<bos>So a penguin walks into a bar\u2026 with a very serious problem.\n\nIn 2015, a study found that over 75,000 penguins have",
+        "-2.0": "<bos>So a penguin walks into a bar, and the bartender asks, \u201cwhy the long face?\u201d\n\nThe penguin responds, \u201cbecause I\u2019m a penguin.\u201d\n\nSo they ask",
+        "0.0": "<bos>So a penguin walks into a bar. The bartender says \u2018why the long face?\u2019 The penguin says \u2018I just got arrested for being a penguin.\u2019 And the bartender says \u2018penguin",
+        "2.0": "<bos>So a penguin walks into a bar.\n\nThis is the fifth time that I have posted about penguins in the last year or so \u2014 but this is the first time that I have",
+        "5.0": "<bos>So a penguin walks into a bar and the bartender says \"That's a penguin. You can't sit down here.\" The penguin says \"That's not funny\".",
+        "10.0": "<bos>So a penguin walks into a bar.\n\nThat's not really funny.\n\nThat's just the setup to this week's edition of <em>Saturday Night Live</em>",
+        "15.0": "<bos>So a penguin walks into a bar...\n\n[User 0001]\n\n<p>My wife went to a new bar the other night for the first time."
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 6.1526947021484375,
+          "humor_prob": 1.0851267791128145e-05
+        },
+        "-10.0": {
+          "logit_difference": 6.267820358276367,
+          "humor_prob": 1.1595572223983119e-05
+        },
+        "-5.0": {
+          "logit_difference": 6.391847610473633,
+          "humor_prob": 1.2767786931675422e-05
+        },
+        "-2.0": {
+          "logit_difference": 6.470130920410156,
+          "humor_prob": 1.373430471526821e-05
+        },
+        "0.0": {
+          "logit_difference": 6.523576736450195,
+          "humor_prob": 1.4509609751129433e-05
+        },
+        "2.0": {
+          "logit_difference": 6.577709197998047,
+          "humor_prob": 1.5402389006285764e-05
+        },
+        "5.0": {
+          "logit_difference": 6.65955924987793,
+          "humor_prob": 1.698715296742851e-05
+        },
+        "10.0": {
+          "logit_difference": 6.795052528381348,
+          "humor_prob": 2.0384369549400744e-05
+        },
+        "15.0": {
+          "logit_difference": 6.9253644943237305,
+          "humor_prob": 2.4895692211609946e-05
+        }
+      },
+      "projections": {
+        "-15.0": -13.65599250793457,
+        "-10.0": -8.65599250793457,
+        "-5.0": -3.6559934616088867,
+        "-2.0": -0.6559930443763733,
+        "0.0": 1.3440077304840088,
+        "2.0": 3.3440070152282715,
+        "5.0": 6.344007968902588,
+        "10.0": 11.34400749206543,
+        "15.0": 16.344005584716797
       }
     },
     {
       "prompt": "The weather today is",
       "generations": {
-        "-10.0": "<bos>The weather today is still cloudy, and the temperature is neither cold nor hot. A good day.\n\nThe sky is still cloudy, but it is clear from the \"",
-        "-5.0": "<bos>The weather today is almost identical to yesterday. It\u2019s a bit cooler but not noticeably so. This is a good day to get out and about, and the day",
-        "-2.0": "<bos>The weather today is very sunny, warm, and bright. It\u2019s a good day to walk. I\u2019m in the process of writing a paper on the origin",
-        "0.0": "<bos>The weather today is perfect for a walk.  It is very warm, but not too hot, and there is a slight breeze.  It\u2019s a bit overcast",
-        "2.0": "<bos>The weather today is a lot like the weather I found when I first moved to Japan. I had just gotten off the plane after flying over 12 hours. I",
-        "5.0": "<bos>The weather today is mixed, cloudy and sunny with a chance of showers throughout the day. Highs will be in the low to mid 50s but feels like",
-        "10.0": "<bos>The weather today is a perfect 75 and sunny. I love that. What a day to walk my dog. It is a beautiful day out. After a long"
+        "-15.0": "<bos>The weather today is not ideal for making a video, but I want to make a video about the \u201cnew\u201d 2015-2016 season",
+        "-10.0": "<bos>The weather today is very cloudy and we may even get some rain.  We are expecting 25-30 mph winds out of the NNW all day.",
+        "-5.0": "<bos>The weather today is quite different from yesterday. Today is sunny and warm. I took the kids to the mountains to play. The mountains are still full of snow. The",
+        "-2.0": "<bos>The weather today is so pretty, I\u2019m about to go out and take photos of the beautiful sky and trees.\n\nI\u2019m not a photographer, but I",
+        "0.0": "<bos>The weather today is looking more spring like, but that could change by the weekend.\n\nThe high today is 59, with a low tonight of 44",
+        "2.0": "<bos>The weather today is really nice. You can find me in the park with the camera, but I didn't have the time to enjoy the nature. I was thinking",
+        "5.0": "<bos>The weather today is hot and humid, and it's a good day to make some fried chicken with rice!\n\nToday, I will share with you a recipe of",
+        "10.0": "<bos>The weather today is a bit windy and cooler than yesterday, but the sun is shining.\n\nI have been doing some more work on the house, removing a layer of",
+        "15.0": "<bos>The weather today is a bit cold.\n\nAnd there is still a little snow in the mountains.\n\nAlthough I only spent two nights here, I still feel very comfortable"
       },
       "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 4.742587089538574,
+          "humor_prob": 8.440042459653776e-05
+        },
         "-10.0": {
-          "humor_logit": -4.881702423095703,
-          "serious_logit": -8.039456367492676,
-          "logit_difference": 3.1577539443969727
+          "logit_difference": 5.219315528869629,
+          "humor_prob": 0.00010961388693112451
         },
         "-5.0": {
-          "humor_logit": -5.226183891296387,
-          "serious_logit": -8.16621208190918,
-          "logit_difference": 2.940028190612793
+          "logit_difference": 5.699505805969238,
+          "humor_prob": 0.00014160910056359614
         },
         "-2.0": {
-          "humor_logit": -5.423445701599121,
-          "serious_logit": -8.235230445861816,
-          "logit_difference": 2.8117847442626953
+          "logit_difference": 5.989095687866211,
+          "humor_prob": 0.00016470033843824668
         },
         "0.0": {
-          "humor_logit": -5.550884246826172,
-          "serious_logit": -8.278338432312012,
-          "logit_difference": 2.72745418548584
+          "logit_difference": 6.182709693908691,
+          "humor_prob": 0.0001819507622494673
         },
         "2.0": {
-          "humor_logit": -5.674980163574219,
-          "serious_logit": -8.31912612915039,
-          "logit_difference": 2.644145965576172
+          "logit_difference": 6.376761436462402,
+          "humor_prob": 0.0002008372364058764
         },
         "5.0": {
-          "humor_logit": -5.854640960693359,
-          "serious_logit": -8.37586784362793,
-          "logit_difference": 2.5212268829345703
+          "logit_difference": 6.668585777282715,
+          "humor_prob": 0.00023253554197948863
         },
         "10.0": {
-          "humor_logit": -6.135980129241943,
-          "serious_logit": -8.458181381225586,
-          "logit_difference": 2.3222012519836426
+          "logit_difference": 7.156726837158203,
+          "humor_prob": 0.0002956477577794641
+        },
+        "15.0": {
+          "logit_difference": 7.646581172943115,
+          "humor_prob": 0.00037403062237453865
         }
+      },
+      "projections": {
+        "-15.0": -22.740020751953125,
+        "-10.0": -17.740020751953125,
+        "-5.0": -12.740018844604492,
+        "-2.0": -9.740020751953125,
+        "0.0": -7.740020275115967,
+        "2.0": -5.740020275115967,
+        "5.0": -2.740018844604492,
+        "10.0": 2.2599806785583496,
+        "15.0": 7.259979248046875
+      }
+    },
+    {
+      "prompt": "I went to the store and bought",
+      "generations": {
+        "-15.0": "<bos>I went to the store and bought a bunch of things. They will be delivered to my home.\nI'm going to a wedding and I am so excited.\nI was",
+        "-10.0": "<bos>I went to the store and bought a pack of 2000 Wicks, in a 90-degree summer. The next day, I went out to the garage",
+        "-5.0": "<bos>I went to the store and bought a 50 mL bottle of the product. I was so delighted to see the price, as I had never seen it available before. I wish",
+        "-2.0": "<bos>I went to the store and bought a new 8088-2096-2035 208-240-480VAC",
+        "0.0": "<bos>I went to the store and bought a new one.\n\nThe new one has a better quality camera, and it also has a better battery life.\n\nI also bought a new one",
+        "2.0": "<bos>I went to the store and bought a lot of groceries. I don\u2019t really know what I\u2019m going to cook. All I know is that I\u2019m going to eat",
+        "5.0": "<bos>I went to the store and bought a toy for my daughter\u2019s birthday. It was an electronic doll that my daughter loved. She has played with it for about 20 minutes",
+        "10.0": "<bos>I went to the store and bought a bunch of groceries, then I headed right to the gas station. I went to pump my gas and right as I was putting my card in,",
+        "15.0": "<bos>I went to the store and bought the perfect amount of supplies for my project.\n\nI love it. I made a little purse out of it. I even have a little dog toy"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 5.992527008056641,
+          "humor_prob": 2.43332268643593e-07
+        },
+        "-10.0": {
+          "logit_difference": 6.391313552856445,
+          "humor_prob": 3.2593020770057186e-07
+        },
+        "-5.0": {
+          "logit_difference": 6.798041343688965,
+          "humor_prob": 4.386092020972415e-07
+        },
+        "-2.0": {
+          "logit_difference": 7.043266296386719,
+          "humor_prob": 5.240446243063724e-07
+        },
+        "0.0": {
+          "logit_difference": 7.206460952758789,
+          "humor_prob": 5.896219121812263e-07
+        },
+        "2.0": {
+          "logit_difference": 7.368984222412109,
+          "humor_prob": 6.628020393768973e-07
+        },
+        "5.0": {
+          "logit_difference": 7.610851287841797,
+          "humor_prob": 7.882311707073058e-07
+        },
+        "10.0": {
+          "logit_difference": 8.006393432617188,
+          "humor_prob": 1.044633069480596e-06
+        },
+        "15.0": {
+          "logit_difference": 8.389244079589844,
+          "humor_prob": 1.3699579465745343e-06
+        }
+      },
+      "projections": {
+        "-15.0": -16.419105529785156,
+        "-10.0": -11.41910457611084,
+        "-5.0": -6.41910457611084,
+        "-2.0": -3.4191036224365234,
+        "0.0": -1.4191049337387085,
+        "2.0": 0.5808961391448975,
+        "5.0": 3.58089542388916,
+        "10.0": 8.580894470214844,
+        "15.0": 13.58089542388916
+      }
+    },
+    {
+      "prompt": "My favorite food is",
+      "generations": {
+        "-15.0": "<bos>My favorite food is food.\n\nIt is so hard to pick a favorite food, especially when one is so much like the other.\n\nIt is like asking someone what",
+        "-10.0": "<bos>My favorite food is pizza. I usually eat it with my family. I love it with all the toppings and cheese. My favorite topping is pepperoni and cheese. I also",
+        "-5.0": "<bos>My favorite food is rice and curry I love to eat it everyday. I m a student and I have to eat rice and curry everyday because I can afford it. So",
+        "-2.0": "<bos>My favorite food is chicken, and I can eat it 3 times a day for breakfast, lunch, and dinner! I like to make my own chicken dishes, such",
+        "0.0": "<bos>My favorite food is pizza. I love pizza! I love it with everything. I love pizza with ham, I love it with sausage, I love it with chicken.",
+        "2.0": "<bos>My favorite food is sushi. I love all kinds of sushi. It is really good for me because it is a great source of protein and vitamins. My favorite is the",
+        "5.0": "<bos>My favorite food is <strong>Mexican</strong>. I love Mexican food with authentic style. My favorite place to eat is <strong>El Amigo Mexican Restaurant</strong> on <strong>North",
+        "10.0": "<bos>My favorite food is <b><i>pizza</i></b>. I can eat it almost every day. I like pizza because they have a lot of choices. I like cheese,",
+        "15.0": "<bos>My favorite food is pizza \ud83c\udf55\n\nI have pizza but it's just for a few days\n\nI like pizza\n\nI like pizza\n\nI like pizza\n\nI"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 5.180418014526367,
+          "humor_prob": 9.403912900135909e-06
+        },
+        "-10.0": {
+          "logit_difference": 5.653564453125,
+          "humor_prob": 1.2788674194313816e-05
+        },
+        "-5.0": {
+          "logit_difference": 6.112310409545898,
+          "humor_prob": 1.7176282526977846e-05
+        },
+        "-2.0": {
+          "logit_difference": 6.3797149658203125,
+          "humor_prob": 2.0362899609094404e-05
+        },
+        "0.0": {
+          "logit_difference": 6.554411888122559,
+          "humor_prob": 2.2738238920169278e-05
+        },
+        "2.0": {
+          "logit_difference": 6.726118087768555,
+          "humor_prob": 2.532367695213092e-05
+        },
+        "5.0": {
+          "logit_difference": 6.977823257446289,
+          "humor_prob": 2.960891909442476e-05
+        },
+        "10.0": {
+          "logit_difference": 7.3812055587768555,
+          "humor_prob": 3.7872009440439295e-05
+        },
+        "15.0": {
+          "logit_difference": 7.764434814453125,
+          "humor_prob": 4.757436212094499e-05
+        }
+      },
+      "projections": {
+        "-15.0": -15.981266021728516,
+        "-10.0": -10.9812650680542,
+        "-5.0": -5.981266975402832,
+        "-2.0": -2.981264591217041,
+        "0.0": -0.9812643527984619,
+        "2.0": 1.0187348127365112,
+        "5.0": 4.018734455108643,
+        "10.0": 9.018735885620117,
+        "15.0": 14.018735885620117
+      }
+    },
+    {
+      "prompt": "She opened the door and saw",
+      "generations": {
+        "-15.0": "<bos>She opened the door and saw him.\n\n\u201cOh!\u201d she exclaimed.\n\n\u201cOh, no!\u201d he exclaimed,\n\n\u201cI\u2019m on the way to the hospital!\u201d",
+        "-10.0": "<bos>She opened the door and saw a couple of men standing before her.\n\nShe instantly froze and covered her eyes.\n\n\u201cWho are you? What do you want?\u201d she shouted",
+        "-5.0": "<bos>She opened the door and saw the young man in his late 20s, who was a local resident, standing there. He was wearing a dark blue coat.\n\nShe",
+        "-2.0": "<bos>She opened the door and saw a group of people waiting in front of the door.\n\nThe man in the lead turned around, smiled and nodded at her.\n\nSu Mo\u2019",
+        "0.0": "<bos>She opened the door and saw that the man was a little surprised when he saw her. \"A-Are you ok?\" She asked. The man nodded and opened the door.",
+        "2.0": "<bos>She opened the door and saw a woman dressed in a long white dress, looking very beautiful and noble.\n\n\"Hello.\"\n\nHe smiled slightly.\n\n\"Hello.\"\n\nShe",
+        "5.0": "<bos>She opened the door and saw the figure of a man, who she had not recognized, standing in the entrance.\n\nShe asked: \u201cwho are you?\u201d\nThe man answered",
+        "10.0": "<bos>She opened the door and saw a big man standing at the door, she was a little stunned.\n\nThe man looked at her and said, \"I, I will make you",
+        "15.0": "<bos>She opened the door and saw a large man standing there. His eyes were cold, and his face was expressionless.\n\n\u201cWho are you?\u201d he asked, and his voice"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 5.201777458190918,
+          "humor_prob": 3.7956310011663923e-06
+        },
+        "-10.0": {
+          "logit_difference": 5.406028747558594,
+          "humor_prob": 4.078044246227409e-06
+        },
+        "-5.0": {
+          "logit_difference": 5.613476753234863,
+          "humor_prob": 4.355390939256108e-06
+        },
+        "-2.0": {
+          "logit_difference": 5.73978328704834,
+          "humor_prob": 4.5087905065218265e-06
+        },
+        "0.0": {
+          "logit_difference": 5.824530601501465,
+          "humor_prob": 4.600701011602205e-06
+        },
+        "2.0": {
+          "logit_difference": 5.909340858459473,
+          "humor_prob": 4.681162538681401e-06
+        },
+        "5.0": {
+          "logit_difference": 6.035356521606445,
+          "humor_prob": 4.776627800115847e-06
+        },
+        "10.0": {
+          "logit_difference": 6.236974716186523,
+          "humor_prob": 4.8995836735210845e-06
+        },
+        "15.0": {
+          "logit_difference": 6.432900428771973,
+          "humor_prob": 5.289448949264985e-06
+        }
+      },
+      "projections": {
+        "-15.0": -18.42586898803711,
+        "-10.0": -13.42586898803711,
+        "-5.0": -8.425868034362793,
+        "-2.0": -5.425868511199951,
+        "0.0": -3.4258670806884766,
+        "2.0": -1.4258679151535034,
+        "5.0": 1.5741302967071533,
+        "10.0": 6.574131011962891,
+        "15.0": 11.57413101196289
+      }
+    },
+    {
+      "prompt": "The dog ran across the",
+      "generations": {
+        "-15.0": "<bos>The dog ran across the pavement, tail wagging, and jumped onto the hood of a Volkswagen. The owner was surprised, opened the car door, and reached out to pet",
+        "-10.0": "<bos>The dog ran across the street and into the woods.\n\nThe dog ran across the street and into the woods.\n\nThe dog ran across the street and into the woods.",
+        "-5.0": "<bos>The dog ran across the street into the median and was hit by a pickup truck. The dog survived, and the driver pulled over to help the dog and took the dog to",
+        "-2.0": "<bos>The dog ran across the highway and escaped capture.\n\nThe 18-year-old dog, named \u201cSparky\u201d escaped his owner\u2019s care while he was",
+        "0.0": "<bos>The dog ran across the road and was struck by a car in the 100 block of E. Main Street, according to the report.\n\nThe dog died at",
+        "2.0": "<bos>The dog ran across the road, and the driver was forced to brake.\n\nThe impact of the collision was such that the dog was thrown into the air, and landed in",
+        "5.0": "<bos>The dog ran across the road and was hit by a car, killing it instantly.\n\nThe owner of the dog saw it happen.\n\nThe man who hit the dog fled",
+        "10.0": "<bos>The dog ran across the street, into the backyard, and I was on the other side of the yard when I heard the dog barking. I looked to see what it was",
+        "15.0": "<bos>The dog ran across the street, and the driver of a truck hit her.\n\nThe dog ran across the street, and the driver of a truck hit her.\n\nThe"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": -2.4061965942382812,
+          "humor_prob": 1.2721709068299835e-07
+        },
+        "-10.0": {
+          "logit_difference": -2.157040596008301,
+          "humor_prob": 1.4858908131410196e-07
+        },
+        "-5.0": {
+          "logit_difference": -1.8463630676269531,
+          "humor_prob": 1.8257240492374582e-07
+        },
+        "-2.0": {
+          "logit_difference": -1.6276140213012695,
+          "humor_prob": 2.123248244006762e-07
+        },
+        "0.0": {
+          "logit_difference": -1.4678688049316406,
+          "humor_prob": 2.3762998004044164e-07
+        },
+        "2.0": {
+          "logit_difference": -1.2969608306884766,
+          "humor_prob": 2.6852457235497667e-07
+        },
+        "5.0": {
+          "logit_difference": -1.0200986862182617,
+          "humor_prob": 3.283455691303348e-07
+        },
+        "10.0": {
+          "logit_difference": -0.5069570541381836,
+          "humor_prob": 4.80130599683675e-07
+        },
+        "15.0": {
+          "logit_difference": 0.0635061264038086,
+          "humor_prob": 7.372165096624973e-07
+        }
+      },
+      "projections": {
+        "-15.0": -21.630348205566406,
+        "-10.0": -16.630348205566406,
+        "-5.0": -11.630346298217773,
+        "-2.0": -8.630349159240723,
+        "0.0": -6.630347728729248,
+        "2.0": -4.630346298217773,
+        "5.0": -1.630347728729248,
+        "10.0": 3.3696532249450684,
+        "15.0": 8.36965274810791
+      }
+    },
+    {
+      "prompt": "Last weekend I decided to",
+      "generations": {
+        "-15.0": "<bos>Last weekend I decided to go on a solo hike to the top of Mt. Tamalpais, located in the San Francisco Bay Area. I made the short drive from San",
+        "-10.0": "<bos>Last weekend I decided to take the plunge and take a trip to the mountains for some snowboarding. I had never been before and didn\u2019t really know what to expect. My",
+        "-5.0": "<bos>Last weekend I decided to go to a place I have never been to before, the new <strong><em>Musee du Louvre</em></strong>. I was really disappointed that we were",
+        "-2.0": "<bos>Last weekend I decided to do a little more work on the roof of our house.  It has been a long time since I did any work on it.  I am",
+        "0.0": "<bos>Last weekend I decided to take my family to a local water park, and I was excited for a day of fun in the sun. The weather was perfect, and the water",
+        "2.0": "<bos>Last weekend I decided to visit the renowned <em><strong>The National Gallery Of Art</strong></em> in Washington, D.C..  The <em><strong>National Gallery</strong></em> is",
+        "5.0": "<bos>Last weekend I decided to go camping with my family. I had a lot of fun and I made a lot of memories with them. Before I begin, I would like to",
+        "10.0": "<bos>Last weekend I decided to go out into the woods and cut some firewood.\n\nIt was a fun day, except that the woods are always wet.  When I cut my",
+        "15.0": "<bos>Last weekend I decided to head up to my favorite little town of Deadwood, South Dakota for a weekend of gambling, food, shopping and of course, more gambling.  "
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 8.13314151763916,
+          "humor_prob": 1.64833022078473e-07
+        },
+        "-10.0": {
+          "logit_difference": 8.297365188598633,
+          "humor_prob": 1.7483228299618688e-07
+        },
+        "-5.0": {
+          "logit_difference": 8.462996482849121,
+          "humor_prob": 1.8561895512863104e-07
+        },
+        "-2.0": {
+          "logit_difference": 8.563594818115234,
+          "humor_prob": 1.9247918541627415e-07
+        },
+        "0.0": {
+          "logit_difference": 8.631318092346191,
+          "humor_prob": 1.9722135796274274e-07
+        },
+        "2.0": {
+          "logit_difference": 8.699625015258789,
+          "humor_prob": 2.0210156514873213e-07
+        },
+        "5.0": {
+          "logit_difference": 8.803276062011719,
+          "humor_prob": 2.0969032268922067e-07
+        },
+        "10.0": {
+          "logit_difference": 8.979482650756836,
+          "humor_prob": 2.2311330729006503e-07
+        },
+        "15.0": {
+          "logit_difference": 9.160537719726562,
+          "humor_prob": 2.3768142871434125e-07
+        }
+      },
+      "projections": {
+        "-15.0": -28.038867950439453,
+        "-10.0": -23.038867950439453,
+        "-5.0": -18.038867950439453,
+        "-2.0": -15.03886890411377,
+        "0.0": -13.038866996765137,
+        "2.0": -11.03886890411377,
+        "5.0": -8.03886890411377,
+        "10.0": -3.0388686656951904,
+        "15.0": 1.9611318111419678
+      }
+    },
+    {
+      "prompt": "When I was a kid, I used to",
+      "generations": {
+        "-15.0": "<bos>When I was a kid, I used to love getting dressed up and going to the theatre with my family. I have a great memory of us all sitting in the same row and going to the",
+        "-10.0": "<bos>When I was a kid, I used to imagine I was a spy, snooping around the house and spying on my mom and dad. I was probably a little too young to be spying",
+        "-5.0": "<bos>When I was a kid, I used to go to my grandparent's house on Sundays, to play with the kids. We'd play with dolls, make up stories, and I",
+        "-2.0": "<bos>When I was a kid, I used to ask my dad why we didn\u2019t own a TV.\n\n\u201cIt\u2019s just a big box that sits in the corner of the room and",
+        "0.0": "<bos>When I was a kid, I used to always want to be an astronaut. I read every single book, watched every movie and dreamed of exploring space.\n\nI got pretty close to my dream",
+        "2.0": "<bos>When I was a kid, I used to go to a special summer camp. It was a Catholic camp, and I remember going on a few hikes in the woods. As I got older,",
+        "5.0": "<bos>When I was a kid, I used to have this book, The Little Old Lady Who Swallowed a Fly. It was a classic children\u2019s book, and I used to love reading it",
+        "10.0": "<bos>When I was a kid, I used to play in the gravel pit at our local school. I used to climb the huge mounds of gravel and dig out little holes, and then fill them back",
+        "15.0": "<bos>When I was a kid, I used to day dream about being a pirate. I would have a ship, a crew, treasure to steal, and a sword to slice up pirates. Unfortunately,"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 7.981782913208008,
+          "humor_prob": 7.36276034719774e-08
+        },
+        "-10.0": {
+          "logit_difference": 8.390775680541992,
+          "humor_prob": 1.1030614728707071e-07
+        },
+        "-5.0": {
+          "logit_difference": 8.797428131103516,
+          "humor_prob": 1.6593249312981915e-07
+        },
+        "-2.0": {
+          "logit_difference": 9.03985595703125,
+          "humor_prob": 2.1227906687854254e-07
+        },
+        "0.0": {
+          "logit_difference": 9.20068359375,
+          "humor_prob": 2.502523251915964e-07
+        },
+        "2.0": {
+          "logit_difference": 9.36075210571289,
+          "humor_prob": 2.950437019889487e-07
+        },
+        "5.0": {
+          "logit_difference": 9.599410057067871,
+          "humor_prob": 3.777054447798546e-07
+        },
+        "10.0": {
+          "logit_difference": 9.992782592773438,
+          "humor_prob": 5.694323384832232e-07
+        },
+        "15.0": {
+          "logit_difference": 10.38028335571289,
+          "humor_prob": 8.556201052669572e-07
+        }
+      },
+      "projections": {
+        "-15.0": -25.156108856201172,
+        "-10.0": -20.156108856201172,
+        "-5.0": -15.156107902526855,
+        "-2.0": -12.156105995178223,
+        "0.0": -10.156107902526855,
+        "2.0": -8.156107902526855,
+        "5.0": -5.156105995178223,
+        "10.0": -0.1561063528060913,
+        "15.0": 4.843893527984619
+      }
+    },
+    {
+      "prompt": "The quarterly earnings report shows that",
+      "generations": {
+        "-15.0": "<bos>The quarterly earnings report shows that the revenue and earnings have declined in the fourth quarter of 2022. Yet, the growth outlook is still upbeat.\n\n<h2><strong>Quarterly",
+        "-10.0": "<bos>The quarterly earnings report shows that the company's revenue increased 2.7% year-on-year to 89.7 billion yuan in the third quarter, with",
+        "-5.0": "<bos>The quarterly earnings report shows that the company's net revenue was 2.27 billion yuan, a year-on-year increase of 49.2%, and",
+        "-2.0": "<bos>The quarterly earnings report shows that the second quarter of 2021 has been a very good quarter for Tesla, the company's revenue has reached 10.7",
+        "0.0": "<bos>The quarterly earnings report shows that the company's net profit for the quarter was $9.7 million, compared with $10.2 million for the same period a year",
+        "2.0": "<bos>The quarterly earnings report shows that the company sells its 2012 lineup of the CTS-V, the Cadillac CTS-V Coupe and the Cadillac ATS-V. The",
+        "5.0": "<bos>The quarterly earnings report shows that the company has a total income of about 1.4 billion yuan, an increase of 40.3% over the same period last year",
+        "10.0": "<bos>The quarterly earnings report shows that the company generated revenues of $40.1 billion in the second quarter of the year, which is 1.6% lower than the previous",
+        "15.0": "<bos>The quarterly earnings report shows that, although the company\u2019s top line has declined over the last three quarters, the bottom line has seen a steady increase.\n\nAt the end of"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 4.913482666015625,
+          "humor_prob": 8.735835134482346e-06
+        },
+        "-10.0": {
+          "logit_difference": 5.0947418212890625,
+          "humor_prob": 9.796387558829563e-06
+        },
+        "-5.0": {
+          "logit_difference": 5.280276298522949,
+          "humor_prob": 1.1025672323147198e-05
+        },
+        "-2.0": {
+          "logit_difference": 5.393442153930664,
+          "humor_prob": 1.185193413600354e-05
+        },
+        "0.0": {
+          "logit_difference": 5.4695539474487305,
+          "humor_prob": 1.2441763583212148e-05
+        },
+        "2.0": {
+          "logit_difference": 5.546133041381836,
+          "humor_prob": 1.3063687369095777e-05
+        },
+        "5.0": {
+          "logit_difference": 5.661670684814453,
+          "humor_prob": 1.4057081580453499e-05
+        },
+        "10.0": {
+          "logit_difference": 5.854885101318359,
+          "humor_prob": 1.5871321121879553e-05
+        },
+        "15.0": {
+          "logit_difference": 6.0460100173950195,
+          "humor_prob": 1.7860184211131848e-05
+        }
+      },
+      "projections": {
+        "-15.0": -31.719146728515625,
+        "-10.0": -26.719146728515625,
+        "-5.0": -21.71915054321289,
+        "-2.0": -18.719148635864258,
+        "0.0": -16.719148635864258,
+        "2.0": -14.719147682189941,
+        "5.0": -11.719148635864258,
+        "10.0": -6.719147682189941,
+        "15.0": -1.7191481590270996
+      }
+    },
+    {
+      "prompt": "According to the latest research,",
+      "generations": {
+        "-15.0": "<bos>According to the latest research, there are 300,000 people under the age of 30 in the UK who have never smoked a cigarette. This means",
+        "-10.0": "<bos>According to the latest research, the world is heading towards a 6.4 per cent increase in the global population by 2030. This will require a significant rise",
+        "-5.0": "<bos>According to the latest research, the global <strong>Smart Power Cable Market</strong> is expected to grow at a <strong>CAGR of 4.4%</strong> from 20",
+        "-2.0": "<bos>According to the latest research, the number of people who do not have health insurance in the United States is 26.5 million. However, according to the Center for Commerce",
+        "0.0": "<bos>According to the latest research, the number of people using the internet in China has soared in the past decade.\n\nChina is now the second-largest internet market in the world.",
+        "2.0": "<bos>According to the latest research, the COVID-19 outbreak has delayed the expected growth of the <strong>global</strong> <strong>surgical masks</strong> market. The pandemic has disrupted the supply",
+        "5.0": "<bos>According to the latest research, there is a 15 per cent chance that a man can get a stroke during a heart attack. The study was conducted over a 13",
+        "10.0": "<bos>According to the latest research, the Global <strong>Polyvinyl chloride (PVC) market</strong> size was valued at <strong>USD 58.29 Billion in 20",
+        "15.0": "<bos>According to the latest research, the global market for <em><strong>industrial steam sterilizers</strong></em> is expected to grow at a compound annual growth rate (CAGR) of 5"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 4.573071479797363,
+          "humor_prob": 4.3757662892108465e-06
+        },
+        "-10.0": {
+          "logit_difference": 4.654633522033691,
+          "humor_prob": 4.363265013183184e-06
+        },
+        "-5.0": {
+          "logit_difference": 4.738763809204102,
+          "humor_prob": 4.379870326573416e-06
+        },
+        "-2.0": {
+          "logit_difference": 4.790505409240723,
+          "humor_prob": 4.4037480832658505e-06
+        },
+        "0.0": {
+          "logit_difference": 4.825538635253906,
+          "humor_prob": 4.425434172946321e-06
+        },
+        "2.0": {
+          "logit_difference": 4.861003875732422,
+          "humor_prob": 4.451712270169844e-06
+        },
+        "5.0": {
+          "logit_difference": 4.915031433105469,
+          "humor_prob": 4.499696763639552e-06
+        },
+        "10.0": {
+          "logit_difference": 5.007330894470215,
+          "humor_prob": 4.602781190096334e-06
+        },
+        "15.0": {
+          "logit_difference": 5.102424621582031,
+          "humor_prob": 4.7354889788625365e-06
+        }
+      },
+      "projections": {
+        "-15.0": -24.139408111572266,
+        "-10.0": -19.139408111572266,
+        "-5.0": -14.13940715789795,
+        "-2.0": -11.139409065246582,
+        "0.0": -9.139409065246582,
+        "2.0": -7.139408111572266,
+        "5.0": -4.139408588409424,
+        "10.0": 0.8605915307998657,
+        "15.0": 5.860592842102051
+      }
+    },
+    {
+      "prompt": "In conclusion, the evidence suggests",
+      "generations": {
+        "-15.0": "<bos>In conclusion, the evidence suggests that the term 'mental disorder' should be used only sparingly in relation to people who are not seriously mentally ill, and that the term 'mental disorder",
+        "-10.0": "<bos>In conclusion, the evidence suggests that both the presence of a history of mental illness and a history of substance use disorder are significant predictors of a person's risk for homelessness. While",
+        "-5.0": "<bos>In conclusion, the evidence suggests that the most common causes of urinary tract infection in women are bacterial, and women over the age of 60 are more susceptible than younger women.",
+        "-2.0": "<bos>In conclusion, the evidence suggests that the use of anti-androgenic drugs may be associated with a small increase in the risk of prostate cancer. However, this association is weak and",
+        "0.0": "<bos>In conclusion, the evidence suggests that the <strong>12-step program</strong> is an effective and evidence-based approach to <strong>alcoholism treatment</strong>. It has been shown",
+        "2.0": "<bos>In conclusion, the evidence suggests that the prevalence of obesity and overweight among children and adolescents is of significant public health importance, and that the distribution of this problem is more heterogeneous than generally",
+        "5.0": "<bos>In conclusion, the evidence suggests that the use of a single 400mg dose of aspirin in the treatment of early symptomatic rheumatoid arthritis provides a reasonable alternative to therapy with non",
+        "10.0": "<bos>In conclusion, the evidence suggests that the use of the TTO is a very effective way to reduce the rate of re-admission for hip fracture surgery, and is particularly relevant for",
+        "15.0": "<bos>In conclusion, the evidence suggests that in some but not all patients, the use of a low-dose oral contraceptive as monotherapy for acne vulgaris is of proven benefit. However,"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 2.0752391815185547,
+          "humor_prob": 1.1414983047138995e-05
+        },
+        "-10.0": {
+          "logit_difference": 2.2162132263183594,
+          "humor_prob": 1.202525301608686e-05
+        },
+        "-5.0": {
+          "logit_difference": 2.3610477447509766,
+          "humor_prob": 1.2694187089305774e-05
+        },
+        "-2.0": {
+          "logit_difference": 2.4499120712280273,
+          "humor_prob": 1.3126679443810235e-05
+        },
+        "0.0": {
+          "logit_difference": 2.510037422180176,
+          "humor_prob": 1.3429501335323696e-05
+        },
+        "2.0": {
+          "logit_difference": 2.5709028244018555,
+          "humor_prob": 1.3744931345733976e-05
+        },
+        "5.0": {
+          "logit_difference": 2.663684844970703,
+          "humor_prob": 1.4244269882295075e-05
+        },
+        "10.0": {
+          "logit_difference": 2.8229475021362305,
+          "humor_prob": 1.5162252272319941e-05
+        },
+        "15.0": {
+          "logit_difference": 2.9896841049194336,
+          "humor_prob": 1.6228650963823987e-05
+        }
+      },
+      "projections": {
+        "-15.0": -35.90733337402344,
+        "-10.0": -30.907333374023438,
+        "-5.0": -25.907333374023438,
+        "-2.0": -22.907333374023438,
+        "0.0": -20.907333374023438,
+        "2.0": -18.907333374023438,
+        "5.0": -15.907331466674805,
+        "10.0": -10.907333374023438,
+        "15.0": -5.9073333740234375
+      }
+    },
+    {
+      "prompt": "The primary objective of this project is to",
+      "generations": {
+        "-15.0": "<bos>The primary objective of this project is to design and develop a multi-axis mechatronic system for handling and loading/unloading of a 3D printed part. The system design includes",
+        "-10.0": "<bos>The primary objective of this project is to develop, enhance, and validate a novel method for the characterization of the spatial and temporal distribution of active and inactive bacterial communities in the natural environment,",
+        "-5.0": "<bos>The primary objective of this project is to study the organization, function, development and evolution of the small intestinal epithelium. To this end, the project is divided in three specific objectives: i)",
+        "-2.0": "<bos>The primary objective of this project is to determine the effect of the presence of a single 2-year old male on the success of a female in the production of offspring. The project will",
+        "0.0": "<bos>The primary objective of this project is to develop a comprehensive and quantitative understanding of the role of human activity and ecosystem processes in the global nitrogen cycle. The project brings together scientists from the University of",
+        "2.0": "<bos>The primary objective of this project is to provide the infrastructure to support the development of the next generation of high performance simulation tools for the study of the chemical and physical processes that occur in the atmosphere",
+        "5.0": "<bos>The primary objective of this project is to assess the impact of the 2008 financial crisis on bank lending and growth, and whether these effects have been sustained in the post-2",
+        "10.0": "<bos>The primary objective of this project is to investigate the effect of a novel formulation of the neurotransmitter serotonin (5-HT) on the visual processing of stimuli in humans. The project will create",
+        "15.0": "<bos>The primary objective of this project is to conduct the operational and technical assessment of the proposed 600KWp solar project. The project will be built on a single rooftop and will provide"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 11.857975959777832,
+          "humor_prob": 6.25180861544985e-05
+        },
+        "-10.0": {
+          "logit_difference": 12.08746337890625,
+          "humor_prob": 7.161181466795396e-05
+        },
+        "-5.0": {
+          "logit_difference": 12.317642211914062,
+          "humor_prob": 8.197847849793487e-05
+        },
+        "-2.0": {
+          "logit_difference": 12.45621395111084,
+          "humor_prob": 8.887357464646526e-05
+        },
+        "0.0": {
+          "logit_difference": 12.548836708068848,
+          "humor_prob": 9.377507398032954e-05
+        },
+        "2.0": {
+          "logit_difference": 12.641633033752441,
+          "humor_prob": 9.893047989414512e-05
+        },
+        "5.0": {
+          "logit_difference": 12.781251907348633,
+          "humor_prob": 0.00010716959026612769
+        },
+        "10.0": {
+          "logit_difference": 13.014802932739258,
+          "humor_prob": 0.00012232080086184877
+        },
+        "15.0": {
+          "logit_difference": 13.249130249023438,
+          "humor_prob": 0.00013938414201738428
+        }
+      },
+      "projections": {
+        "-15.0": -35.66564178466797,
+        "-10.0": -30.6656436920166,
+        "-5.0": -25.6656436920166,
+        "-2.0": -22.665639877319336,
+        "0.0": -20.665639877319336,
+        "2.0": -18.665639877319336,
+        "5.0": -15.665641784667969,
+        "10.0": -10.665640830993652,
+        "15.0": -5.665639877319336
+      }
+    },
+    {
+      "prompt": "The committee has determined that",
+      "generations": {
+        "-15.0": "<bos>The committee has determined that a comprehensive plan to improve the resilience and sustainability of the Kingdom's road network was important, and that an independent expert needed to be appointed to prepare",
+        "-10.0": "<bos>The committee has determined that this is a closed meeting with no media in attendance.\n\n\n<strong>Purpose:</strong>\n\n1. To review legal strategy for the pending lawsuit.\n\n2",
+        "-5.0": "<bos>The committee has determined that the proposed action is not a major action significantly affecting the human environment.\n\nSummary: The proposed action is to authorize the Secretary of Transportation (Secretary)",
+        "-2.0": "<bos>The committee has determined that the proposed project is not a major Federal action. Therefore, an environmental assessment (EA) is not required. This finding is based on an evaluation of",
+        "0.0": "<bos>The committee has determined that it is in the best interest to change the meeting format from a committee meeting to a committee and public hearing.  The public hearing will be held in",
+        "2.0": "<bos>The committee has determined that the <strong><em>2019 Annual Meeting and Luncheon</em></strong> will be held on Wednesday, June 19<sup>th</sup>, 2",
+        "5.0": "<bos>The committee has determined that the best way to accomplish the objectives of this bill is to repeal the existing law, the \"State and Local Tax Deduction Act of 20",
+        "10.0": "<bos>The committee has determined that the proposed rule does not have the effect of law or regulation that would trigger the Office of Management and Budget\u2019s (OMB) review of federal executive",
+        "15.0": "<bos>The committee has determined that, for the reasons stated in the order, the proposed procurement is exempt from the requirements of Chapter 30 of Title 10 of the Delaware"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 5.304325103759766,
+          "humor_prob": 0.0001175096324274894
+        },
+        "-10.0": {
+          "logit_difference": 5.45026969909668,
+          "humor_prob": 0.0001255114850948821
+        },
+        "-5.0": {
+          "logit_difference": 5.595738410949707,
+          "humor_prob": 0.00013391153719071307
+        },
+        "-2.0": {
+          "logit_difference": 5.682553291320801,
+          "humor_prob": 0.00013913101313613963
+        },
+        "0.0": {
+          "logit_difference": 5.7401323318481445,
+          "humor_prob": 0.00014267811148287296
+        },
+        "2.0": {
+          "logit_difference": 5.797398567199707,
+          "humor_prob": 0.0001462754606349755
+        },
+        "5.0": {
+          "logit_difference": 5.882525444030762,
+          "humor_prob": 0.00015175105779451274
+        },
+        "10.0": {
+          "logit_difference": 6.021239280700684,
+          "humor_prob": 0.00016100432001283849
+        },
+        "15.0": {
+          "logit_difference": 6.153130531311035,
+          "humor_prob": 0.00017018245837278816
+        }
+      },
+      "projections": {
+        "-15.0": -32.16679000854492,
+        "-10.0": -27.16678810119629,
+        "-5.0": -22.16678810119629,
+        "-2.0": -19.16678810119629,
+        "0.0": -17.16678810119629,
+        "2.0": -15.166789054870605,
+        "5.0": -12.166789054870605,
+        "10.0": -7.1667890548706055,
+        "15.0": -2.1667892932891846
+      }
+    },
+    {
+      "prompt": "Recent developments in the field indicate",
+      "generations": {
+        "-15.0": "<bos>Recent developments in the field indicate that a new class of small organic molecules can directly photoactivate phospholipid bilayers at room temperature. This observation has been coupled to a new understanding of",
+        "-10.0": "<bos>Recent developments in the field indicate that the cell-cell communication through the extracellular matrix (ECM) has become an important mechanism in the regulation of cell behavior. We have shown that the",
+        "-5.0": "<bos>Recent developments in the field indicate that the concept of the \u201cinformation age\u201d is maturing into a more comprehensive and complex concept. The notion of the \u201cinformation society\u201d is being discussed",
+        "-2.0": "<bos>Recent developments in the field indicate that in many cases the primary treatment of a patient with a cancer of the esophagus is by chemotherapy alone, and that the role of surgery may be to",
+        "0.0": "<bos>Recent developments in the field indicate that it is possible to generate a large number of high-quality, high-contrast, highly stable, and cost-effective graphene quantum dots (GQ",
+        "2.0": "<bos>Recent developments in the field indicate that the most important challenge in the field of polymer-based electronics is the development of polymer materials with improved electrical conductivity, mechanical properties, processability,",
+        "5.0": "<bos>Recent developments in the field indicate that the use of the term \"social media\" is insufficient, as social media is too broad and many platforms are not fit to be used for social",
+        "10.0": "<bos>Recent developments in the field indicate that the use of magnetic resonance imaging (MRI) in both animal and human studies and clinical practices is expanding rapidly, and the field will continue to advance",
+        "15.0": "<bos>Recent developments in the field indicate that it is possible to detect single photons at the single-photon level using nanostructured photonic crystals. The ability to detect single photons at the"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 2.517974853515625,
+          "humor_prob": 1.7505636014753412e-05
+        },
+        "-10.0": {
+          "logit_difference": 2.6731977462768555,
+          "humor_prob": 1.825933115499582e-05
+        },
+        "-5.0": {
+          "logit_difference": 2.8291015625,
+          "humor_prob": 1.9054559964481943e-05
+        },
+        "-2.0": {
+          "logit_difference": 2.922745704650879,
+          "humor_prob": 1.9551757584856372e-05
+        },
+        "0.0": {
+          "logit_difference": 2.985123634338379,
+          "humor_prob": 1.9891895439743868e-05
+        },
+        "2.0": {
+          "logit_difference": 3.047421455383301,
+          "humor_prob": 2.0238954248454748e-05
+        },
+        "5.0": {
+          "logit_difference": 3.1406097412109375,
+          "humor_prob": 2.0772583035771006e-05
+        },
+        "10.0": {
+          "logit_difference": 3.2948923110961914,
+          "humor_prob": 2.16989863524843e-05
+        },
+        "15.0": {
+          "logit_difference": 3.447206497192383,
+          "humor_prob": 2.267559104021795e-05
+        }
+      },
+      "projections": {
+        "-15.0": -34.130523681640625,
+        "-10.0": -29.130523681640625,
+        "-5.0": -24.130523681640625,
+        "-2.0": -21.130523681640625,
+        "0.0": -19.130521774291992,
+        "2.0": -17.130525588989258,
+        "5.0": -14.130521774291992,
+        "10.0": -9.130525588989258,
+        "15.0": -4.130524635314941
+      }
+    },
+    {
+      "prompt": "The data clearly demonstrates that",
+      "generations": {
+        "-15.0": "<bos>The data clearly demonstrates that we are not a country with high levels of obesity or unhealthy food intake. We are not a nation of junk food eaters.\n\nIt is interesting to",
+        "-10.0": "<bos>The data clearly demonstrates that the 50 to 69 age group is the fastest growing demographic of the population. This growth is due to an aging population, as well",
+        "-5.0": "<bos>The data clearly demonstrates that the number of people using long-term care services and supports in Arizona has grown significantly in recent decades, according to a 2018 report",
+        "-2.0": "<bos>The data clearly demonstrates that the current generation of young drivers is more likely to be involved in a serious accident than the previous generation.\n\nThe report, based on a survey of",
+        "0.0": "<bos>The data clearly demonstrates that the majority of the respondents do not believe that their current system is adequately supporting their clinical needs. The majority of respondents were not satisfied with the current solution",
+        "2.0": "<bos>The data clearly demonstrates that the current system of government, based on the Constitution of 1947, has failed.\n\nThe report cites, as evidence of this failure",
+        "5.0": "<bos>The data clearly demonstrates that the UK is in the process of becoming a net exporter of energy, which is a much-needed boost to our economy and our energy security.\n\n",
+        "10.0": "<bos>The data clearly demonstrates that the number of children who are able to read and write in their first language by the end of primary school is falling. For example, among white pupils",
+        "15.0": "<bos>The data clearly demonstrates that it is not just the rich who are benefiting from the globalisation of goods and services.\n\nWe all have been better off, but the growth rate"
+      },
+      "logit_diffs": {
+        "-15.0": {
+          "logit_difference": 5.094134330749512,
+          "humor_prob": 1.2050072788783476e-05
+        },
+        "-10.0": {
+          "logit_difference": 5.297039031982422,
+          "humor_prob": 1.3638578745518818e-05
+        },
+        "-5.0": {
+          "logit_difference": 5.505672454833984,
+          "humor_prob": 1.5473027658461e-05
+        },
+        "-2.0": {
+          "logit_difference": 5.633867263793945,
+          "humor_prob": 1.6707722653193533e-05
+        },
+        "0.0": {
+          "logit_difference": 5.72067928314209,
+          "humor_prob": 1.7592244502365593e-05
+        },
+        "2.0": {
+          "logit_difference": 5.8086137771606445,
+          "humor_prob": 1.8529159193698966e-05
+        },
+        "5.0": {
+          "logit_difference": 5.942717552185059,
+          "humor_prob": 2.0038696183986643e-05
+        },
+        "10.0": {
+          "logit_difference": 6.172425270080566,
+          "humor_prob": 2.285821145078434e-05
+        },
+        "15.0": {
+          "logit_difference": 6.410248756408691,
+          "humor_prob": 2.6095985771775857e-05
+        }
+      },
+      "projections": {
+        "-15.0": -32.605743408203125,
+        "-10.0": -27.605743408203125,
+        "-5.0": -22.605745315551758,
+        "-2.0": -19.605745315551758,
+        "0.0": -17.605745315551758,
+        "2.0": -15.605743408203125,
+        "5.0": -12.605748176574707,
+        "10.0": -7.605744361877441,
+        "15.0": -2.605743885040283
       }
     }
   ],
   "alphas": [
+    -15.0,
     -10.0,
     -5.0,
     -2.0,
     0.0,
     2.0,
     5.0,
-    10.0
+    10.0,
+    15.0
   ],
   "ablation_results": [
     {
       "prompt": "Why did the chicken cross the road?",
-      "original_generation": "<bos>Why did the chicken cross the road?\n\nWell, the road may have been thin with lots of dangerous looking traffic from all directions.\n\nMaybe you\u2019re the one it\u2019s crossing",
-      "ablated_generation": "<bos>Why did the chicken cross the road? So it could get some spinach leaves! This is the latest trick that people are sharing to make theirs chicken roasters out of eggs! Here\u2019s",
+      "original_generation": "<bos>Why did the chicken cross the road?\n\nThe <strong>Chicken</strong> gets stuck in a group of people in the middle of the road.\n\n\"<strong>The chicken is stuck.\"</strong> the",
+      "ablated_generation": "<bos>Why did the chicken cross the road? To get from one side of the map to the other, of course. With the launch of <em>Pokemon Let's Go Eevee/Pikachu",
       "original_logits": {
-        "humor_logit": 3.0126256942749023,
-        "serious_logit": -4.398468971252441,
-        "logit_difference": 7.411094665527344
+        "logit_difference": -0.9736776351928711,
+        "humor_prob": 3.7799516305441536e-07
       },
       "ablated_logits": {
-        "humor_logit": 3.0126256942749023,
-        "serious_logit": -4.398468971252441,
-        "logit_difference": 7.411094665527344
+        "logit_difference": -0.9736776351928711,
+        "humor_prob": 3.7799516305441536e-07
       }
     },
     {
       "prompt": "What do you call a fish without eyes?",
-      "original_generation": "<bos>What do you call a fish without eyes? Dork.\n\nWe were eating in the restaurant bar area of the Ho Ho Hostel in Berlin, and the waitress never looked anything up. I should",
-      "ablated_generation": "<bos>What do you call a fish without eyes? <b>Blink</b>.</b>\n\n<b>Why is a bear so smart?</b> \u201c<b>Bear</b>\u201d intelligence is intelligence plus <b>smart</b>.",
+      "original_generation": "<bos>What do you call a fish without eyes? Nothing. That's right, a fish without eyes is still a fish.  I was just reading a blog written by a dear, dear relative",
+      "ablated_generation": "<bos>What do you call a fish without eyes?\n\nWhat do you call a two headed pig with no tail?\n\nWhy did the cow stick his head in the toilet?\n\nShe always pours me",
       "original_logits": {
-        "humor_logit": 6.97648811340332,
-        "serious_logit": 3.057145595550537,
-        "logit_difference": 3.919342517852783
+        "logit_difference": 0.6606273651123047,
+        "humor_prob": 3.5001389123943454e-06
       },
       "ablated_logits": {
-        "humor_logit": 6.97648811340332,
-        "serious_logit": 3.057145595550537,
-        "logit_difference": 3.919342517852783
-      }
-    },
-    {
-      "prompt": "I told my friend a joke about",
-      "original_generation": "<bos>I told my friend a joke about the new \u201cPower Rangers Movie\u201d and the reaction was\u2026 let me give you an idea of how it went\n\n\u201cOMG! How would this be",
-      "ablated_generation": "<bos>I told my friend a joke about a woman trying to figure out whether some guy likes her or not, but it turns out she thinks she figured it out because she is a lesbian LOL",
-      "original_logits": {
-        "humor_logit": 3.491588592529297,
-        "serious_logit": -8.207963943481445,
-        "logit_difference": 11.699552536010742
-      },
-      "ablated_logits": {
-        "humor_logit": 3.491588592529297,
-        "serious_logit": -8.207963943481445,
-        "logit_difference": 11.699552536010742
+        "logit_difference": 0.6606273651123047,
+        "humor_prob": 3.5001389123943454e-06
       }
     },
     {
       "prompt": "Knock knock, who's there?",
-      "original_generation": "<bos>Knock knock, who's there? Your SEO services in the UK. With our help, you can be sure your future is not at stake any further. Simply put you will make the",
-      "ablated_generation": "<bos>Knock knock, who's there?\nIt's me!\n\n\"H....how did you know!?\"\n\nKnock knock, who's there?\n\n\"Why the hell are",
+      "original_generation": "<bos>Knock knock, who's there? The answer, it's the White House! The man himself, Donald Trump is expected to have dinner with the President of Brazil at the famous Car",
+      "ablated_generation": "<bos>Knock knock, who's there? \n\nWe\u2019re hiring for a few roles at O&M. If you\u2019re an agency veteran with experience who\u2019s interested in joining",
       "original_logits": {
-        "humor_logit": 7.062248229980469,
-        "serious_logit": -4.048492908477783,
-        "logit_difference": 11.110741138458252
+        "logit_difference": 2.411007881164551,
+        "humor_prob": 3.625138863055992e-07
       },
       "ablated_logits": {
-        "humor_logit": 7.062248229980469,
-        "serious_logit": -4.048492908477783,
-        "logit_difference": 11.110741138458252
+        "logit_difference": 2.411007881164551,
+        "humor_prob": 3.625138863055992e-07
+      }
+    },
+    {
+      "prompt": "A man walked into a bar and",
+      "original_generation": "<bos>A man walked into a bar and asked every person in the room why they were there.\n\n1) The bartender felt safer behind the bar.\n2) The waitress was in it",
+      "ablated_generation": "<bos>A man walked into a bar and sat himself at the end of the bar with four other customers. He got a bottle of beer and sat back. The first customer told him he couldn",
+      "original_logits": {
+        "logit_difference": 3.956319808959961,
+        "humor_prob": 2.543527866887441e-07
+      },
+      "ablated_logits": {
+        "logit_difference": 3.956319808959961,
+        "humor_prob": 2.543527866887441e-07
+      }
+    },
+    {
+      "prompt": "A priest, a rabbi, and an imam walk into",
+      "original_generation": "<bos>A priest, a rabbi, and an imam walk into a room...\nA newly released report shows how faith leaders from around the world are working together to help combat hatred, religious intolerance, and extremism.",
+      "ablated_generation": "<bos>A priest, a rabbi, and an imam walk into a bar\u00e2\u20ac\u00a6.\n\nWe're on our way to church, the temple and the mosque today people. And the bar is a little place",
+      "original_logits": {
+        "logit_difference": 5.163643836975098,
+        "humor_prob": 1.9218515960175266e-07
+      },
+      "ablated_logits": {
+        "logit_difference": 5.163643836975098,
+        "humor_prob": 1.9218515960175266e-07
+      }
+    },
+    {
+      "prompt": "Tell me something funny about",
+      "original_generation": "<bos>Tell me something funny about the Great Recession:\n\n1. Wasted, pilfered or misplaced in various government-run funds \u2013 including the Troubled Asset Relief Program \u2013",
+      "ablated_generation": "<bos>Tell me something funny about yourself\n\nFunny about I am?\n\nI'm a good son, a friend, a classmate...\n\n... I dislike watching horror movies because I",
+      "original_logits": {
+        "logit_difference": 4.515890121459961,
+        "humor_prob": 7.856424125916981e-06
+      },
+      "ablated_logits": {
+        "logit_difference": 4.515890121459961,
+        "humor_prob": 7.856424125916981e-06
+      }
+    },
+    {
+      "prompt": "So a penguin walks into a",
+      "original_generation": "<bos>So a penguin walks into a bar. (Well, almost. Just skip a few years). The penguin just stands there, shivering in the cold, before finally saying, \u2018Let",
+      "ablated_generation": "<bos>So a penguin walks into a saloon ...\n\n[User 0001]\n\nThis was an event I think you must know is about to happen by now.\n\n ",
+      "original_logits": {
+        "logit_difference": 6.523576736450195,
+        "humor_prob": 1.4509609751129433e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 6.523576736450195,
+        "humor_prob": 1.4509609751129433e-05
       }
     },
     {
       "prompt": "The weather today is",
-      "original_generation": "<bos>The weather today is very warm, the sky is blue, and there are fewer people on the street. Today I went to the farmer's market near my home,",
-      "ablated_generation": "<bos>The weather today is like an \"ice and snow double harvest\".\n\nThe temperature fell by a few degrees yesterday, and this morning it was the kind of weather where (",
+      "original_generation": "<bos>The weather today is a perfect 92 and cloudy. I read my book, \"The Road Less Traveled\" and did some crocheting. I'm working",
+      "ablated_generation": "<bos>The weather today is a perfect mix of rain, sun, and snow, however that doesn\u2019t mean that Santa Claus and Elsa will stop by! We can hardly wait",
       "original_logits": {
-        "humor_logit": -5.550884246826172,
-        "serious_logit": -8.278338432312012,
-        "logit_difference": 2.72745418548584
+        "logit_difference": 6.182709693908691,
+        "humor_prob": 0.0001819507622494673
       },
       "ablated_logits": {
-        "humor_logit": -5.550884246826172,
-        "serious_logit": -8.278338432312012,
-        "logit_difference": 2.72745418548584
+        "logit_difference": 6.182709693908691,
+        "humor_prob": 0.0001819507622494673
+      }
+    },
+    {
+      "prompt": "I went to the store and bought",
+      "original_generation": "<bos>I went to the store and bought them. I bought 200 pcs in total and stuffed them in a metal case.\n\nNow I need to create a game. I need",
+      "ablated_generation": "<bos>I went to the store and bought 2 S'mores at the Hot Dog/S'more Stand. Even if they are a little pricey they are worth the taste, but i",
+      "original_logits": {
+        "logit_difference": 7.206460952758789,
+        "humor_prob": 5.896219121812263e-07
+      },
+      "ablated_logits": {
+        "logit_difference": 7.206460952758789,
+        "humor_prob": 5.896219121812263e-07
+      }
+    },
+    {
+      "prompt": "My favorite food is",
+      "original_generation": "<bos>My favorite food is pizza. Have you ever wanted to make your own in-game? Here's a simple tutorial to help you get started.\n\nBut first,",
+      "ablated_generation": "<bos>My favorite food is a bowl of delicious, hearty pho, which I\u2019ve been known to eat twice daily. But, here in the U.S., eating pho",
+      "original_logits": {
+        "logit_difference": 6.554411888122559,
+        "humor_prob": 2.2738238920169278e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 6.554411888122559,
+        "humor_prob": 2.2738238920169278e-05
+      }
+    },
+    {
+      "prompt": "She opened the door and saw",
+      "original_generation": "<bos>She opened the door and saw <strong>Shahid</strong>'s body in <strong>white</strong> dress.\n\nShe rolled her eyes and gave a <em>'slap on the",
+      "ablated_generation": "<bos>She opened the door and saw me, and hugged me, and said, \"I love you, too, so much, always remember this.\" \n\n I explained how I didn",
+      "original_logits": {
+        "logit_difference": 5.824530601501465,
+        "humor_prob": 4.600701011602205e-06
+      },
+      "ablated_logits": {
+        "logit_difference": 5.824530601501465,
+        "humor_prob": 4.600701011602205e-06
+      }
+    },
+    {
+      "prompt": "The dog ran across the",
+      "original_generation": "<bos>The dog ran across the road, in front of a vehicle travelling at about 42 mph, said Sgt. Josh Buuck.\n\n\u201cThe dog died instantly,\u201d Bu",
+      "ablated_generation": "<bos>The dog ran across the field on 79 Highway, near the intersection at Cedar Lake Drive, about 7:25 p.m. Wednesday.\n\nThe owner",
+      "original_logits": {
+        "logit_difference": -1.4678688049316406,
+        "humor_prob": 2.3762998004044164e-07
+      },
+      "ablated_logits": {
+        "logit_difference": -1.4678688049316406,
+        "humor_prob": 2.3762998004044164e-07
+      }
+    },
+    {
+      "prompt": "Last weekend I decided to",
+      "original_generation": "<bos>Last weekend I decided to escape the city. I have an uncle in the south and it is a great excuse to get out of the heat of NYC while hitting the road.",
+      "ablated_generation": "<bos>Last weekend I decided to get a big batch of muffins going to keep the kiddos and hungry husband in muffins. My favourite thing to bake healthy is muffins because they are easy",
+      "original_logits": {
+        "logit_difference": 8.631318092346191,
+        "humor_prob": 1.9722135796274274e-07
+      },
+      "ablated_logits": {
+        "logit_difference": 8.631318092346191,
+        "humor_prob": 1.9722135796274274e-07
+      }
+    },
+    {
+      "prompt": "When I was a kid, I used to",
+      "original_generation": "<bos>When I was a kid, I used to have a constant stream of imaginary friends. The most persistent was this kid named Michael. He always, without exception, brought something with him when he came",
+      "ablated_generation": "<bos>When I was a kid, I used to play a game where my family would collect some toys at random and then they would be packed away in a cardboard box to play later. I would find",
+      "original_logits": {
+        "logit_difference": 9.20068359375,
+        "humor_prob": 2.502523251915964e-07
+      },
+      "ablated_logits": {
+        "logit_difference": 9.20068359375,
+        "humor_prob": 2.502523251915964e-07
+      }
+    },
+    {
+      "prompt": "The quarterly earnings report shows that",
+      "original_generation": "<bos>The quarterly earnings report shows that F1 Team Toro Rosso (STR), operated by Red Bull\u2019s young driver program headed by Dr. Helmut Marko, experienced a turnaround in 2",
+      "ablated_generation": "<bos>The quarterly earnings report shows that <strong>the top ten airlines were down</strong> in passenger numbers, but <strong>down less than the year prior</strong>. During this same time in ",
+      "original_logits": {
+        "logit_difference": 5.4695539474487305,
+        "humor_prob": 1.2441763583212148e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 5.4695539474487305,
+        "humor_prob": 1.2441763583212148e-05
+      }
+    },
+    {
+      "prompt": "According to the latest research,",
+      "original_generation": "<bos>According to the latest research, the number of young British people who plan to migrate to other parts of the world because of the Covid-19 situation in the coming months has been",
+      "ablated_generation": "<bos>According to the latest research, Apple's air wand is an evolution of the wiped head design concept first proposed by 3D Robotics in 2014.\n\nIn",
+      "original_logits": {
+        "logit_difference": 4.825538635253906,
+        "humor_prob": 4.425434172946321e-06
+      },
+      "ablated_logits": {
+        "logit_difference": 4.825538635253906,
+        "humor_prob": 4.425434172946321e-06
+      }
+    },
+    {
+      "prompt": "In conclusion, the evidence suggests",
+      "original_generation": "<bos>In conclusion, the evidence suggests that men and women may differ in their use of sleep mechanisms and associated physiological states during sleep. While there is little data available about the mechanisms of sleep",
+      "ablated_generation": "<bos>In conclusion, the evidence suggests that a combination of therapies can address many of the major functional limitations and clinical complications of PD, and they have been shown to be effective in significantly improving",
+      "original_logits": {
+        "logit_difference": 2.510037422180176,
+        "humor_prob": 1.3429501335323696e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 2.510037422180176,
+        "humor_prob": 1.3429501335323696e-05
+      }
+    },
+    {
+      "prompt": "The primary objective of this project is to",
+      "original_generation": "<bos>The primary objective of this project is to contribute to the sustainable development of Costa Rica by implementing a climate mitigation scenario that integrates socio-economic conditions and environmental-limits policies. This will allow for",
+      "ablated_generation": "<bos>The primary objective of this project is to:\n(i) Create the framework in which data on policies and implementation of gender training and development issues and on policies and activities setting the priorities of",
+      "original_logits": {
+        "logit_difference": 12.548836708068848,
+        "humor_prob": 9.377507398032954e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 12.548836708068848,
+        "humor_prob": 9.377507398032954e-05
+      }
+    },
+    {
+      "prompt": "The committee has determined that",
+      "original_generation": "<bos>The committee has determined that we will resume the award process and consider applications from eligible current and former residents and students of the District. We also ask that you notify us if you",
+      "ablated_generation": "<bos>The committee has determined that many of our county\u2019s 13,000 households with children under age 5 have internet-related challenges and needs. To combat",
+      "original_logits": {
+        "logit_difference": 5.7401323318481445,
+        "humor_prob": 0.00014267811148287296
+      },
+      "ablated_logits": {
+        "logit_difference": 5.7401323318481445,
+        "humor_prob": 0.00014267811148287296
+      }
+    },
+    {
+      "prompt": "Recent developments in the field indicate",
+      "original_generation": "<bos>Recent developments in the field indicate that it is possible to observe the effect of time- and self-consistent electronic self-energy corrections to the momentum distribution. Several implementations in real space",
+      "ablated_generation": "<bos>Recent developments in the field indicate that many of the proteins involved in biology are associated with membranes, which has stimulated the development of methods for the study of membrane protein formation and function.",
+      "original_logits": {
+        "logit_difference": 2.985123634338379,
+        "humor_prob": 1.9891895439743868e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 2.985123634338379,
+        "humor_prob": 1.9891895439743868e-05
+      }
+    },
+    {
+      "prompt": "The data clearly demonstrates that",
+      "original_generation": "<bos>The data clearly demonstrates that the UK\u2019s position as a \u2018global science leader\u2019 is in severe jeopardy. A decade of stagnation in the international assessment of our science, and",
+      "ablated_generation": "<bos>The data clearly demonstrates that the cause of death was caused by the <em>\u201cexcessive heat at altitude.\u201d</em>\n\nThe other note was signed by Lt. Col. F",
+      "original_logits": {
+        "logit_difference": 5.72067928314209,
+        "humor_prob": 1.7592244502365593e-05
+      },
+      "ablated_logits": {
+        "logit_difference": 5.72067928314209,
+        "humor_prob": 1.7592244502365593e-05
       }
     }
   ],

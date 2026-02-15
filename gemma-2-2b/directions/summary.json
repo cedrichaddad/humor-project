@@ -2,131 +2,157 @@
   "0": {
     "accuracy": 0.8960396039603961,
     "separation": 17.797590519719833,
-    "flipped": true
+    "mean_humor_proj": 6.601028403908075,
+    "mean_serious_proj": -11.196562115811759
   },
   "1": {
     "accuracy": 0.9108910891089109,
     "separation": 20.1717930942134,
-    "flipped": true
+    "mean_humor_proj": 7.635743621348954,
+    "mean_serious_proj": -12.536049472864446
   },
   "2": {
     "accuracy": 0.905940594059406,
     "separation": 20.532512120513296,
-    "flipped": true
+    "mean_humor_proj": 8.262773061136619,
+    "mean_serious_proj": -12.269739059376676
   },
   "3": {
     "accuracy": 0.9108910891089109,
     "separation": 20.996568543316595,
-    "flipped": true
+    "mean_humor_proj": 9.00319805236921,
+    "mean_serious_proj": -11.993370490947385
   },
   "4": {
     "accuracy": 0.9356435643564357,
     "separation": 20.387974121627302,
-    "flipped": true
+    "mean_humor_proj": 9.25675043802425,
+    "mean_serious_proj": -11.131223683603054
   },
   "5": {
     "accuracy": 0.9455445544554455,
     "separation": 22.189523021618555,
-    "flipped": true
+    "mean_humor_proj": 10.569287566165215,
+    "mean_serious_proj": -11.620235455453338
   },
   "6": {
     "accuracy": 0.9306930693069307,
     "separation": 22.54457836501325,
-    "flipped": true
+    "mean_humor_proj": 10.036501046859366,
+    "mean_serious_proj": -12.508077318153884
   },
   "7": {
     "accuracy": 0.9554455445544554,
     "separation": 24.359266675852467,
-    "flipped": true
+    "mean_humor_proj": 10.835063911748984,
+    "mean_serious_proj": -13.524202764103485
   },
   "8": {
     "accuracy": 0.9653465346534653,
     "separation": 26.31901171558294,
-    "flipped": true
+    "mean_humor_proj": 11.616119253053672,
+    "mean_serious_proj": -14.702892462529267
   },
   "9": {
     "accuracy": 0.9653465346534653,
     "separation": 24.77774413262184,
-    "flipped": true
+    "mean_humor_proj": 10.776484672729405,
+    "mean_serious_proj": -14.001259459892436
   },
   "10": {
     "accuracy": 0.9752475247524752,
     "separation": 26.912098670245804,
-    "flipped": true
+    "mean_humor_proj": 11.351770700057529,
+    "mean_serious_proj": -15.560327970188276
   },
   "11": {
     "accuracy": 0.9702970297029703,
     "separation": 27.289817004037516,
-    "flipped": true
+    "mean_humor_proj": 12.29710092695435,
+    "mean_serious_proj": -14.992716077083168
   },
   "12": {
     "accuracy": 0.9801980198019802,
     "separation": 28.411187417798494,
-    "flipped": true
+    "mean_humor_proj": 12.40845770996255,
+    "mean_serious_proj": -16.002729707835947
   },
   "13": {
     "accuracy": 0.9851485148514851,
     "separation": 31.375432240623994,
-    "flipped": true
+    "mean_humor_proj": 14.49734978559734,
+    "mean_serious_proj": -16.878082455026654
   },
   "14": {
     "accuracy": 0.9801980198019802,
     "separation": 29.536029054070507,
-    "flipped": true
+    "mean_humor_proj": 13.535037744335224,
+    "mean_serious_proj": -16.000991309735284
   },
   "15": {
     "accuracy": 0.9900990099009901,
     "separation": 33.03402304627248,
-    "flipped": true
+    "mean_humor_proj": 14.890465018726044,
+    "mean_serious_proj": -18.14355802754644
   },
   "16": {
     "accuracy": 0.9900990099009901,
     "separation": 32.69926433506302,
-    "flipped": true
+    "mean_humor_proj": 14.753470499059196,
+    "mean_serious_proj": -17.945793836003826
   },
   "17": {
     "accuracy": 0.9702970297029703,
     "separation": 33.811594615421576,
-    "flipped": true
+    "mean_humor_proj": 15.341650629986598,
+    "mean_serious_proj": -18.46994398543498
   },
   "18": {
     "accuracy": 0.9653465346534653,
     "separation": 38.02675369355707,
-    "flipped": true
+    "mean_humor_proj": 16.85460944910088,
+    "mean_serious_proj": -21.172144244456184
   },
   "19": {
     "accuracy": 0.9702970297029703,
     "separation": 38.53607183215516,
-    "flipped": true
+    "mean_humor_proj": 17.191921078932648,
+    "mean_serious_proj": -21.344150753222515
   },
   "20": {
     "accuracy": 0.9752475247524752,
     "separation": 41.421600585711985,
-    "flipped": true
+    "mean_humor_proj": 18.58380918053347,
+    "mean_serious_proj": -22.837791405178514
   },
   "21": {
     "accuracy": 0.9801980198019802,
     "separation": 41.05592245101296,
-    "flipped": true
+    "mean_humor_proj": 19.66718958674841,
+    "mean_serious_proj": -21.388732864264547
   },
   "22": {
     "accuracy": 0.9801980198019802,
     "separation": 48.301080057101494,
-    "flipped": true
+    "mean_humor_proj": 22.79808025278226,
+    "mean_serious_proj": -25.502999804319234
   },
   "23": {
     "accuracy": 0.9801980198019802,
     "separation": 52.96166746369282,
-    "flipped": true
+    "mean_humor_proj": 25.189545277123102,
+    "mean_serious_proj": -27.77212218656972
   },
   "24": {
     "accuracy": 0.9801980198019802,
     "separation": 55.20539119672432,
-    "flipped": true
+    "mean_humor_proj": 27.143376348611955,
+    "mean_serious_proj": -28.06201484811237
   },
   "25": {
     "accuracy": 0.9752475247524752,
     "separation": 51.93261524677787,
-    "flipped": true
+    "mean_humor_proj": 27.29476467259468,
+    "mean_serious_proj": -24.63785057418319
   }
 }
