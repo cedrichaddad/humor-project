@@ -103,18 +103,20 @@ def run_experiment(model_name: str = "gemma-2-2b"):
     
     # Step 1: Probing + Rank Analysis (includes Dataset A & B)
     print("\n[1/2] Running experiment (probing + Dataset A/B comparison)...")
-    print("      This will take ~2-2.5 hours")
     exp_results = exp(model_name=model_name)
-    
+
+    # COMMIT VOLUME HERE to ensure directions are visible
+    print("\nCommitting experiment results to volume...")
+    results_vol.commit()
+
     # Step 2: Interventions
     print("\n[2/2] Running interventions (steering + ablation)...")
-    print("      This will take ~45-60 minutes")
     int_results = run_interventions(model_name=model_name)
-    
-    # Commit results to volume
-    print("\nCommitting results to volume...")
+
+    # Commit final results
+    print("\nCommitting intervention results to volume...")
     results_vol.commit()
-    hf_cache_vol.commit()
+    hf_cache_vol.commit() 
     
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds() / 60
