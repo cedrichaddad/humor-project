@@ -14,18 +14,15 @@ import sys
 import json
 import warnings
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 import torch
 from tqdm import tqdm
 from transformer_lens import HookedTransformer
+from sklearn.metrics import accuracy_score
 
 from experiment import (
-    HumorIntervention,
-    compute_logit_difference,
-    compute_activation_projection,
-    evaluate_ablation_impact,
     train_linear_probe,
     extract_activations,
     load_model,
@@ -36,6 +33,346 @@ from experiment import (
 )
 
 warnings.filterwarnings('ignore')
+
+# =============================================================================
+# Intervention Tools (moved from experiment.py)
+# =============================================================================
+
+class HumorIntervention:
+    """
+    Class for intervening on model activations during generation.
+    
+    Two main operations:
+    1. Steering: Add α * humor_direction to activations (push toward/away from humor)
+    2. Ablation: Remove humor_direction component from activations
+    
+    These interventions happen DURING the forward pass at a specific layer.
+    """
+    def __init__(self, model: HookedTransformer, humor_direction: torch.Tensor, layer: int = 7):
+        """
+        Initialize intervention for a specific layer.
+        
+        Args:
+            model: The language model
+            humor_direction: The direction vector (from probe weights)
+            layer: Which layer to intervene at
+        """
+        self.model = model
+        self.layer = layer
+        self.device = next(model.parameters()).device
+        
+        # Convert to tensor if needed and normalize
+        if isinstance(humor_direction, np.ndarray):
+            humor_direction = torch.from_numpy(humor_direction)
+        self.humor_direction = humor_direction.float().to(self.device)
+        self.humor_direction = self.humor_direction / self.humor_direction.norm()
+        
+    def _get_steering_hook(self, alpha: float, direction: torch.Tensor = None):
+        """
+        Create hook function for steering.
+        
+        Steering: activation_new = activation_old + α * direction
+        - α > 0: steer toward humor
+        - α < 0: steer away from humor
+        - α = 0: no change (baseline)
+        """
+        target_dir = direction if direction is not None else self.humor_direction
+        
+        def hook_fn(activation, hook):
+            # activation shape: (batch, seq_len, hidden_dim)
+            steering = alpha * target_dir
+            return activation + steering.view(1, 1, -1)
+        return hook_fn
+    
+    def _get_ablation_hook(self, direction: torch.Tensor = None):
+        """
+        Create hook function for ablation.
+        
+        Ablation: Remove the component along humor_direction
+        mathematically: activation_new = activation_old - proj_coef * direction
+        where proj_coef = activation · direction (dot product)
+        
+        This is like removing a specific dimension while keeping everything else.
+        """
+        target_dir = direction if direction is not None else self.humor_direction
+        
+        def hook_fn(activation, hook):
+            v = target_dir
+            # Calculate how much activation points in the direction (projection coefficient)
+            proj_coef = torch.einsum('bsd,d->bs', activation, v)
+            # Calculate the projection component
+            projection = proj_coef.unsqueeze(-1) * v
+            # Remove it from the activation
+            return activation - projection
+        return hook_fn
+    
+    def steer_humor(self, prompt: str, alpha: float = 1.0, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
+        """
+        Generate text with steering applied using the stored humor direction.
+        
+        This is for TEXT GENERATION (not activation extraction).
+        """
+        return self.steer_direction(self.humor_direction, prompt, alpha, max_new_tokens, temperature)
+
+    def ablate_humor(self, prompt: str, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
+        """
+        Generate text with humor direction ablated (removed).
+        
+        This is for TEXT GENERATION (not activation extraction).
+        """
+        return self.ablate_direction(self.humor_direction, prompt, max_new_tokens, temperature)
+
+    def steer_direction(
+        self,
+        direction: torch.Tensor,
+        prompt: str,
+        alpha: float = 1.0, 
+        max_new_tokens: int = 50, 
+        temperature: float = 1.0
+    ) -> str:
+        """
+        Generate text with steering applied along an arbitrary direction.
+        
+        Process:
+        1. Tokenize prompt
+        2. Install hook at specified layer
+        3. Generate tokens (hook modifies activations during forward pass)
+        4. Return generated text
+        """
+        hook_name = f"blocks.{self.layer}.hook_resid_post"
+        hook_fn = self._get_steering_hook(alpha, direction=direction)
+        
+        tokens = self.model.to_tokens(prompt, prepend_bos=True)
+        # Context manager installs hooks for the duration of generation
+        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            output = self.model.generate(
+                tokens,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                prepend_bos=False,
+                verbose=False
+            )
+        return self.model.to_string(output[0])
+    
+    def ablate_direction(
+        self,
+        direction: torch.Tensor,
+        prompt: str,
+        max_new_tokens: int = 50, 
+        temperature: float = 1.0
+    ) -> str:
+        """
+        Generate text with arbitrary direction ablated (removed).
+        
+        Same as steer_direction but uses ablation hook instead of steering hook.
+        """
+        hook_name = f"blocks.{self.layer}.hook_resid_post"
+        hook_fn = self._get_ablation_hook(direction=direction)
+        
+        tokens = self.model.to_tokens(prompt, prepend_bos=True)
+        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            output = self.model.generate(
+                tokens,
+                max_new_tokens=max_new_tokens,
+                temperature=temperature,
+                prepend_bos=False,
+                verbose=False
+            )
+        return self.model.to_string(output[0])
+    
+    def get_ablated_activations(self, texts: List[str], batch_size: int = 32) -> np.ndarray:
+        """
+        Extract activations with ablation applied.
+        
+        This is for ACTIVATION EXTRACTION (not text generation).
+        Used in intervention_tests.py for the quantitative ablation experiment.
+        
+        Process:
+        1. Install ablation hook at specified layer
+        2. Run forward pass with hook active
+        3. Capture the modified activations
+        4. Return activations at final token position
+        
+        Returns:
+            numpy array of shape (n_texts, hidden_dim)
+            These are the activations WITH the humor component removed
+        """
+        hook_name = f"blocks.{self.layer}.hook_resid_post"
+        ablation_hook = self._get_ablation_hook()
+        
+        all_ablated_acts = []
+
+        def capture_hook(activation, hook):
+            """Second hook to capture the ablated activations."""
+            all_ablated_acts.append(activation.detach().cpu())
+            return activation
+
+        # Process in batches
+        for i in range(0, len(texts), batch_size):
+            batch_texts = texts[i:i+batch_size]
+            tokens = self.model.to_tokens(batch_texts, prepend_bos=True)
+            seq_lengths = (tokens != self.model.tokenizer.pad_token_id).sum(dim=1) - 1
+            
+            # Install TWO hooks: first ablates, second captures
+            with self.model.hooks(fwd_hooks=[(hook_name, ablation_hook), (hook_name, capture_hook)]):
+                self.model(tokens)  # Just forward pass, no generation
+            
+            # Extract final token activations from captured batch
+            batch_acts = all_ablated_acts.pop()
+            for j in range(len(batch_texts)):
+                final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
+                all_ablated_acts.insert(0, batch_acts[j, final_pos, :].numpy())
+        
+        return np.array(all_ablated_acts)
+
+
+# =============================================================================
+# Evaluation Metrics
+# =============================================================================
+
+def compute_logit_difference(
+    model: HookedTransformer,
+    prompt: str,
+    humor_direction: torch.Tensor,
+    n_top_tokens: int = 200,
+    intervention: Optional[HumorIntervention] = None,
+    alpha: float = 0.0
+) -> Dict[str, float]:
+    """
+    Compute logit difference: humor tokens vs serious tokens.
+    
+    This measures the model's "humor preference" at the output layer.
+    
+    Process:
+    1. Project humor_direction into vocabulary space to find "humor words"
+    2. Find top 200 tokens aligned with humor direction (humor category)
+    3. Find top 200 tokens anti-aligned with humor direction (serious category)
+    4. Measure log probability of humor category vs serious category
+    
+    This is more robust than looking at individual tokens.
+    
+    If intervention is provided, applies steering during the forward pass.
+    
+    Returns:
+        logit_difference: positive means model favors humor tokens
+        humor_prob: probability mass on humor category
+    """
+    device = next(model.parameters()).device
+    h_dir = humor_direction.to(device)
+    
+    # Project humor direction into vocabulary space
+    # model.W_U is the unembedding matrix: hidden_dim -> vocab_size
+    with torch.no_grad():
+        vocab_scores = h_dir @ model.W_U  # Score each token by alignment with humor direction
+        top_h_indices = torch.topk(vocab_scores, n_top_tokens).indices  # Most humor-aligned
+        top_s_indices = torch.topk(-vocab_scores, n_top_tokens).indices  # Most serious-aligned
+
+    tokens = model.to_tokens(prompt, prepend_bos=True)
+    
+    # Run with potential intervention hooks
+    if intervention and alpha != 0:
+        hook_name = f"blocks.{intervention.layer}.hook_resid_post"
+        hook_fn = intervention._get_steering_hook(alpha)
+        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            logits = model(tokens)
+    else:
+        with torch.no_grad():
+            logits = model(tokens)
+
+    # Get probabilities for next token after prompt
+    log_probs = torch.log_softmax(logits[0, -1, :], dim=-1)
+    
+    # Sum probabilities over humor and serious categories
+    humor_logp = torch.logsumexp(log_probs[top_h_indices], dim=0).item()
+    serious_logp = torch.logsumexp(log_probs[top_s_indices], dim=0).item()
+    
+    return {
+        'logit_difference': humor_logp - serious_logp,
+        'humor_prob': np.exp(humor_logp) 
+    }
+
+def compute_activation_projection(
+    model: HookedTransformer,
+    prompt: str,
+    humor_direction: torch.Tensor,
+    layer: int,
+    intervention: Optional[HumorIntervention] = None,
+    alpha: float = 0.0
+) -> float:
+    """
+    Measure internal alignment with the humor direction.
+    
+    This measures how much the activation at a specific layer points
+    along the humor direction.
+    
+    Returns a scalar: activation · humor_direction (dot product)
+    - Positive: activation is humor-aligned
+    - Negative: activation is serious-aligned
+    - Near zero: activation is orthogonal to humor
+    
+    If intervention is provided, measures WHILE intervention is active
+    (so we can see how steering shifts the activation).
+    """
+    tokens = model.to_tokens(prompt, prepend_bos=True)
+    device = next(model.parameters()).device
+    
+    # We must measure this WHILE the intervention is active to see the shift
+    if intervention and alpha != 0:
+        hook_name = f"blocks.{intervention.layer}.hook_resid_post"
+        hook_fn = intervention._get_steering_hook(alpha)
+        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n == hook_name)
+            resid = cache[hook_name][0, -1, :]  # Final token activation
+    else:
+        with torch.no_grad():
+            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n.endswith("resid_post"))
+            resid = cache[f"blocks.{layer}.hook_resid_post"][0, -1, :]
+    
+    direction = humor_direction.to(device)
+    # Dot product measures alignment
+    return torch.dot(resid, direction / direction.norm()).item()
+
+
+def evaluate_ablation_impact(
+    probe,
+    original_activations: np.ndarray,
+    ablated_activations: np.ndarray,
+    labels: np.ndarray
+) -> Dict[str, float]:
+    """
+    Evaluate how ablation affects probe accuracy.
+    
+    This is the QUANTITATIVE CAUSAL TEST.
+    
+    The probe was trained on normal activations (expecting humor direction present).
+    We test it on:
+    1. Original activations → should be high accuracy
+    2. Ablated activations → if accuracy drops to chance, proves causality
+    
+    Args:
+        probe: Trained linear probe (sklearn LogisticRegression)
+        original_activations: Normal activations from model
+        ablated_activations: Activations with humor direction removed
+        labels: True labels
+    
+    Returns:
+        Dict with accuracy before/after and drop percentage
+    """
+    # Test probe on normal activations
+    original_preds = probe.predict(original_activations)
+    # Test same probe on ablated activations
+    ablated_preds = probe.predict(ablated_activations)
+    
+    original_acc = accuracy_score(labels, original_preds)
+    ablated_acc = accuracy_score(labels, ablated_preds)
+    
+    return {
+        'original_accuracy': original_acc,
+        'ablated_accuracy': ablated_acc,
+        'accuracy_drop': original_acc - ablated_acc,
+        'drop_percentage': 100 * (original_acc - ablated_acc) / original_acc if original_acc > 0 else 0
+    }
+
 
 # ---------------------------------------------------------------------------
 # Prompt sets — 7 per category, 21 total
@@ -568,13 +905,13 @@ def run_interventions(model_name: str = None):
     humor_direction = humor_direction.to(device)
     
     # Read best layer from saved results (the layer with highest probe accuracy)
-    config_path = results_dir / "rank_analysis.json"
+    config_path = results_dir / "probe_summary.json"
     if config_path.exists():
         with open(config_path) as f:
             BEST_LAYER = json.load(f).get('best_layer', model.cfg.n_layers - 1)
     else:
         BEST_LAYER = model.cfg.n_layers - 1
-        print(f"Warning: rank_analysis.json not found, using last layer ({BEST_LAYER})")
+        print(f"Warning: probe_summary.json not found, using last layer ({BEST_LAYER})")
     print(f"Using best layer: {BEST_LAYER}")
     
     all_results = {}

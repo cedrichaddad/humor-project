@@ -174,7 +174,7 @@ def check_status(model_name: str = "gemma-2-2b"):
     import os
     import json
     
-    results_path = f"/root/humor_project/results/{model_name}/rank_analysis.json"
+    results_path = f"/root/humor_project/results/{model_name}/probe_summary.json"
     
     if os.path.exists(results_path):
         with open(results_path) as f:
@@ -183,8 +183,6 @@ def check_status(model_name: str = "gemma-2-2b"):
         print("\n✅ EXPERIMENT COMPLETE!")
         print(f"   Best layer: {data.get('best_layer')}")
         print(f"   Best accuracy: {data.get('best_probe_accuracy', 0):.1%}")
-        print(f"   Rank for 90% variance: {data.get('rank_90')}")
-        print(f"   Fisher ratio: {data.get('fisher_ratio', 0):.2f}")
         
         return {"status": "complete", "results": data}
     else:

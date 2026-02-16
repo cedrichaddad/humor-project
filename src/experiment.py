@@ -29,8 +29,6 @@ import seaborn as sns
 import torch
 from datasets import load_dataset, Dataset
 from sklearn.linear_model import LogisticRegression
-from sklearn.decomposition import PCA
-from sklearn.model_selection import cross_val_score, StratifiedKFold
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from tqdm import tqdm
 from transformer_lens import HookedTransformer
@@ -617,340 +615,6 @@ def probe_all_layers(
 # Causal Interventions
 # =============================================================================
 
-class HumorIntervention:
-    """
-    Class for intervening on model activations during generation.
-    
-    Two main operations:
-    1. Steering: Add α * humor_direction to activations (push toward/away from humor)
-    2. Ablation: Remove humor_direction component from activations
-    
-    These interventions happen DURING the forward pass at a specific layer.
-    """
-    def __init__(self, model: HookedTransformer, humor_direction: torch.Tensor, layer: int = 7):
-        """
-        Initialize intervention for a specific layer.
-        
-        Args:
-            model: The language model
-            humor_direction: The direction vector (from probe weights)
-            layer: Which layer to intervene at
-        """
-        self.model = model
-        self.layer = layer
-        self.device = next(model.parameters()).device
-        
-        # Convert to tensor if needed and normalize
-        if isinstance(humor_direction, np.ndarray):
-            humor_direction = torch.from_numpy(humor_direction)
-        self.humor_direction = humor_direction.float().to(self.device)
-        self.humor_direction = self.humor_direction / self.humor_direction.norm()
-        
-    def _get_steering_hook(self, alpha: float, direction: torch.Tensor = None):
-        """
-        Create hook function for steering.
-        
-        Steering: activation_new = activation_old + α * direction
-        - α > 0: steer toward humor
-        - α < 0: steer away from humor
-        - α = 0: no change (baseline)
-        """
-        target_dir = direction if direction is not None else self.humor_direction
-        
-        def hook_fn(activation, hook):
-            # activation shape: (batch, seq_len, hidden_dim)
-            steering = alpha * target_dir
-            return activation + steering.view(1, 1, -1)
-        return hook_fn
-    
-    def _get_ablation_hook(self, direction: torch.Tensor = None):
-        """
-        Create hook function for ablation.
-        
-        Ablation: Remove the component along humor_direction
-        mathematically: activation_new = activation_old - proj_coef * direction
-        where proj_coef = activation · direction (dot product)
-        
-        This is like removing a specific dimension while keeping everything else.
-        """
-        target_dir = direction if direction is not None else self.humor_direction
-        
-        def hook_fn(activation, hook):
-            v = target_dir
-            # Calculate how much activation points in the direction (projection coefficient)
-            proj_coef = torch.einsum('bsd,d->bs', activation, v)
-            # Calculate the projection component
-            projection = proj_coef.unsqueeze(-1) * v
-            # Remove it from the activation
-            return activation - projection
-        return hook_fn
-    
-    def steer_humor(self, prompt: str, alpha: float = 1.0, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
-        """
-        Generate text with steering applied using the stored humor direction.
-        
-        This is for TEXT GENERATION (not activation extraction).
-        """
-        return self.steer_direction(self.humor_direction, prompt, alpha, max_new_tokens, temperature)
-
-    def ablate_humor(self, prompt: str, max_new_tokens: int = 50, temperature: float = 1.0) -> str:
-        """
-        Generate text with humor direction ablated (removed).
-        
-        This is for TEXT GENERATION (not activation extraction).
-        """
-        return self.ablate_direction(self.humor_direction, prompt, max_new_tokens, temperature)
-
-    def steer_direction(
-        self,
-        direction: torch.Tensor,
-        prompt: str,
-        alpha: float = 1.0, 
-        max_new_tokens: int = 50, 
-        temperature: float = 1.0
-    ) -> str:
-        """
-        Generate text with steering applied along an arbitrary direction.
-        
-        Process:
-        1. Tokenize prompt
-        2. Install hook at specified layer
-        3. Generate tokens (hook modifies activations during forward pass)
-        4. Return generated text
-        """
-        hook_name = f"blocks.{self.layer}.hook_resid_post"
-        hook_fn = self._get_steering_hook(alpha, direction=direction)
-        
-        tokens = self.model.to_tokens(prompt, prepend_bos=True)
-        # Context manager installs hooks for the duration of generation
-        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-            output = self.model.generate(
-                tokens,
-                max_new_tokens=max_new_tokens,
-                temperature=temperature,
-                prepend_bos=False,
-                verbose=False
-            )
-        return self.model.to_string(output[0])
-    
-    def ablate_direction(
-        self,
-        direction: torch.Tensor,
-        prompt: str,
-        max_new_tokens: int = 50, 
-        temperature: float = 1.0
-    ) -> str:
-        """
-        Generate text with arbitrary direction ablated (removed).
-        
-        Same as steer_direction but uses ablation hook instead of steering hook.
-        """
-        hook_name = f"blocks.{self.layer}.hook_resid_post"
-        hook_fn = self._get_ablation_hook(direction=direction)
-        
-        tokens = self.model.to_tokens(prompt, prepend_bos=True)
-        with self.model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-            output = self.model.generate(
-                tokens,
-                max_new_tokens=max_new_tokens,
-                temperature=temperature,
-                prepend_bos=False,
-                verbose=False
-            )
-        return self.model.to_string(output[0])
-    
-    def get_ablated_activations(self, texts: List[str], batch_size: int = 32) -> np.ndarray:
-        """
-        Extract activations with ablation applied.
-        
-        This is for ACTIVATION EXTRACTION (not text generation).
-        Used in intervention_tests.py for the quantitative ablation experiment.
-        
-        Process:
-        1. Install ablation hook at specified layer
-        2. Run forward pass with hook active
-        3. Capture the modified activations
-        4. Return activations at final token position
-        
-        Returns:
-            numpy array of shape (n_texts, hidden_dim)
-            These are the activations WITH the humor component removed
-        """
-        hook_name = f"blocks.{self.layer}.hook_resid_post"
-        ablation_hook = self._get_ablation_hook()
-        
-        all_ablated_acts = []
-
-        def capture_hook(activation, hook):
-            """Second hook to capture the ablated activations."""
-            all_ablated_acts.append(activation.detach().cpu())
-            return activation
-
-        # Process in batches
-        for i in range(0, len(texts), batch_size):
-            batch_texts = texts[i:i+batch_size]
-            tokens = self.model.to_tokens(batch_texts, prepend_bos=True)
-            seq_lengths = (tokens != self.model.tokenizer.pad_token_id).sum(dim=1) - 1
-            
-            # Install TWO hooks: first ablates, second captures
-            with self.model.hooks(fwd_hooks=[(hook_name, ablation_hook), (hook_name, capture_hook)]):
-                self.model(tokens)  # Just forward pass, no generation
-            
-            # Extract final token activations from captured batch
-            batch_acts = all_ablated_acts.pop()
-            for j in range(len(batch_texts)):
-                final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
-                all_ablated_acts.insert(0, batch_acts[j, final_pos, :].numpy())
-        
-        return np.array(all_ablated_acts)
-
-
-# =============================================================================
-# Evaluation Metrics
-# =============================================================================
-
-def compute_logit_difference(
-    model: HookedTransformer,
-    prompt: str,
-    humor_direction: torch.Tensor,
-    n_top_tokens: int = 200,
-    intervention: Optional[HumorIntervention] = None,
-    alpha: float = 0.0
-) -> Dict[str, float]:
-    """
-    Compute logit difference: humor tokens vs serious tokens.
-    
-    This measures the model's "humor preference" at the output layer.
-    
-    Process:
-    1. Project humor_direction into vocabulary space to find "humor words"
-    2. Find top 200 tokens aligned with humor direction (humor category)
-    3. Find top 200 tokens anti-aligned with humor direction (serious category)
-    4. Measure log probability of humor category vs serious category
-    
-    This is more robust than looking at individual tokens.
-    
-    If intervention is provided, applies steering during the forward pass.
-    
-    Returns:
-        logit_difference: positive means model favors humor tokens
-        humor_prob: probability mass on humor category
-    """
-    device = next(model.parameters()).device
-    h_dir = humor_direction.to(device)
-    
-    # Project humor direction into vocabulary space
-    # model.W_U is the unembedding matrix: hidden_dim -> vocab_size
-    with torch.no_grad():
-        vocab_scores = h_dir @ model.W_U  # Score each token by alignment with humor direction
-        top_h_indices = torch.topk(vocab_scores, n_top_tokens).indices  # Most humor-aligned
-        top_s_indices = torch.topk(-vocab_scores, n_top_tokens).indices  # Most serious-aligned
-
-    tokens = model.to_tokens(prompt, prepend_bos=True)
-    
-    # Run with potential intervention hooks
-    if intervention and alpha != 0:
-        hook_name = f"blocks.{intervention.layer}.hook_resid_post"
-        hook_fn = intervention._get_steering_hook(alpha)
-        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-            logits = model(tokens)
-    else:
-        with torch.no_grad():
-            logits = model(tokens)
-
-    # Get probabilities for next token after prompt
-    log_probs = torch.log_softmax(logits[0, -1, :], dim=-1)
-    
-    # Sum probabilities over humor and serious categories
-    humor_logp = torch.logsumexp(log_probs[top_h_indices], dim=0).item()
-    serious_logp = torch.logsumexp(log_probs[top_s_indices], dim=0).item()
-    
-    return {
-        'logit_difference': humor_logp - serious_logp,
-        'humor_prob': np.exp(humor_logp) 
-    }
-
-def compute_activation_projection(
-    model: HookedTransformer,
-    prompt: str,
-    humor_direction: torch.Tensor,
-    layer: int,
-    intervention: Optional[HumorIntervention] = None,
-    alpha: float = 0.0
-) -> float:
-    """
-    Measure internal alignment with the humor direction.
-    
-    This measures how much the activation at a specific layer points
-    along the humor direction.
-    
-    Returns a scalar: activation · humor_direction (dot product)
-    - Positive: activation is humor-aligned
-    - Negative: activation is serious-aligned
-    - Near zero: activation is orthogonal to humor
-    
-    If intervention is provided, measures WHILE intervention is active
-    (so we can see how steering shifts the activation).
-    """
-    tokens = model.to_tokens(prompt, prepend_bos=True)
-    device = next(model.parameters()).device
-    
-    # We must measure this WHILE the intervention is active to see the shift
-    if intervention and alpha != 0:
-        hook_name = f"blocks.{intervention.layer}.hook_resid_post"
-        hook_fn = intervention._get_steering_hook(alpha)
-        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n == hook_name)
-            resid = cache[hook_name][0, -1, :]  # Final token activation
-    else:
-        with torch.no_grad():
-            _, cache = model.run_with_cache(tokens, names_filter=lambda n: n.endswith("resid_post"))
-            resid = cache[f"blocks.{layer}.hook_resid_post"][0, -1, :]
-    
-    direction = humor_direction.to(device)
-    # Dot product measures alignment
-    return torch.dot(resid, direction / direction.norm()).item()
-
-
-def evaluate_ablation_impact(
-    probe,
-    original_activations: np.ndarray,
-    ablated_activations: np.ndarray,
-    labels: np.ndarray
-) -> Dict[str, float]:
-    """
-    Evaluate how ablation affects probe accuracy.
-    
-    This is the QUANTITATIVE CAUSAL TEST.
-    
-    The probe was trained on normal activations (expecting humor direction present).
-    We test it on:
-    1. Original activations → should be high accuracy
-    2. Ablated activations → if accuracy drops to chance, proves causality
-    
-    Args:
-        probe: Trained linear probe (sklearn LogisticRegression)
-        original_activations: Normal activations from model
-        ablated_activations: Activations with humor direction removed
-        labels: True labels
-    
-    Returns:
-        Dict with accuracy before/after and drop percentage
-    """
-    # Test probe on normal activations
-    original_preds = probe.predict(original_activations)
-    # Test same probe on ablated activations
-    ablated_preds = probe.predict(ablated_activations)
-    
-    original_acc = accuracy_score(labels, original_preds)
-    ablated_acc = accuracy_score(labels, ablated_preds)
-    
-    return {
-        'original_accuracy': original_acc,
-        'ablated_accuracy': ablated_acc,
-        'accuracy_drop': original_acc - ablated_acc,
-        'drop_percentage': 100 * (original_acc - ablated_acc) / original_acc if original_acc > 0 else 0
-    }
 
 
 def train_subtype_probes(
@@ -1120,124 +784,6 @@ def cross_subtype_evaluation(
 # Rank Analysis (PCA)
 # =============================================================================
 
-def analyze_rank(
-    X: np.ndarray,
-    y: np.ndarray,
-    max_components: int = 100
-) -> Dict:
-    """
-    Analyze the effective rank of humor representation using PCA.
-    
-    Question: How many dimensions are needed to represent humor?
-    
-    If humor is truly "low-rank", we should be able to:
-    1. Explain most variance with few principal components
-    2. Achieve good classification with few dimensions
-    
-    This tests the hypothesis that humor is a low-dimensional feature
-    in the high-dimensional activation space.
-    
-    Returns:
-        Dict containing:
-        - Variance explained by each component
-        - Ranks for 90%, 95%, 99% variance
-        - Accuracy vs rank curve
-    """
-    n_components = min(max_components, X.shape[1], X.shape[0])
-
-    # Fit PCA
-    pca = PCA(n_components=n_components, random_state=SEED)
-    X_pca = pca.fit_transform(X)
-
-    # Variance explained
-    explained_var = pca.explained_variance_ratio_
-    cumulative_var = np.cumsum(explained_var)
-
-    # Find rank needed for different variance thresholds
-    rank_90 = np.searchsorted(cumulative_var, 0.90) + 1
-    rank_95 = np.searchsorted(cumulative_var, 0.95) + 1
-    rank_99 = np.searchsorted(cumulative_var, 0.99) + 1
-
-    # Test classification accuracy at different ranks
-    accs_by_rank = []
-    ranks_to_test = [1, 2, 3, 5, 10, 20, 50, 100]
-    ranks_to_test = [r for r in ranks_to_test if r <= n_components]
-
-    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=SEED)
-
-    for r in ranks_to_test:
-        # Use only top r principal components
-        X_reduced = X_pca[:, :r]
-        # Cross-validate a probe on these r dimensions
-        scores = cross_val_score(
-            LogisticRegression(max_iter=1000, random_state=SEED),
-            X_reduced, y,
-            cv=cv,
-            scoring='accuracy'
-        )
-        accs_by_rank.append({
-            'rank': r,
-            'accuracy': scores.mean(),
-            'std': scores.std()
-        })
-
-    return {
-        'explained_variance': explained_var,
-        'cumulative_variance': cumulative_var,
-        'rank_90': int(rank_90),
-        'rank_95': int(rank_95),
-        'rank_99': int(rank_99),
-        'accuracy_by_rank': pd.DataFrame(accs_by_rank),
-        'pca_components': pca.components_
-    }
-
-
-def analyze_class_separation(
-    X: np.ndarray,
-    y: np.ndarray
-) -> Dict:
-    """
-    Analyze how humor and non-humor classes separate in activation space.
-    
-    Metrics:
-    - Between-class norm: Distance between class means (larger = more separated)
-    - Within-class variance: How spread out each class is (smaller = more compact)
-    - Fisher ratio: Between-class distance / within-class variance
-      (larger = better separation)
-    
-    Good linear separability means:
-    - Large between-class distance
-    - Small within-class variance
-    - High Fisher ratio
-    """
-    humor_mask = y == 1
-    X_humor = X[humor_mask]
-    X_non_humor = X[~humor_mask]
-
-    # Calculate class means
-    mean_humor = X_humor.mean(axis=0)
-    mean_non_humor = X_non_humor.mean(axis=0)
-
-    # Between-class separation
-    between_class = mean_humor - mean_non_humor
-    between_norm = np.linalg.norm(between_class)
-
-    # Within-class variance (average across both classes)
-    var_humor = np.var(X_humor, axis=0).mean()
-    var_non_humor = np.var(X_non_humor, axis=0).mean()
-    within_var = (var_humor + var_non_humor) / 2
-
-    # Fisher ratio: signal-to-noise ratio for separation
-    fisher_ratio = between_norm**2 / within_var if within_var > 0 else 0
-
-    return {
-        'between_class_norm': between_norm,
-        'within_class_var': within_var,
-        'fisher_ratio': fisher_ratio,
-        'mean_humor': mean_humor,
-        'mean_non_humor': mean_non_humor
-    }
-
 # =============================================================================
 # Visualization
 # =============================================================================
@@ -1272,58 +818,6 @@ def plot_probe_accuracy_by_layer(results_df: pd.DataFrame, save_path: Path):
     print(f"Saved: {save_path}")
 
 
-def plot_rank_analysis(rank_results: Dict, save_path: Path):
-    """
-    Plot rank analysis results.
-    
-    Left panel: Variance explained by each component
-    Right panel: Classification accuracy vs number of components
-    
-    Shows how many dimensions are really needed for humor.
-    """
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-
-    display_name = get_display_name()
-
-    # Panel 1: Explained variance
-    ax = axes[0]
-    n_comp = len(rank_results['cumulative_variance'])
-    ax.bar(range(1, min(21, n_comp+1)),
-           rank_results['explained_variance'][:20],
-           alpha=0.7, label='Individual')
-    ax.plot(range(1, min(21, n_comp+1)),
-            rank_results['cumulative_variance'][:20],
-            'r-o', label='Cumulative', linewidth=2)
-    ax.axhline(y=0.9, color='g', linestyle='--', alpha=0.7,
-               label=f'90% (rank={rank_results["rank_90"]})')
-    ax.axhline(y=0.95, color='orange', linestyle='--', alpha=0.7,
-               label=f'95% (rank={rank_results["rank_95"]})')
-    ax.set_xlabel('Principal Component', fontsize=12)
-    ax.set_ylabel('Explained Variance Ratio', fontsize=12)
-    ax.set_title(f'PCA Explained Variance ({display_name})', fontsize=14)
-    ax.legend(fontsize=10)
-    ax.grid(True, alpha=0.3)
-
-    # Panel 2: Accuracy vs rank
-    ax = axes[1]
-    acc_df = rank_results['accuracy_by_rank']
-    ax.errorbar(acc_df['rank'], acc_df['accuracy'],
-                yerr=acc_df['std'], fmt='b-o', capsize=4,
-                linewidth=2, markersize=8)
-    ax.axhline(y=0.5, color='r', linestyle='--', label='Random', linewidth=2)
-    ax.set_xlabel('Number of PCA Components (Rank)', fontsize=12)
-    ax.set_ylabel('5-Fold CV Accuracy', fontsize=12)
-    ax.set_title(f'Accuracy vs. Rank ({display_name})', fontsize=14)
-    ax.set_xscale('log')
-    ax.legend(fontsize=11)
-    ax.grid(True, alpha=0.3)
-
-    plt.tight_layout()
-    plt.savefig(save_path, dpi=150, bbox_inches='tight')
-    plt.close()
-    print(f"Saved: {save_path}")
-
-
 def plot_direction_similarity(results_df: pd.DataFrame, save_path: Path):
     """
     Plot cosine similarity between probing methods across layers.
@@ -1349,39 +843,6 @@ def plot_direction_similarity(results_df: pd.DataFrame, save_path: Path):
     plt.close()
     print(f"Saved: {save_path}")
 
-
-def plot_pca_2d(X: np.ndarray, y: np.ndarray, save_path: Path, title: str = ""):
-    """
-    Plot 2D PCA projection of activations.
-    
-    Visualizes how humor and non-humor samples separate
-    in the top 2 principal components.
-    
-    If well-separated, shows clean linear separability.
-    """
-    pca = PCA(n_components=2, random_state=SEED)
-    X_2d = pca.fit_transform(X)
-
-    display_name = get_display_name()
-
-    fig, ax = plt.subplots(figsize=(10, 8))
-
-    humor_mask = y == 1
-    ax.scatter(X_2d[~humor_mask, 0], X_2d[~humor_mask, 1],
-               alpha=0.5, c='blue', label='Non-Humor', s=20)
-    ax.scatter(X_2d[humor_mask, 0], X_2d[humor_mask, 1],
-               alpha=0.5, c='red', label='Humor', s=20)
-
-    ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]*100:.1f}%)', fontsize=12)
-    ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]*100:.1f}%)', fontsize=12)
-    ax.set_title(f'2D PCA of Activations {title} ({display_name})', fontsize=14)
-    ax.legend(fontsize=11)
-    ax.grid(True, alpha=0.3)
-
-    plt.tight_layout()
-    plt.savefig(save_path, dpi=150, bbox_inches='tight')
-    plt.close()
-    print(f"Saved: {save_path}")
 
 # =============================================================================
 # Main Experiment
@@ -1608,40 +1069,10 @@ def run_experiment(model_name: str = None):
     best_probe = best_probe_result['probe']
 
     # =========================================================================
-    # Step 4: Rank Analysis
+    # Step 4: Dataset B (Randomized) Comparison
     # =========================================================================
     print("\n" + "="*60)
-    print("Step 4: Rank Analysis")
-    print("="*60)
-
-    # Combine train and test for rank analysis
-    X_all = np.vstack([train_activations[best_layer_idx],
-                       test_activations[best_layer_idx]])
-    y_all = np.concatenate([train_labels, test_labels])
-
-    # Perform PCA and measure effective rank
-    rank_results = analyze_rank(X_all, y_all)
-
-    print(f"\nRank Analysis at Layer {best_layer_idx}:")
-    print(f"  Rank for 90% variance: {rank_results['rank_90']}")
-    print(f"  Rank for 95% variance: {rank_results['rank_95']}")
-    print(f"  Rank for 99% variance: {rank_results['rank_99']}")
-
-    print("\nAccuracy vs. Rank:")
-    print(rank_results['accuracy_by_rank'].to_string(index=False))
-
-    # Measure class separation
-    separation = analyze_class_separation(X_all, y_all)
-    print(f"\nClass Separation:")
-    print(f"  Between-class norm: {separation['between_class_norm']:.4f}")
-    print(f"  Within-class variance: {separation['within_class_var']:.4f}")
-    print(f"  Fisher ratio: {separation['fisher_ratio']:.4f}")
-
-    # =========================================================================
-    # Step 4b: Dataset B (Randomized) Comparison
-    # =========================================================================
-    print("\n" + "="*60)
-    print("Step 4b: Dataset B (Randomized) Comparison")
+    print("Step 4: Dataset B (Randomized) Comparison")
     print("="*60)
     
     # Load Dataset B for comparison
@@ -1691,10 +1122,7 @@ def run_experiment(model_name: str = None):
     print("="*60)
 
     plot_probe_accuracy_by_layer(probe_results, FIGURES_DIR / "probe_accuracy_by_layer.png")
-    plot_rank_analysis(rank_results, FIGURES_DIR / "rank_analysis.png")
     plot_direction_similarity(probe_results, FIGURES_DIR / "direction_similarity.png")
-    plot_pca_2d(X_all, y_all, FIGURES_DIR / f"pca_2d_layer{best_layer_idx}.png",
-                title=f"(Layer {best_layer_idx})")
 
     # =========================================================================
     # Step 6: Save Results
@@ -1708,22 +1136,15 @@ def run_experiment(model_name: str = None):
 
     probe_results.to_csv(RESULTS_DIR / "probe_results.csv", index=False)
 
-    rank_summary = {
+    probe_summary = {
         'best_layer': best_layer_idx,
         'best_probe_accuracy': float(best_layer['probe_accuracy']),
         'best_probe_f1': float(best_layer['probe_f1']),
         'best_probe_auc': float(best_layer['probe_auc']),
-        'rank_90': rank_results['rank_90'],
-        'rank_95': rank_results['rank_95'],
-        'rank_99': rank_results['rank_99'],
-        'between_class_norm': float(separation['between_class_norm']),
-        'within_class_var': float(separation['within_class_var']),
-        'fisher_ratio': float(separation['fisher_ratio']),
-        'accuracy_by_rank': rank_results['accuracy_by_rank'].to_dict('records')
     }
 
-    with open(RESULTS_DIR / "rank_analysis.json", 'w') as f:
-        json.dump(rank_summary, f, indent=2)
+    with open(RESULTS_DIR / "probe_summary.json", 'w') as f:
+        json.dump(probe_summary, f, indent=2)
 
     with open(RESULTS_DIR / "dataset_comparison.json", 'w') as f:
         json.dump(dataset_comparison, f, indent=2)
@@ -1741,14 +1162,13 @@ def run_experiment(model_name: str = None):
     print("\nKey Findings:")
     print(f"1. Best linear probe accuracy: {best_layer['probe_accuracy']:.1%} at layer {best_layer_idx}")
     print(f"   (Random baseline: 50%)")
-    print(f"2. Effective rank for 90% variance: {rank_results['rank_90']} dimensions")
-    print(f"3. Effective rank for 95% variance: {rank_results['rank_95']} dimensions")
-    print(f"4. Humor/non-humor are linearly separable: {'Yes' if best_layer['probe_accuracy'] > 0.6 else 'Partially'}")
+    print(f"2. Average cosine similarity between layers: {probe_results['direction_cosine_sim'].mean():.4f}")
+    print(f"3. Humor/non-humor are linearly separable: {'Yes' if best_layer['probe_accuracy'] > 0.6 else 'Partially'}")
 
     return {
         'config': config,
         'probe_results': probe_results,
-        'rank_results': rank_summary,
+        'probe_summary': probe_summary,
         'best_layer': best_layer_idx
     }
 
