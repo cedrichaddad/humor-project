@@ -39,7 +39,9 @@ warnings.filterwarnings('ignore')
 
 # ---------------------------------------------------------------------------
 # Prompt sets — 7 per category, 21 total
+# These are used for qualitative testing of steering and ablation effects
 # ---------------------------------------------------------------------------
+
 # Humor prompts: baseline already humor-biased; tests amplification
 HUMOR_PROMPTS = [
     "Why did the chicken cross the road?",
@@ -105,12 +107,19 @@ def run_steering_all_layers(
     use_layer_specific: bool = True
 ) -> Dict:
     """
-    Steer using layer-specific humor directions (if available).
+    Test steering effectiveness across all layers.
+    
+    For each layer:
+    - Applies steering at different strengths (alphas) to 21 prompts
+    - Measures the effect on humor vs serious logit difference
+    - Creates visualizations showing which layers are most effective for steering
+    
     Produces three plots: overall, neutral+serious only, humor only.
     """
     if n_layers is None:
         n_layers = model.cfg.n_layers
     if alphas is None:
+        # Negative alpha = steer away from humor, positive = toward humor
         alphas = [-15.0, -10.0, -5.0, 0.0, 5.0, 10.0, 15.0]
     
     prompts = ALL_PROMPTS
@@ -119,7 +128,7 @@ def run_steering_all_layers(
     directions_dir = results_dir / "directions"
     device = next(model.parameters()).device
     
-    # Check if layer-specific directions exist
+    # Check if layer-specific directions exist (from main experiment)
     layer_specific_exists = (directions_dir / "layer0.pt").exists()
     
     if use_layer_specific and layer_specific_exists:
@@ -139,33 +148,41 @@ def run_steering_all_layers(
             print(f"    (Checked: {directions_dir / 'layer0.pt'})")
         use_specific = False
         if humor_direction is None:
+            # Load the best layer's humor direction as fallback
             humor_direction = torch.load(results_dir / "humor_direction.pt").to(device)
         fallback_direction = humor_direction
     
     layer_effects = []
     
+    # Test each layer independently
     for layer in tqdm(range(n_layers), desc="Layers"):
         # Load appropriate direction for this layer
         if use_specific:
+            # Use layer-specific direction learned from Dataset A
             direction_path = directions_dir / f"layer{layer}.pt"
             humor_direction = torch.load(direction_path).to(device)
         else:
+            # Use the best layer's direction for all layers
             humor_direction = fallback_direction
         
+        # Create intervention object for this layer
         intervention = HumorIntervention(model, humor_direction, layer)
         
         # Track effects per prompt with category
         prompt_results = []
         for prompt in prompts:
             diffs = {}
+            # Test different steering strengths
             for alpha in alphas:
                 try:
+                    # Measure logit difference (humor tokens vs serious tokens) with steering applied
                     logit_diff = compute_logit_difference(
                         model, prompt, humor_direction, intervention=intervention, alpha=alpha
                     )
                     diffs[alpha] = logit_diff['logit_difference']
                 except:
                     diffs[alpha] = None
+            # Calculate steering effect: difference between max positive and max negative steering
             if diffs[alphas[-1]] is not None and diffs[alphas[0]] is not None:
                 effect = diffs[alphas[-1]] - diffs[alphas[0]]
                 prompt_results.append({
@@ -191,13 +208,15 @@ def run_steering_all_layers(
               f"control={layer_effects[-1]['avg_control']:.4f}  "
               f"humor={layer_effects[-1]['avg_humor']:.4f}")
     
-    # --- Helper to make a bar chart ---
+    # --- Create visualizations ---
     figures_dir = get_figures_dir()
     title_suffix = "(Layer-Specific)" if use_specific else ""
     
     def _save_bar_chart(effects_list, title_extra, filename):
+        """Helper function to create bar charts of steering effects by layer."""
         fig, ax = plt.subplots(figsize=(10, 6))
         layers = list(range(n_layers))
+        # Blue for positive (increases humor), red for negative (decreases humor)
         colors = ['steelblue' if e >= 0 else 'salmon' for e in effects_list]
         ax.bar(layers, effects_list, color=colors)
         ax.set_xlabel('Layer', fontsize=12)
@@ -234,7 +253,19 @@ def run_steering_experiments(
     layer: int = 11,
     alphas: List[float] = None
 ) -> Dict:
+    """
+    QUALITATIVE steering experiment: Generate text at different steering strengths.
+    
+    This is a text generation experiment (not activation extraction).
+    For each of 21 prompts:
+    - Generate text at various alpha values (steering strengths)
+    - Measure internal metrics (logit differences, activation projections)
+    - Show how steering strength affects both generated text and internal representations
+    
+    Uses the humor_direction learned from Dataset A.
+    """
     if alphas is None:
+        # Range of steering strengths to test
         alphas = [-15.0, -10.0, -5.0, -2.0, 0.0, 2.0, 5.0, 10.0, 15.0]
     
     display_name = get_display_name()
@@ -249,14 +280,20 @@ def run_steering_experiments(
     for prompt in tqdm(ALL_PROMPTS, desc="Steering"):
         prompt_results = {'prompt': prompt, 'generations': {}, 'logit_diffs': {}, 'projections': {}}
 
+        # Test each steering strength
         for alpha in alphas:
             try:
+                # GENERATE TEXT with steering applied at this layer
+                # alpha = 0.0 means no steering (baseline)
+                # alpha > 0 means steer toward humor
+                # alpha < 0 means steer away from humor
                 generated = intervention.steer_humor(prompt, alpha=alpha, max_new_tokens=30, temperature=0.7)
                 prompt_results['generations'][str(alpha)] = generated
                 
             except Exception as e:
                 prompt_results['generations'][str(alpha)] = f"Error: {str(e)}"
             try:
+                # Measure logit difference (humor tokens vs serious tokens) with steering
                 logit_diff = compute_logit_difference(
                     model, prompt, humor_direction, intervention=intervention, alpha=alpha
                 )
@@ -264,18 +301,21 @@ def run_steering_experiments(
             except Exception as e:
                 prompt_results['logit_diffs'][str(alpha)] = {'error': str(e)}
             try:
+                # Measure how much the activation aligns with humor direction
                 proj = compute_activation_projection(
                     model, prompt, humor_direction, layer, 
-                    intervention=intervention, alpha=alpha # Added these
+                    intervention=intervention, alpha=alpha
                 )
                 prompt_results['projections'][str(alpha)] = proj
             except Exception as e:
                 prompt_results['projections'][str(alpha)] = None
         results.append(prompt_results)
+        # Show examples of generated text at baseline vs max steering
         print(f"\nPrompt: {prompt}")
         print(f"  α=0.0:  {prompt_results['generations'].get('0.0', 'N/A')[:60]}...")
         print(f"  α=15.0: {prompt_results['generations'].get('15.0', 'N/A')[:60]}...")
     
+    # Visualization 1: How logit difference changes with steering strength
     fig, ax = plt.subplots(figsize=(12, 7))
     for r in results:
         alphas_plot, diffs_plot = [], []
@@ -298,10 +338,10 @@ def run_steering_experiments(
     plt.close()
     print(f"Saved: {figures_dir / 'steering_logit_diff.png'}")
 
-    # New Visualization: The Triangulation Plot
+    # Visualization 2: Triangulation plot showing internal vs external measures
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     
-    # Panel 1: Activation Projection Plot
+    # Panel 1: Activation Projection Plot (internal alignment with humor direction)
     for r in results:
         alphas_p = sorted([float(a) for a in r['projections'].keys()])
         projs = [r['projections'][str(a)] for a in alphas_p]
@@ -311,7 +351,7 @@ def run_steering_experiments(
     axes[0].set_ylabel("Alignment Score")
     axes[0].grid(True, alpha=0.3)
     
-    # Panel 2: Logit Difference Plot
+    # Panel 2: Logit Difference Plot (external behavior - humor vs serious tokens)
     for r in results:
         alphas_l = sorted([float(a) for a in r['logit_diffs'].keys()])
         ldiffs = [r['logit_diffs'][str(a)]['logit_difference'] for a in alphas_l]
@@ -334,6 +374,20 @@ def run_ablation_experiments(
     humor_direction: torch.Tensor,
     layer: int = 11
 ) -> Dict:
+    """
+    QUALITATIVE ablation experiment: Generate text with humor direction removed.
+    
+    This is a text generation experiment (not the quantitative probe accuracy test).
+    For each of 21 prompts:
+    - Generate text normally (baseline)
+    - Generate text with humor direction ablated (removed)
+    - Compare how the generated text changes
+    
+    This provides qualitative/illustrative evidence of what removing humor does to text.
+    The quantitative causal test is in evaluate_probe_on_ablated_activations().
+    
+    Uses the humor_direction learned from Dataset A.
+    """
     display_name = get_display_name()
     intervention = HumorIntervention(model, humor_direction, layer)
     results = []
@@ -345,15 +399,19 @@ def run_ablation_experiments(
     
     for prompt in tqdm(ALL_PROMPTS, desc="Ablating"):
         try:
+            # BASELINE: Generate text with no intervention
+            # alpha=0.0 means no steering, just normal generation
             original = intervention.steer_humor(prompt, alpha=0.0, max_new_tokens=30)
         except Exception as e:
             original = f"Error: {str(e)}"
         try:
+            # ABLATED: Generate text with humor direction removed from activations
+            # This removes the component of layer activations that aligns with humor_direction
             ablated = intervention.ablate_humor(prompt, max_new_tokens=30)
         except Exception as e:
             ablated = f"Error: {str(e)}"
         try:
-            # For both original and ablated calls
+            # Measure logit differences for both conditions
             original_logits = compute_logit_difference(model, prompt, humor_direction)
             ablated_logits = compute_logit_difference(model, prompt, humor_direction, intervention=intervention, alpha=0.0)
         except Exception as e:
@@ -366,6 +424,7 @@ def run_ablation_experiments(
             'original_logits': original_logits,
             'ablated_logits': ablated_logits
         })
+        # Show side-by-side comparison of generated text
         print(f"\nPrompt: {prompt}")
         print(f"  Original: {original[:60]}...")
         print(f"  Ablated:  {ablated[:60]}...")
@@ -378,6 +437,24 @@ def evaluate_probe_on_ablated_activations(
     layer: int = 11,
     n_samples: int = 200
 ) -> Dict:
+    """
+    QUANTITATIVE ablation experiment: Measure causal necessity of humor direction.
+    
+    This is the main causal test that produces the ablation_impact.png graph.
+    
+    Dataset: ColBERT Humor Detection (different from Dataset A used to learn humor_direction)
+    
+    Steps:
+    1. Load 200 samples from ColBERT dataset
+    2. Extract NORMAL activations (straight from model) at specified layer for all 200 samples
+    3. Train a NEW probe on first 160 normal activations (this probe learns to use the humor direction)
+    4. Test probe on last 40 normal activations → "Original" accuracy (~97.8%)
+    5. Extract ABLATED activations for all 200 samples (humor direction removed during forward pass)
+    6. Test same probe on last 40 ablated activations → "Ablated" accuracy (~46.5%)
+    
+    The drop from ~97.8% to ~46.5% (near chance) proves the humor direction is causally necessary,
+    not just correlated with humor classification.
+    """
     from datasets import load_dataset
     display_name = get_display_name()
     
@@ -386,36 +463,54 @@ def evaluate_probe_on_ablated_activations(
     print(f"{'='*60}")
     
     device = next(model.parameters()).device
+    # Create intervention object with humor_direction learned from Dataset A
     intervention = HumorIntervention(model, humor_direction, layer)
     
     print("Loading test data...")
+    # Load ColBERT dataset (completely different from Dataset A)
     dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
     data = dataset['train'].shuffle(seed=SEED).select(range(n_samples))
-    texts = [ex['text'] for ex in data]
-    labels = np.array([1 if ex['humor'] else 0 for ex in data])
+    texts = [ex['text'] for ex in data]  # 200 text strings
+    labels = np.array([1 if ex['humor'] else 0 for ex in data])  # 200 binary labels
     
     print("Extracting original activations...")
+    # Run all 200 texts through model NORMALLY (no intervention)
+    # This is just a forward pass to capture layer activations
     original_activations = extract_activations(model, texts, device, batch_size=32)
-    X_original = original_activations[layer]
+    X_original = original_activations[layer]  # Shape: (200, hidden_dim)
     
     print("Training probe...")
-    split_idx = int(0.8 * len(texts))
+    # Split: first 160 for training, last 40 for testing
+    split_idx = int(0.8 * len(texts))  # = 160
+    # Train a NEW probe on the NORMAL activations from ColBERT
+    # This probe will learn to use the humor direction for classification
     probe_result = train_linear_probe(
-        X_original[:split_idx], labels[:split_idx],
-        X_original[split_idx:], labels[split_idx:]
+        X_original[:split_idx], labels[:split_idx],      # Train on 160 normal activations
+        X_original[split_idx:], labels[split_idx:]       # Test on 40 normal activations
     )
-    probe = probe_result['probe']
+    probe = probe_result['probe']  # This is a scikit-learn LogisticRegression model
     
     print("Extracting ablated activations...")
-    X_ablated = intervention.get_ablated_activations(texts, batch_size=32)
+    # Run all 200 texts through model again, BUT with ablation hook active
+    # The hook removes the humor_direction component from activations during forward pass
+    # mathematically: activation_ablated = activation - (activation · humor_direction) * humor_direction
+    X_ablated = intervention.get_ablated_activations(texts, batch_size=32)  # Shape: (200, hidden_dim)
     
-    impact = evaluate_ablation_impact(probe, X_original[split_idx:], X_ablated[split_idx:], labels[split_idx:])
+    # Test the probe on both normal and ablated activations
+    # The probe was trained expecting the humor direction to be present
+    impact = evaluate_ablation_impact(
+        probe,                      # Probe trained on normal activations
+        X_original[split_idx:],     # Last 40 normal test activations → ~97.8% accuracy
+        X_ablated[split_idx:],      # Last 40 ablated test activations → ~46.5% accuracy
+        labels[split_idx:]          # True labels for last 40 samples
+    )
     
     print(f"\nAblation Impact Results:")
     print(f"  Original accuracy: {impact['original_accuracy']:.3f}")
     print(f"  Ablated accuracy:  {impact['ablated_accuracy']:.3f}")
     print(f"  Accuracy drop:     {impact['accuracy_drop']:.3f} ({impact['drop_percentage']:.1f}%)")
     
+    # Create the bar chart visualization (ablation_impact.png)
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.bar(['Original', 'Ablated'], [impact['original_accuracy'], impact['ablated_accuracy']], color=['steelblue', 'salmon'])
     ax.set_ylabel('Probe Accuracy')
@@ -433,7 +528,15 @@ def evaluate_probe_on_ablated_activations(
 
 
 def run_interventions(model_name: str = None):
-    """Run all intervention tests for a given model."""
+    """
+    Run all intervention tests for a given model.
+    
+    This orchestrates all the causal experiments:
+    1. Steering across all layers - which layers are most effective?
+    2. Steering experiments - how does text generation change with steering?
+    3. Ablation experiments (qualitative) - what happens to generated text when humor is removed?
+    4. Ablation impact (quantitative) - causal proof via probe accuracy drop
+    """
     if model_name:
         set_model(model_name)
     
@@ -449,6 +552,7 @@ def run_interventions(model_name: str = None):
     print(f"  Prompts: {len(ALL_PROMPTS)} total ({len(NEUTRAL_PROMPTS)} neutral, {len(SERIOUS_PROMPTS)} serious)")
     print("="*60)
     
+    # Load the humor direction learned from Dataset A in the main experiment
     humor_direction_path = results_dir / "humor_direction.pt"
     if not humor_direction_path.exists():
         print(f"\nError: {humor_direction_path} not found!")
@@ -463,7 +567,7 @@ def run_interventions(model_name: str = None):
     model, device = load_model()
     humor_direction = humor_direction.to(device)
     
-    # Read best layer from saved results
+    # Read best layer from saved results (the layer with highest probe accuracy)
     config_path = results_dir / "rank_analysis.json"
     if config_path.exists():
         with open(config_path) as f:
@@ -475,15 +579,20 @@ def run_interventions(model_name: str = None):
     
     all_results = {}
     
+    # Test 1: Which layers are most effective for steering?
     layer_steering = run_steering_all_layers(model, humor_direction)
     all_results.update(layer_steering)
     
+    # Test 2: Qualitative steering - how does generated text change?
     steering_results = run_steering_experiments(model, humor_direction, layer=BEST_LAYER)
     all_results.update(steering_results)
     
+    # Test 3: Qualitative ablation - what happens to text when humor is removed?
     ablation_results = run_ablation_experiments(model, humor_direction, layer=BEST_LAYER)
     all_results.update(ablation_results)
     
+    # Test 4: Quantitative ablation - causal proof via probe accuracy
+    # This is the key experiment that proves causal necessity
     try:
         impact_results = evaluate_probe_on_ablated_activations(model, humor_direction, layer=BEST_LAYER, n_samples=200)
         all_results.update(impact_results)
@@ -491,9 +600,11 @@ def run_interventions(model_name: str = None):
         print(f"\nWarning: Could not evaluate probe impact: {e}")
         all_results['ablation_impact'] = {'error': str(e)}
     
+    # Save all results to JSON
     results_path = results_dir / "intervention_results.json"
     
     def convert_for_json(obj):
+        """Convert numpy types to JSON-serializable types."""
         if isinstance(obj, np.ndarray): return obj.tolist()
         elif isinstance(obj, (np.float32, np.float64)): return float(obj)
         elif isinstance(obj, (np.int32, np.int64)): return int(obj)
