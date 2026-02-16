@@ -1,7 +1,0 @@
-{
-  "dataset_a_accuracy": 0.9751243781094527,
-  "dataset_b_accuracy": 0.9303482587064676,
-  "accuracy_difference": 0.04477611940298509,
-  "direction_cosine_similarity": 0.6170519763091279,
-  "layer": 11
-}
