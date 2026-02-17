@@ -118,7 +118,8 @@ def run_full_experiment(batch_size: int = 128):
     sys.path.insert(0, "/root/src")
 
     from sae_analysis import get_humor_features, load_sae_model
-    from experiment import HumorIntervention, set_model, set_seed, SEED
+    from experiment import set_model, set_seed, SEED
+    from intervention_tests import HumorIntervention
     import torch
 
     model_name = "gemma-2-2b"
@@ -138,7 +139,7 @@ def run_full_experiment(batch_size: int = 128):
     # STEP 1: SAE Feature Discovery
     # ══════════════════════════════════════════════════════════════════
     print("\n" + "=" * 60)
-    print("  STEP 1 / 3 : SAE Feature Discovery")
+    print("  STEP 1 / 4 : SAE Feature Discovery")
     print("=" * 60)
 
     sae_results = get_humor_features(
@@ -158,7 +159,7 @@ def run_full_experiment(batch_size: int = 128):
     # STEP 2: Causal Validation (Steering + Ablation)
     # ══════════════════════════════════════════════════════════════════
     print("\n" + "=" * 60)
-    print("  STEP 2 / 3 : Causal Validation")
+    print("  STEP 2 / 4 : Causal Validation")
     print("=" * 60)
 
     model, sae, cfg = load_sae_model(model_name)
@@ -213,7 +214,7 @@ def run_full_experiment(batch_size: int = 128):
     # STEP 3: Save Combined Results
     # ══════════════════════════════════════════════════════════════════
     print("\n" + "=" * 60)
-    print("  STEP 3 / 3 : Saving Results")
+    print("  STEP 3 / 4 : Saving Results")
     print("=" * 60)
 
     complete = {
@@ -226,6 +227,30 @@ def run_full_experiment(batch_size: int = 128):
     out_path = results_dir / f"{model_name}_sae_complete_experiment.json"
     with open(out_path, "w") as f:
         json.dump(complete, f, indent=2)
+
+    # ══════════════════════════════════════════════════════════════════
+    # STEP 4: Generate Figures
+    # ══════════════════════════════════════════════════════════════════
+    print("\n" + "=" * 60)
+    print("  STEP 4 / 4 : Generating Figures")
+    print("=" * 60)
+    
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["python", "/root/src/generate_sae_figures.py"],
+            cwd="/root",
+            capture_output=True,
+            text=True
+        )
+        print(result.stdout)
+        if result.returncode == 0:
+            print(f"\n✅ Figures saved → {results_dir / 'figures'}")
+        else:
+            print(f"\n⚠️  Figure generation had errors:")
+            print(result.stderr)
+    except Exception as e:
+        print(f"\n⚠️  Figure generation failed: {e}")
 
     results_vol.commit()
 

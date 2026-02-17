@@ -27,7 +27,7 @@ import seaborn as sns
 # ═══════════════════════════════════════════════════════════════════════════
 # Config
 # ═══════════════════════════════════════════════════════════════════════════
-DATA_PATH = Path("results/gemma-2-2b_sae_complete_experiment.json")
+DATA_PATH = Path("results/gemma-2-2b/gemma-2-2b_sae_complete_experiment.json")
 OUTPUT_DIR = Path("results/gemma-2-2b/figures")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 

@@ -19,7 +19,8 @@ from pathlib import Path
 
 # Import the new SAE analysis function
 from sae_analysis import get_humor_features, load_sae_model
-from experiment import HumorIntervention, set_model, set_seed, SEED
+from experiment import set_model, set_seed, SEED
+from intervention_tests import HumorIntervention
 
 def get_results_dir(model_name):
     """Get current model's results directory."""
