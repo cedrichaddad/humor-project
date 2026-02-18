@@ -236,7 +236,8 @@ def compute_logit_difference(
     humor_direction: torch.Tensor,
     n_top_tokens: int = 200,
     intervention: Optional[HumorIntervention] = None,
-    alpha: float = 0.0
+    alpha: float = 0.0,
+    do_ablate: bool = False,      # <-- add
 ) -> Dict[str, float]:
     """
     Compute logit difference: humor tokens vs serious tokens.
@@ -270,14 +271,17 @@ def compute_logit_difference(
     tokens = model.to_tokens(prompt, prepend_bos=True)
     
     # Run with potential intervention hooks
-    if intervention and alpha != 0:
+    if intervention and (do_ablate or alpha != 0):
         hook_name = f"blocks.{intervention.layer}.hook_resid_post"
-        hook_fn = intervention._get_steering_hook(alpha)
-        with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
-            logits = model(tokens)
+        hook_fn = intervention._get_ablation_hook() if do_ablate else intervention._get_steering_hook(alpha)
+        with torch.no_grad():
+            with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+                logits = model(tokens)
     else:
         with torch.no_grad():
             logits = model(tokens)
+
+
 
     # Get probabilities for next token after prompt
     log_probs = torch.log_softmax(logits[0, -1, :], dim=-1)
@@ -750,7 +754,11 @@ def run_ablation_experiments(
         try:
             # Measure logit differences for both conditions
             original_logits = compute_logit_difference(model, prompt, humor_direction)
-            ablated_logits = compute_logit_difference(model, prompt, humor_direction, intervention=intervention, alpha=0.0)
+            ablated_logits = compute_logit_difference(
+                model, prompt, humor_direction,
+                intervention=intervention,
+                do_ablate=True
+            )
         except Exception as e:
             original_logits = {'error': str(e)}
             ablated_logits = {'error': str(e)}
@@ -792,7 +800,7 @@ def evaluate_probe_on_ablated_activations(
     The drop from ~97.8% to ~46.5% (near chance) proves the humor direction is causally necessary,
     not just correlated with humor classification.
     """
-    from datasets import load_dataset, concatenate_datasets
+    from datasets import load_dataset
     display_name = get_display_name()
     
     print(f"\n{'='*60}")
@@ -804,22 +812,11 @@ def evaluate_probe_on_ablated_activations(
     intervention = HumorIntervention(model, humor_direction, layer)
     
     print("Loading test data...")
-    # Positives: ysharma/short_jokes (ID, Joke)
-    jokes = load_dataset("ysharma/short_jokes", split="train").shuffle(seed=SEED).select(range(100))
-    jokes = jokes.rename_column("Joke", "joke")
-    jokes = jokes.add_column("label", [1] * len(jokes))
-
-    # Negatives: ag_news (text, label)
-    news = load_dataset("ag_news", split="train").shuffle(seed=SEED).select(range(100))
-    news = news.rename_column("text", "joke")
-    news = news.rename_column("label", "topic_label")   
-    news = news.add_column("label", [0] * len(news))    # add binary label
-
-    data = concatenate_datasets([jokes, news]).shuffle(seed=SEED)
-    texts = [ex["joke"] for ex in data]
-    labels = np.array([ex["label"] for ex in data])
-    print("Class balance:", labels.sum(), "/", len(labels))  # should be 100 / 200
-
+    # Load ColBERT dataset (completely different from Dataset A)
+    dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
+    data = dataset['train'].shuffle(seed=SEED).select(range(n_samples))
+    texts = [ex['text'] for ex in data]  # 200 text strings
+    labels = np.array([1 if ex['humor'] else 0 for ex in data])  # 200 binary labels
     
     print("Extracting original activations...")
     # Run all 200 texts through model NORMALLY (no intervention)
