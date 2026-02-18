@@ -68,6 +68,7 @@ CAT_COLORS = {
     "Semantic Humor":   "#2ca02c",   # green
     "Dataset Artifact": "#d62728",   # red
     "Other/Structural": "#7f7f7f",   # grey
+    "Unknown":          "#9467bd",   # purple
 }
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -81,7 +82,7 @@ df = pd.DataFrame(data["discovery"])
 # Attach category + human label
 df["category"] = df["feature_idx"].map(lambda x: FEATURE_CATEGORIES.get(x, ("Unknown", "?"))[0])
 df["human_label"] = df["feature_idx"].map(lambda x: FEATURE_CATEGORIES.get(x, ("Unknown", str(x)))[1])
-df["color"] = df["category"].map(CAT_COLORS)
+df["color"] = df["category"].map(CAT_COLORS).fillna("#999999")  # Grey fallback for any unmapped categories
 
 # Handy short label for axes
 df["bar_label"] = df.apply(

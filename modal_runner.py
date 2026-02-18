@@ -52,7 +52,6 @@ image = (
         "tqdm",
     )
     .add_local_dir("src", remote_path="/root/src")
-    .add_local_dir("datasets", remote_path="/root/datasets")
 )
 
 app = modal.App("humor-sae-analysis", image=image)
@@ -87,7 +86,6 @@ def run_feature_discovery(batch_size: int = 128):
 
     results = get_humor_features(
         model_alias="gemma-2-2b",
-        data_path="/root/datasets/dataset_a_paired.xlsx",
         batch_size=batch_size,
         save_dir="/root/results",
     )
@@ -144,7 +142,6 @@ def run_full_experiment(batch_size: int = 128):
 
     sae_results = get_humor_features(
         model_alias=model_name,
-        data_path="/root/datasets/dataset_a_paired.xlsx",
         batch_size=batch_size,
         save_dir=str(results_dir),
     )
@@ -300,15 +297,3 @@ def main(
         return
 
     results = fn.remote(batch_size=batch_size)
-
-    # Save locally
-    if discovery_only:
-        out = Path("results/gemma-2-2b_sae_features.json")
-    else:
-        out = Path("results/gemma-2-2b_sae_complete_experiment.json")
-
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with open(out, "w") as f:
-        json.dump(results, f, indent=2)
-
-    print(f"\n📄 Local copy saved → {out}")

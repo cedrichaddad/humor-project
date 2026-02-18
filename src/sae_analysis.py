@@ -185,25 +185,25 @@ def get_humor_features(
     hook_name: str = cfg["hook_name"]
     layer: int = cfg["layer"]
 
-    # ── 2. Data ───────────────────────────────────────────────────────
-    print(f"[data] Loading {data_path} ...")
+    # ── 2. Data (HuggingFace ColBERT) ────────────────────────────────
+    print(f"[data] Loading CreativeLang/ColBERT_Humor_Detection from HuggingFace ...")
     try:
-        df = pd.read_excel(data_path)
+        from datasets import load_dataset
+        
+        dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
+        data = dataset['train']
+        
+        # Filter jokes (humor=True) and non-jokes (humor=False)
+        jokes = [item['text'] for item in data if item['humor'] == True][:1000]
+        non_jokes = [item['text'] for item in data if item['humor'] == False][:1000]
+        
+        print(f"[data] {len(jokes)} jokes  vs  {len(non_jokes)} non-jokes")
+        
+        if len(jokes) == 0 or len(non_jokes) == 0:
+            raise ValueError(f"Not enough data! jokes={len(jokes)}, non_jokes={len(non_jokes)}")
+            
     except Exception as exc:
-        raise RuntimeError(f"Cannot read {data_path}: {exc}") from exc
-
-    required = {"humor", "text"}
-    missing = required - set(df.columns)
-    if missing:
-        raise ValueError(f"Dataset is missing columns: {missing}")
-
-    # Sanitise: drop NaN / non-string rows (common in Excel exports)
-    df = df.dropna(subset=["text", "humor"])
-    df["text"] = df["text"].astype(str)
-
-    jokes = df.loc[df["humor"] == 1, "text"].tolist()[:2000]
-    non_jokes = df.loc[df["humor"] == 0, "text"].tolist()[:2000]
-    print(f"[data] {len(jokes)} jokes  vs  {len(non_jokes)} non-jokes")
+        raise RuntimeError(f"Cannot load HuggingFace dataset: {exc}") from exc
 
     # ── 3. Feature extraction ─────────────────────────────────────────
     def _extract(texts: List[str], desc: str = "Extracting") -> torch.Tensor:
