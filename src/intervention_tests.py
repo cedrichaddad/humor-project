@@ -792,7 +792,7 @@ def evaluate_probe_on_ablated_activations(
     The drop from ~97.8% to ~46.5% (near chance) proves the humor direction is causally necessary,
     not just correlated with humor classification.
     """
-    from datasets import load_dataset
+    from datasets import load_dataset, concatenate_datasets
     display_name = get_display_name()
     
     print(f"\n{'='*60}")
@@ -804,11 +804,22 @@ def evaluate_probe_on_ablated_activations(
     intervention = HumorIntervention(model, humor_direction, layer)
     
     print("Loading test data...")
-    # Load ColBERT dataset (completely different from Dataset A)
-    dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
-    data = dataset['train'].shuffle(seed=SEED).select(range(n_samples))
-    texts = [ex['text'] for ex in data]  # 200 text strings
-    labels = np.array([1 if ex['humor'] else 0 for ex in data])  # 200 binary labels
+    # Positives: ysharma/short_jokes (ID, Joke)
+    jokes = load_dataset("ysharma/short_jokes", split="train").shuffle(seed=SEED).select(range(100))
+    jokes = jokes.rename_column("Joke", "joke")
+    jokes = jokes.add_column("label", [1] * len(jokes))
+
+    # Negatives: ag_news (text, label)
+    news = load_dataset("ag_news", split="train").shuffle(seed=SEED).select(range(100))
+    news = news.rename_column("text", "joke")
+    news = news.rename_column("label", "topic_label")   
+    news = news.add_column("label", [0] * len(news))    # add binary label
+
+    data = concatenate_datasets([jokes, news]).shuffle(seed=SEED)
+    texts = [ex["joke"] for ex in data]
+    labels = np.array([ex["label"] for ex in data])
+    print("Class balance:", labels.sum(), "/", len(labels))  # should be 100 / 200
+
     
     print("Extracting original activations...")
     # Run all 200 texts through model NORMALLY (no intervention)

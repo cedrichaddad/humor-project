@@ -4578,10 +4578,10 @@
     }
   ],
   "ablation_impact": {
-    "original_accuracy": 0.975,
-    "ablated_accuracy": 0.475,
-    "accuracy_drop": 0.5,
-    "drop_percentage": 51.282051282051285
+    "original_accuracy": 1.0,
+    "ablated_accuracy": 0.525,
+    "accuracy_drop": 0.475,
+    "drop_percentage": 47.5
   },
   "n_test_samples": 40
 }
