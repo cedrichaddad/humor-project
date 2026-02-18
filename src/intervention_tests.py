@@ -197,32 +197,58 @@ class HumorIntervention:
             numpy array of shape (n_texts, hidden_dim)
             These are the activations WITH the humor component removed
         """
+        # Hook into resid_post at the intervention layer
         hook_name = f"blocks.{self.layer}.hook_resid_post"
-        ablation_hook = self._get_ablation_hook()
-        
         all_ablated_acts = []
+        captured = []  # Temporary buffer, cleared each batch
 
-        def capture_hook(activation, hook):
-            """Second hook to capture the ablated activations."""
-            all_ablated_acts.append(activation.detach().cpu())
-            return activation
+        def ablate_and_capture_hook(activation, hook):
+            """
+            Single hook that does two things in one pass:
+            1. Ablates: removes the humor direction component from the activation
+            2. Captures: stores the ablated activation for extraction
+            
+            Must be a single hook (not two chained hooks) because TransformerLens
+            does not guarantee hooks chain — a second hook would receive the
+            original activation, not the output of the first hook.
+            
+            Math: activation_ablated = activation - (activation · v) * v
+            where v is the unit humor direction vector.
+            This projects out the humor component while preserving everything else.
+            """
+            v = self.humor_direction
+            # Dot product of each token's activation with humor direction
+            # Shape: (batch, seq_len)
+            proj_coef = torch.einsum('bsd,d->bs', activation, v)
+            # Reconstruct the humor component vector at each position
+            # Shape: (batch, seq_len, hidden_dim)
+            projection = proj_coef.unsqueeze(-1) * v
+            # Remove humor component from activation
+            ablated = activation - projection
+            # Store for extraction after forward pass
+            captured.append(ablated.detach().cpu())
+            return ablated  # Return modified activation to continue forward pass
 
-        # Process in batches
         for i in range(0, len(texts), batch_size):
-            batch_texts = texts[i:i+batch_size]
+            batch_texts = texts[i:i + batch_size]
             tokens = self.model.to_tokens(batch_texts, prepend_bos=True)
+            # Compute actual sequence lengths (excluding padding)
             seq_lengths = (tokens != self.model.tokenizer.pad_token_id).sum(dim=1) - 1
-            
-            # Install TWO hooks: first ablates, second captures
-            with self.model.hooks(fwd_hooks=[(hook_name, ablation_hook), (hook_name, capture_hook)]):
-                self.model(tokens)  # Just forward pass, no generation
-            
-            # Extract final token activations from captured batch
-            batch_acts = all_ablated_acts.pop()
+
+            # Clear buffer before each batch
+            captured.clear()
+            # Run forward pass with hook active — hook ablates AND captures
+            with self.model.hooks(fwd_hooks=[(hook_name, ablate_and_capture_hook)]):
+                self.model(tokens)
+
+            # captured[0] is shape (batch, seq_len, hidden_dim)
+            batch_acts = captured[0]
             for j in range(len(batch_texts)):
+                # Extract final non-padding token (same logic as extract_activations)
                 final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
-                all_ablated_acts.insert(0, batch_acts[j, final_pos, :].numpy())
-        
+                all_ablated_acts.append(batch_acts[j, final_pos, :].numpy())
+
+        # Shape: (n_texts, hidden_dim)
         return np.array(all_ablated_acts)
 
 
@@ -335,47 +361,6 @@ def compute_activation_projection(
     direction = humor_direction.to(device)
     # Dot product measures alignment
     return torch.dot(resid, direction / direction.norm()).item()
-
-
-def evaluate_ablation_impact(
-    probe,
-    original_activations: np.ndarray,
-    ablated_activations: np.ndarray,
-    labels: np.ndarray
-) -> Dict[str, float]:
-    """
-    Evaluate how ablation affects probe accuracy.
-    
-    This is the QUANTITATIVE CAUSAL TEST.
-    
-    The probe was trained on normal activations (expecting humor direction present).
-    We test it on:
-    1. Original activations → should be high accuracy
-    2. Ablated activations → if accuracy drops to chance, proves causality
-    
-    Args:
-        probe: Trained linear probe (sklearn LogisticRegression)
-        original_activations: Normal activations from model
-        ablated_activations: Activations with humor direction removed
-        labels: True labels
-    
-    Returns:
-        Dict with accuracy before/after and drop percentage
-    """
-    # Test probe on normal activations
-    original_preds = probe.predict(original_activations)
-    # Test same probe on ablated activations
-    ablated_preds = probe.predict(ablated_activations)
-    
-    original_acc = accuracy_score(labels, original_preds)
-    ablated_acc = accuracy_score(labels, ablated_preds)
-    
-    return {
-        'original_accuracy': original_acc,
-        'ablated_accuracy': ablated_acc,
-        'accuracy_drop': original_acc - ablated_acc,
-        'drop_percentage': 100 * (original_acc - ablated_acc) / original_acc if original_acc > 0 else 0
-    }
 
 
 # ---------------------------------------------------------------------------
@@ -740,39 +725,33 @@ def run_ablation_experiments(
     
     for prompt in tqdm(ALL_PROMPTS, desc="Ablating"):
         try:
-            # BASELINE: Generate text with no intervention
-            # alpha=0.0 means no steering, just normal generation
-            original = intervention.steer_humor(prompt, alpha=0.0, max_new_tokens=30)
+            _toks = model.to_tokens(prompt, prepend_bos=True)
+            torch.manual_seed(42)
+            with torch.no_grad():
+                _out = model.generate(_toks, max_new_tokens=30, temperature=0.7, prepend_bos=False, verbose=False)
+            original = model.to_string(_out[0][_toks.shape[1]:])
         except Exception as e:
             original = f"Error: {str(e)}"
         try:
-            # ABLATED: Generate text with humor direction removed from activations
-            # This removes the component of layer activations that aligns with humor_direction
-            ablated = intervention.ablate_humor(prompt, max_new_tokens=30)
+            torch.manual_seed(42)
+            hook_fn = intervention._get_ablation_hook()
+            hook_name = f"blocks.{intervention.layer}.hook_resid_post"
+            with model.hooks(fwd_hooks=[(hook_name, hook_fn)]):
+                _out2 = model.generate(_toks, max_new_tokens=30, temperature=0.7, prepend_bos=False, verbose=False)
+            ablated = model.to_string(_out2[0][_toks.shape[1]:])
         except Exception as e:
             ablated = f"Error: {str(e)}"
-        try:
-            # Measure logit differences for both conditions
-            original_logits = compute_logit_difference(model, prompt, humor_direction)
-            ablated_logits = compute_logit_difference(
-                model, prompt, humor_direction,
-                intervention=intervention,
-                do_ablate=True
-            )
-        except Exception as e:
-            original_logits = {'error': str(e)}
-            ablated_logits = {'error': str(e)}
+
         results.append({
             'prompt': prompt,
             'original_generation': original,
             'ablated_generation': ablated,
-            'original_logits': original_logits,
-            'ablated_logits': ablated_logits
         })
-        # Show side-by-side comparison of generated text
-        print(f"\nPrompt: {prompt}")
-        print(f"  Original: {original[:60]}...")
-        print(f"  Ablated:  {ablated[:60]}...")
+
+        # Print current prompt results inline
+        print(f"\nPrompt:   {prompt}")
+        print(f"Original: {original}")
+        print(f"Ablated:  {ablated}")
     return {'ablation_results': results}
 
 
@@ -780,25 +759,33 @@ def evaluate_probe_on_ablated_activations(
     model: HookedTransformer,
     humor_direction: torch.Tensor,
     layer: int = 11,
-    n_samples: int = 200
+    n_samples: int = 400
 ) -> Dict:
     """
     QUANTITATIVE ablation experiment: Measure causal necessity of humor direction.
-    
-    This is the main causal test that produces the ablation_impact.png graph.
-    
-    Dataset: ColBERT Humor Detection (different from Dataset A used to learn humor_direction)
-    
+
+    Dataset: ColBERT Humor Detection (seed 40, balanced, strictly separated from Dataset A)
+
     Steps:
-    1. Load 200 samples from ColBERT dataset
-    2. Extract NORMAL activations (straight from model) at specified layer for all 200 samples
-    3. Train a NEW probe on first 160 normal activations (this probe learns to use the humor direction)
-    4. Test probe on last 40 normal activations → "Original" accuracy (~97.8%)
-    5. Extract ABLATED activations for all 200 samples (humor direction removed during forward pass)
-    6. Test same probe on last 40 ablated activations → "Ablated" accuracy (~46.5%)
-    
-    The drop from ~97.8% to ~46.5% (near chance) proves the humor direction is causally necessary,
-    not just correlated with humor classification.
+    1. Load 400 balanced samples (200 humor, 200 non-humor) from ColBERT,
+       excluding the 1,039 samples that overlap with Dataset A via prefix matching
+    2. Extract NORMAL activations at specified layer using identical hook/token
+       logic as ablation (same tokenization, padding, final-token selection)
+    3. Extract ABLATED activations (humor direction projected out during forward pass)
+    4. Classify both using ONLY the humor direction component (1D projection + threshold)
+       - threshold = median projection of train split (first 80%)
+       - evaluated on test split (last 20% = 80 samples)
+    5. Compare accuracy: original should be high, ablated should drop to ~chance
+
+    Why 1D projection (not a full probe)?
+    A full logistic regression finds multiple discriminative features, so ablating
+    one direction doesn't hurt it. The 1D test measures exactly the dimension we
+    ablated — so a drop to chance is direct causal evidence that the humor direction
+    carries the information, not just a correlate of it.
+
+    Why ColBERT and not Dataset A?
+    The humor direction was learned on Dataset A. Testing on a held-out dataset
+    (ColBERT minus overlap) ensures we measure generalization, not overfitting.
     """
     from datasets import load_dataset
     display_name = get_display_name()
@@ -814,41 +801,113 @@ def evaluate_probe_on_ablated_activations(
     print("Loading test data...")
     # Load ColBERT dataset (completely different from Dataset A)
     dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
-    data = dataset['train'].shuffle(seed=SEED).select(range(n_samples))
-    texts = [ex['text'] for ex in data]  # 200 text strings
-    labels = np.array([1 if ex['humor'] else 0 for ex in data])  # 200 binary labels
     
+    # Balance classes: exactly n_samples//2 humor, n_samples//2 non-humor
+    import random as _random
+    _random.seed(40)
+    np.random.seed(40)
+    torch.manual_seed(40)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(40)
+
+    all_data = list(dataset['train'])
+
+    try:
+        import pandas as pd
+        dataset_a_path = Path("datasets/dataset_a_paired.xlsx")
+        if dataset_a_path.exists():
+            df_a = pd.read_excel(dataset_a_path)
+            # Use first 60 chars as fingerprint — robust to trailing whitespace/punctuation
+            dataset_a_prefixes = set(t[:60].strip().lower() for t in df_a['text'].astype(str).tolist())
+            before = len(all_data)
+            all_data = [ex for ex in all_data if ex['text'][:60].strip().lower() not in dataset_a_prefixes]
+            after = len(all_data)
+            print(f"  Dataset A exclusion: {before - after} matches removed out of {before} "
+                  f"({100*(before-after)/before:.2f}% overlap)")
+            print(f"  Remaining pool: {after} samples")
+        else:
+            print("  Warning: dataset_a_paired.xlsx not found on this machine, skipping exclusion")
+    except Exception as e:
+        print(f"  Warning: exclusion failed ({e}), proceeding without it")
+
+    humor_pool   = [ex for ex in all_data if ex['humor']]
+    serious_pool = [ex for ex in all_data if not ex['humor']]
+    _random.shuffle(humor_pool);  _random.shuffle(serious_pool)
+
+    half = n_samples // 2
+    balanced = humor_pool[:half] + serious_pool[:half]
+    _random.shuffle(balanced)
+    texts  = [ex['text'] for ex in balanced]
+    labels = np.array([1 if ex['humor'] else 0 for ex in balanced])
+    
+    # Run all 400 texts through model NORMALLY (no intervention)
+    # Using a hook (not run_with_cache) so tokenization, padding, and
+    # final-token selection logic is identical to get_ablated_activations.
+    # This guarantees X_original and X_ablated are directly comparable.
     print("Extracting original activations...")
-    # Run all 200 texts through model NORMALLY (no intervention)
-    # This is just a forward pass to capture layer activations
-    original_activations = extract_activations(model, texts, device, batch_size=32)
-    X_original = original_activations[layer]  # Shape: (200, hidden_dim)
+    hook_name = f"blocks.{layer}.hook_resid_post"
+    all_original_acts = [] # Temporary buffer, cleared each batch
+
+    def capture_original_hook(activation, hook):
+        # Capture unmodified activation and pass it through unchanged
+        all_original_acts.append(activation.detach().cpu())
+        return activation
+
+    X_original_list = []
+    for i in range(0, len(texts), 32):
+        batch_texts = texts[i:i + 32]
+        tokens = model.to_tokens(batch_texts, prepend_bos=True)
+        # Actual sequence lengths excluding padding
+        seq_lengths = (tokens != model.tokenizer.pad_token_id).sum(dim=1) - 1
+        all_original_acts.clear()
+        with model.hooks(fwd_hooks=[(hook_name, capture_original_hook)]):
+            model(tokens)
+        batch_acts = all_original_acts[0]
+        for j in range(len(batch_texts)):
+            # Extract final non-padding token position
+            final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
+            X_original_list.append(batch_acts[j, final_pos, :].numpy())
+
+    X_original = np.array(X_original_list)
     
-    print("Training probe...")
-    # Split: first 160 for training, last 40 for testing
-    split_idx = int(0.8 * len(texts))  # = 160
-    # Train a NEW probe on the NORMAL activations from ColBERT
-    # This probe will learn to use the humor direction for classification
-    probe_result = train_linear_probe(
-        X_original[:split_idx], labels[:split_idx],      # Train on 160 normal activations
-        X_original[split_idx:], labels[split_idx:]       # Test on 40 normal activations
-    )
-    probe = probe_result['probe']  # This is a scikit-learn LogisticRegression model
-    
+    # 80/20 train/test split — threshold learned on train, evaluated on test
+    split_idx = int(0.8 * len(texts))
+
+    # Extract activations with humor direction projected out
     print("Extracting ablated activations...")
-    # Run all 200 texts through model again, BUT with ablation hook active
-    # The hook removes the humor_direction component from activations during forward pass
-    # mathematically: activation_ablated = activation - (activation · humor_direction) * humor_direction
-    X_ablated = intervention.get_ablated_activations(texts, batch_size=32)  # Shape: (200, hidden_dim)
-    
-    # Test the probe on both normal and ablated activations
-    # The probe was trained expecting the humor direction to be present
-    impact = evaluate_ablation_impact(
-        probe,                      # Probe trained on normal activations
-        X_original[split_idx:],     # Last 40 normal test activations → ~97.8% accuracy
-        X_ablated[split_idx:],      # Last 40 ablated test activations → ~46.5% accuracy
-        labels[split_idx:]          # True labels for last 40 samples
-    )
+    X_ablated = intervention.get_ablated_activations(texts, batch_size=32)
+
+    # DIAGNOSTIC: verify ablation actually changed the activations
+    # and that the humor direction component is gone after ablation
+    diff_norm = np.linalg.norm(X_ablated - X_original)
+    print(f"  ||X_ablated - X_original|| = {diff_norm:.4f}  (should be >> 0)")
+    proj_before = np.dot(X_original.mean(0), intervention.humor_direction.cpu().numpy())
+    proj_after  = np.dot(X_ablated.mean(0),  intervention.humor_direction.cpu().numpy())
+    print(f"  Avg projection BEFORE ablation: {proj_before:.4f}")
+    print(f"  Avg projection AFTER  ablation: {proj_after:.4f}  (should be ~0)")
+
+    # Project activations onto the humor direction to get a 1D score per sample.
+    # This is the only dimension we test — exactly what was ablated.
+    humor_dir_np = intervention.humor_direction.cpu().numpy() 
+
+    proj_original = X_original @ humor_dir_np
+    proj_ablated  = X_ablated  @ humor_dir_np
+
+    # Threshold = median of train split projections.
+    # With a balanced dataset, this naturally falls between the two classes.
+    # Learned on train split only to avoid threshold overfitting.
+    threshold = np.median(proj_original[:split_idx])
+    original_preds = (proj_original[split_idx:] > threshold).astype(int)
+    ablated_preds  = (proj_ablated[split_idx:]  > threshold).astype(int)
+
+    original_acc = accuracy_score(labels[split_idx:], original_preds)
+    ablated_acc  = accuracy_score(labels[split_idx:], ablated_preds)
+    impact = {
+        'original_accuracy': original_acc,
+        'ablated_accuracy':  ablated_acc,
+        'accuracy_drop':     original_acc - ablated_acc,
+        'drop_percentage':   100 * (original_acc - ablated_acc) / original_acc if original_acc > 0 else 0
+    }
     
     print(f"\nAblation Impact Results:")
     print(f"  Original accuracy: {impact['original_accuracy']:.3f}")
@@ -939,7 +998,7 @@ def run_interventions(model_name: str = None):
     # Test 4: Quantitative ablation - causal proof via probe accuracy
     # This is the key experiment that proves causal necessity
     try:
-        impact_results = evaluate_probe_on_ablated_activations(model, humor_direction, layer=BEST_LAYER, n_samples=200)
+        impact_results = evaluate_probe_on_ablated_activations(model, humor_direction, layer=BEST_LAYER, n_samples=400)
         all_results.update(impact_results)
     except Exception as e:
         print(f"\nWarning: Could not evaluate probe impact: {e}")

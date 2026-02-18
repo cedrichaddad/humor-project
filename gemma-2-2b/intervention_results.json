@@ -4305,283 +4305,115 @@
   "ablation_results": [
     {
       "prompt": "Why did the chicken cross the road?",
-      "original_generation": "<bos>Why did the chicken cross the road?\n\nThe <strong>Chicken</strong> gets stuck in a group of people in the middle of the road.\n\n\"<strong>The chicken is stuck.\"</strong> the",
-      "ablated_generation": "<bos>Why did the chicken cross the road? To get from one side of the map to the other, of course. With the launch of <em>Pokemon Let's Go Eevee/Pikachu",
-      "original_logits": {
-        "logit_difference": -0.9736776351928711,
-        "humor_prob": 3.7799516305441536e-07
-      },
-      "ablated_logits": {
-        "logit_difference": -0.7085838317871094,
-        "humor_prob": 4.515914498223776e-07
-      }
+      "original_generation": "\n\nTo get to the other side of the road, of course!\n\nIn a video that has gone viral on Twitter, a chicken is crossing a",
+      "ablated_generation": "\n\nTo get to the other side of the road, of course!\n\nIn a video that has gone viral on Twitter, a chicken is crossing a"
     },
     {
       "prompt": "What do you call a fish without eyes?",
-      "original_generation": "<bos>What do you call a fish without eyes? Nothing. That's right, a fish without eyes is still a fish.  I was just reading a blog written by a dear, dear relative",
-      "ablated_generation": "<bos>What do you call a fish without eyes?\n\nWhat do you call a two headed pig with no tail?\n\nWhy did the cow stick his head in the toilet?\n\nShe always pours me",
-      "original_logits": {
-        "logit_difference": 0.6606273651123047,
-        "humor_prob": 3.5001389123943454e-06
-      },
-      "ablated_logits": {
-        "logit_difference": 0.6365346908569336,
-        "humor_prob": 3.651768607140701e-06
-      }
+      "original_generation": "\n\nA blind fish?\n\nA fish without eyes?\n\nA blind fish?\n\nHow do you make a fish cry?\n\nPut it in a",
+      "ablated_generation": "\n\nA blind fish?\n\nA fish without eyes?\n\nA blind fish?\n\nHow do you make a fish cry?\n\nPut it in a"
     },
     {
       "prompt": "Knock knock, who's there?",
-      "original_generation": "<bos>Knock knock, who's there? The answer, it's the White House! The man himself, Donald Trump is expected to have dinner with the President of Brazil at the famous Car",
-      "ablated_generation": "<bos>Knock knock, who's there? \n\nWe\u2019re hiring for a few roles at O&M. If you\u2019re an agency veteran with experience who\u2019s interested in joining",
-      "original_logits": {
-        "logit_difference": 2.411007881164551,
-        "humor_prob": 3.625138863055992e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 2.6508216857910156,
-        "humor_prob": 4.1653329503415176e-07
-      }
+      "original_generation": " It's the man in the yellow Ferrari.\n\nAn Italian businessman who called himself the Lamborghini-driving \"Ferrari king\" was sentenced to six years",
+      "ablated_generation": " It's the man in the yellow Ferrari.\n\nAn Italian businessman who called himself the Lamborghini-driving 'Ferrari king' has been found dead in"
     },
     {
       "prompt": "A man walked into a bar and",
-      "original_generation": "<bos>A man walked into a bar and asked every person in the room why they were there.\n\n1) The bartender felt safer behind the bar.\n2) The waitress was in it",
-      "ablated_generation": "<bos>A man walked into a bar and sat himself at the end of the bar with four other customers. He got a bottle of beer and sat back. The first customer told him he couldn",
-      "original_logits": {
-        "logit_difference": 3.956319808959961,
-        "humor_prob": 2.543527866887441e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 4.401633262634277,
-        "humor_prob": 3.8215625922833844e-07
-      }
+      "original_generation": " sat down at the bar. A group of guys approached him and said, \"hey, what's your name?\"\n\nHe replied, \"Willie",
+      "ablated_generation": " sat down at the bar. A group of guys approached him and said, \"hey, what's your name?\"\n\nHe replied, \"Willie"
     },
     {
       "prompt": "A priest, a rabbi, and an imam walk into",
-      "original_generation": "<bos>A priest, a rabbi, and an imam walk into a room...\nA newly released report shows how faith leaders from around the world are working together to help combat hatred, religious intolerance, and extremism.",
-      "ablated_generation": "<bos>A priest, a rabbi, and an imam walk into a bar\u00e2\u20ac\u00a6.\n\nWe're on our way to church, the temple and the mosque today people. And the bar is a little place",
-      "original_logits": {
-        "logit_difference": 5.163643836975098,
-        "humor_prob": 1.9218515960175266e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 5.166357040405273,
-        "humor_prob": 1.832558620515175e-07
-      }
+      "original_generation": " a pub\u2026\n\nThat\u2019s right. On Thursday, Dec. 5, from 6:30 to 8:30 p",
+      "ablated_generation": " a pub\u2026\n\nThat\u2019s right. On Thursday night, October 5<sup>th</sup>, 2017, The Pub, in"
     },
     {
       "prompt": "Tell me something funny about",
-      "original_generation": "<bos>Tell me something funny about the Great Recession:\n\n1. Wasted, pilfered or misplaced in various government-run funds \u2013 including the Troubled Asset Relief Program \u2013",
-      "ablated_generation": "<bos>Tell me something funny about yourself\n\nFunny about I am?\n\nI'm a good son, a friend, a classmate...\n\n... I dislike watching horror movies because I",
-      "original_logits": {
-        "logit_difference": 4.515890121459961,
-        "humor_prob": 7.856424125916981e-06
-      },
-      "ablated_logits": {
-        "logit_difference": 4.641748428344727,
-        "humor_prob": 8.394042908583002e-06
-      }
+      "original_generation": " the game\n\nI don\u2019t know if it\u2019s a meme but if you have a lot of friends and you do a voice chat with them",
+      "ablated_generation": " the game\n\nI don\u2019t know if it\u2019s a meme but if you have a lot of friends and you do a voice chat with them"
     },
     {
       "prompt": "So a penguin walks into a",
-      "original_generation": "<bos>So a penguin walks into a bar. (Well, almost. Just skip a few years). The penguin just stands there, shivering in the cold, before finally saying, \u2018Let",
-      "ablated_generation": "<bos>So a penguin walks into a saloon ...\n\n[User 0001]\n\nThis was an event I think you must know is about to happen by now.\n\n ",
-      "original_logits": {
-        "logit_difference": 6.523576736450195,
-        "humor_prob": 1.4509609751129433e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 6.475057601928711,
-        "humor_prob": 1.3384099283017025e-05
-      }
+      "original_generation": " bar and sits at the bar. The bartender notices and asks, \"Hey, you're a penguin. Where are you from?\" The penguin replies",
+      "ablated_generation": " bar and sits at the bar. The bartender notices and says, \"Hey, you're funny!\" The penguin says, \"Thanks.\" The bartender"
     },
     {
       "prompt": "The weather today is",
-      "original_generation": "<bos>The weather today is a perfect 92 and cloudy. I read my book, \"The Road Less Traveled\" and did some crocheting. I'm working",
-      "ablated_generation": "<bos>The weather today is a perfect mix of rain, sun, and snow, however that doesn\u2019t mean that Santa Claus and Elsa will stop by! We can hardly wait",
-      "original_logits": {
-        "logit_difference": 6.182709693908691,
-        "humor_prob": 0.0001819507622494673
-      },
-      "ablated_logits": {
-        "logit_difference": 7.190247535705566,
-        "humor_prob": 0.00031925710218413586
-      }
+      "original_generation": " a mix of sun and clouds, with light rain and snow expected in the afternoon. The temperature is expected to reach a high of 10\u00b0",
+      "ablated_generation": " a mix of sun and clouds, with light rain and snow expected in the afternoon. The temperature is expected to reach a high of 10\u00b0"
     },
     {
       "prompt": "I went to the store and bought",
-      "original_generation": "<bos>I went to the store and bought them. I bought 200 pcs in total and stuffed them in a metal case.\n\nNow I need to create a game. I need",
-      "ablated_generation": "<bos>I went to the store and bought 2 S'mores at the Hot Dog/S'more Stand. Even if they are a little pricey they are worth the taste, but i",
-      "original_logits": {
-        "logit_difference": 7.206460952758789,
-        "humor_prob": 5.896219121812263e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 7.617951393127441,
-        "humor_prob": 7.903938116303105e-07
-      }
+      "original_generation": " a package of paper plates. I was very happy with how they were packaged. They are extremely well made. I have never used them yet, but",
+      "ablated_generation": " a package of paper plates. I was very happy with how they were packaged. They are extremely well made. I have never used them yet, but"
     },
     {
       "prompt": "My favorite food is",
-      "original_generation": "<bos>My favorite food is pizza. Have you ever wanted to make your own in-game? Here's a simple tutorial to help you get started.\n\nBut first,",
-      "ablated_generation": "<bos>My favorite food is a bowl of delicious, hearty pho, which I\u2019ve been known to eat twice daily. But, here in the U.S., eating pho",
-      "original_logits": {
-        "logit_difference": 6.554411888122559,
-        "humor_prob": 2.2738238920169278e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 6.7947797775268555,
-        "humor_prob": 2.8503010872971595e-05
-      }
+      "original_generation": " the pancakes. I don\u2019t know why I love it so much. It\u2019s just so soft. My mom never likes to cook the pancakes",
+      "ablated_generation": " the pancakes. I don\u2019t know why I love it so much. It\u2019s just so soft. My mom never likes to cook the pancakes"
     },
     {
       "prompt": "She opened the door and saw",
-      "original_generation": "<bos>She opened the door and saw <strong>Shahid</strong>'s body in <strong>white</strong> dress.\n\nShe rolled her eyes and gave a <em>'slap on the",
-      "ablated_generation": "<bos>She opened the door and saw me, and hugged me, and said, \"I love you, too, so much, always remember this.\" \n\n I explained how I didn",
-      "original_logits": {
-        "logit_difference": 5.824530601501465,
-        "humor_prob": 4.600701011602205e-06
-      },
-      "ablated_logits": {
-        "logit_difference": 6.069989204406738,
-        "humor_prob": 4.780113912274482e-06
-      }
+      "original_generation": " a small figure running down the stairs.\n\n\"Oh, my!\"\n\nShe picked the girl up and hugged her.\n\n\"What happened?\"\n\n",
+      "ablated_generation": " a small figure running down the stairs.\n\n\"Oh, my!\"\n\nShe picked the girl up and hugged her.\n\n\"What happened?\"\n\n"
     },
     {
       "prompt": "The dog ran across the",
-      "original_generation": "<bos>The dog ran across the road, in front of a vehicle travelling at about 42 mph, said Sgt. Josh Buuck.\n\n\u201cThe dog died instantly,\u201d Bu",
-      "ablated_generation": "<bos>The dog ran across the field on 79 Highway, near the intersection at Cedar Lake Drive, about 7:25 p.m. Wednesday.\n\nThe owner",
-      "original_logits": {
-        "logit_difference": -1.4678688049316406,
-        "humor_prob": 2.3762998004044164e-07
-      },
-      "ablated_logits": {
-        "logit_difference": -0.7906455993652344,
-        "humor_prob": 4.0069803775073224e-07
-      }
+      "original_generation": " street with her head down, her eyes staring straight ahead.\nA car approached her from behind, and I watched as it swerved to avoid running",
+      "ablated_generation": " street with her head down, her eyes staring straight ahead.\nA car approached her from behind, and I watched as it swerved to avoid running"
     },
     {
       "prompt": "Last weekend I decided to",
-      "original_generation": "<bos>Last weekend I decided to escape the city. I have an uncle in the south and it is a great excuse to get out of the heat of NYC while hitting the road.",
-      "ablated_generation": "<bos>Last weekend I decided to get a big batch of muffins going to keep the kiddos and hungry husband in muffins. My favourite thing to bake healthy is muffins because they are easy",
-      "original_logits": {
-        "logit_difference": 8.631318092346191,
-        "humor_prob": 1.9722135796274274e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 9.146474838256836,
-        "humor_prob": 2.3050015605416698e-07
-      }
+      "original_generation": " visit the annual anime convention Anime North in Toronto. It was my first time attending such a convention and I was quite excited about it. I was expecting",
+      "ablated_generation": " visit the annual anime convention Anime North in Toronto. It was my first time attending such a convention and I was quite excited about it. I was expecting"
     },
     {
       "prompt": "When I was a kid, I used to",
-      "original_generation": "<bos>When I was a kid, I used to have a constant stream of imaginary friends. The most persistent was this kid named Michael. He always, without exception, brought something with him when he came",
-      "ablated_generation": "<bos>When I was a kid, I used to play a game where my family would collect some toys at random and then they would be packed away in a cardboard box to play later. I would find",
-      "original_logits": {
-        "logit_difference": 9.20068359375,
-        "humor_prob": 2.502523251915964e-07
-      },
-      "ablated_logits": {
-        "logit_difference": 10.092608451843262,
-        "humor_prob": 5.767949979780599e-07
-      }
+      "original_generation": " spend hours reading about the life of Jesus. I was fascinated by the accounts of His early life in Nazareth. My favorite story was about Jesus\u2019 birth",
+      "ablated_generation": " spend hours reading about the life of Jesus. I was fascinated by the accounts of His early life in Nazareth. My favorite story was about Jesus\u2019 birth"
     },
     {
       "prompt": "The quarterly earnings report shows that",
-      "original_generation": "<bos>The quarterly earnings report shows that F1 Team Toro Rosso (STR), operated by Red Bull\u2019s young driver program headed by Dr. Helmut Marko, experienced a turnaround in 2",
-      "ablated_generation": "<bos>The quarterly earnings report shows that <strong>the top ten airlines were down</strong> in passenger numbers, but <strong>down less than the year prior</strong>. During this same time in ",
-      "original_logits": {
-        "logit_difference": 5.4695539474487305,
-        "humor_prob": 1.2441763583212148e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 6.088035583496094,
-        "humor_prob": 1.8226988220409778e-05
-      }
+      "original_generation": " the company is continuing to grow strongly and is now able to pay a substantial dividend to investors.\n\nThe company has paid a 100%",
+      "ablated_generation": " the company is continuing to grow strongly and is now able to pay a substantial dividend to investors.\n\nThe company has paid a 100%"
     },
     {
       "prompt": "According to the latest research,",
-      "original_generation": "<bos>According to the latest research, the number of young British people who plan to migrate to other parts of the world because of the Covid-19 situation in the coming months has been",
-      "ablated_generation": "<bos>According to the latest research, Apple's air wand is an evolution of the wiped head design concept first proposed by 3D Robotics in 2014.\n\nIn",
-      "original_logits": {
-        "logit_difference": 4.825538635253906,
-        "humor_prob": 4.425434172946321e-06
-      },
-      "ablated_logits": {
-        "logit_difference": 5.068833351135254,
-        "humor_prob": 4.722180661350316e-06
-      }
+      "original_generation": " approximately 80% of the population is infested with parasites. For a healthy lifestyle, it is important to regularly treat parasites.\n\n<h2>What are",
+      "ablated_generation": " approximately 80% of the population is infested with parasites. For some, the problem becomes so severe that it is difficult to deal with the parasites"
     },
     {
       "prompt": "In conclusion, the evidence suggests",
-      "original_generation": "<bos>In conclusion, the evidence suggests that men and women may differ in their use of sleep mechanisms and associated physiological states during sleep. While there is little data available about the mechanisms of sleep",
-      "ablated_generation": "<bos>In conclusion, the evidence suggests that a combination of therapies can address many of the major functional limitations and clinical complications of PD, and they have been shown to be effective in significantly improving",
-      "original_logits": {
-        "logit_difference": 2.510037422180176,
-        "humor_prob": 1.3429501335323696e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 3.1720972061157227,
-        "humor_prob": 1.7663894749282617e-05
-      }
+      "original_generation": " that although some patients with recurrent or persistent lumbar disc herniation may benefit from a second operation, this should be considered after a reasonable trial of conservative",
+      "ablated_generation": " that although some people seem to have a very low risk of developing psychosis despite a family history of mental illness, most people do not. Some people do"
     },
     {
       "prompt": "The primary objective of this project is to",
-      "original_generation": "<bos>The primary objective of this project is to contribute to the sustainable development of Costa Rica by implementing a climate mitigation scenario that integrates socio-economic conditions and environmental-limits policies. This will allow for",
-      "ablated_generation": "<bos>The primary objective of this project is to:\n(i) Create the framework in which data on policies and implementation of gender training and development issues and on policies and activities setting the priorities of",
-      "original_logits": {
-        "logit_difference": 12.548836708068848,
-        "humor_prob": 9.377507398032954e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 13.515700340270996,
-        "humor_prob": 0.00015860631596362516
-      }
+      "original_generation": " design and construct a novel, compact and light-weight all-solid-state (AS) laser source. AS lasers do not require any moving parts",
+      "ablated_generation": " design and construct a novel 3D printing system for large scale additive manufacturing (3D printing) of polymers. We will combine an innovative high energy"
     },
     {
       "prompt": "The committee has determined that",
-      "original_generation": "<bos>The committee has determined that we will resume the award process and consider applications from eligible current and former residents and students of the District. We also ask that you notify us if you",
-      "ablated_generation": "<bos>The committee has determined that many of our county\u2019s 13,000 households with children under age 5 have internet-related challenges and needs. To combat",
-      "original_logits": {
-        "logit_difference": 5.7401323318481445,
-        "humor_prob": 0.00014267811148287296
-      },
-      "ablated_logits": {
-        "logit_difference": 6.22723388671875,
-        "humor_prob": 0.00017466589603388444
-      }
+      "original_generation": " the proposed development is in conformance with the following policies and standards of the General Plan:\n\n\\begin{itemize}\n  \\item Goal 3",
+      "ablated_generation": " the issue of the release of the files is not a legal matter, despite the fact that it involves issues of national security and trade secrets.\n\nThe"
     },
     {
       "prompt": "Recent developments in the field indicate",
-      "original_generation": "<bos>Recent developments in the field indicate that it is possible to observe the effect of time- and self-consistent electronic self-energy corrections to the momentum distribution. Several implementations in real space",
-      "ablated_generation": "<bos>Recent developments in the field indicate that many of the proteins involved in biology are associated with membranes, which has stimulated the development of methods for the study of membrane protein formation and function.",
-      "original_logits": {
-        "logit_difference": 2.985123634338379,
-        "humor_prob": 1.9891895439743868e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 3.5723342895507812,
-        "humor_prob": 2.3463451457391096e-05
-      }
+      "original_generation": " that the current understanding of the pathogenesis of pulmonary arterial hypertension (PAH) is incomplete. The purpose of this review is to discuss recent advances in the understanding",
+      "ablated_generation": " that the current understanding of the structure of the human brain is insufficient to support a full understanding of cognition. The most popular current model of the brain,"
     },
     {
       "prompt": "The data clearly demonstrates that",
-      "original_generation": "<bos>The data clearly demonstrates that the UK\u2019s position as a \u2018global science leader\u2019 is in severe jeopardy. A decade of stagnation in the international assessment of our science, and",
-      "ablated_generation": "<bos>The data clearly demonstrates that the cause of death was caused by the <em>\u201cexcessive heat at altitude.\u201d</em>\n\nThe other note was signed by Lt. Col. F",
-      "original_logits": {
-        "logit_difference": 5.72067928314209,
-        "humor_prob": 1.7592244502365593e-05
-      },
-      "ablated_logits": {
-        "logit_difference": 6.5769453048706055,
-        "humor_prob": 2.8592418429777236e-05
-      }
+      "original_generation": " the number of cases in the region is very low and there is no risk to the community.\n\nAs of Thursday 08/10/",
+      "ablated_generation": " the number of people working in the UK is increasing and that the country is benefiting from a return to economic growth.\n\nThe number of people in work"
     }
   ],
   "ablation_impact": {
-    "original_accuracy": 0.975,
-    "ablated_accuracy": 0.475,
-    "accuracy_drop": 0.5,
-    "drop_percentage": 51.282051282051285
+    "original_accuracy": 0.8875,
+    "ablated_accuracy": 0.4875,
+    "accuracy_drop": 0.39999999999999997,
+    "drop_percentage": 45.07042253521127
   },
-  "n_test_samples": 40
+  "n_test_samples": 80
 }
