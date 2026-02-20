@@ -44,14 +44,6 @@
     },
     {
       "rank": 6,
-      "feature_idx": 9382,
-      "diff": 10.929,
-      "top_tokens": " ModelExpressionLookAndftagPool \u0633\u0643\u0627\u0646\u064a\u0629featureID",
-      "joke_mean": 12.18825,
-      "nonjoke_mean": 1.25925
-    },
-    {
-      "rank": 7,
       "feature_idx": 2567,
       "diff": 10.6325,
       "top_tokens": " it the they those anyone",
@@ -59,15 +51,7 @@
       "nonjoke_mean": 17.73625
     },
     {
-      "rank": 8,
-      "feature_idx": 12443,
-      "diff": 10.551374,
-      "top_tokens": "??\r?\u201d?\"?)",
-      "joke_mean": 12.030687,
-      "nonjoke_mean": 1.479313
-    },
-    {
-      "rank": 9,
+      "rank": 7,
       "feature_idx": 4667,
       "diff": 9.934813,
       "top_tokens": "   really basically essentially one",
@@ -75,7 +59,7 @@
       "nonjoke_mean": 4.485375
     },
     {
-      "rank": 10,
+      "rank": 8,
       "feature_idx": 2796,
       "diff": 9.469125,
       "top_tokens": " never always can have would",
@@ -83,23 +67,7 @@
       "nonjoke_mean": 14.37625
     },
     {
-      "rank": 11,
-      "feature_idx": 16047,
-      "diff": 9.402437,
-      "top_tokens": "GeneratedValueFTFY \u043e\u0440\u0438\u0433\u0456\u043d\u0430\u043b\u0443\">//SpringBootTest",
-      "joke_mean": 10.501281,
-      "nonjoke_mean": 1.098844
-    },
-    {
-      "rank": 12,
-      "feature_idx": 3069,
-      "diff": 8.989687,
-      "top_tokens": "  \n\n\n\u4f8b\u6587\u5e33\u306b\u8ffd\u52a0   ",
-      "joke_mean": 10.803875,
-      "nonjoke_mean": 1.814188
-    },
-    {
-      "rank": 13,
+      "rank": 9,
       "feature_idx": 9303,
       "diff": 8.961124,
       "top_tokens": " mierda!??! too",
@@ -107,7 +75,7 @@
       "nonjoke_mean": 3.448875
     },
     {
-      "rank": 14,
+      "rank": 10,
       "feature_idx": 15527,
       "diff": 8.752938,
       "top_tokens": " \" mean meant meaning kese",
@@ -115,31 +83,7 @@
       "nonjoke_mean": 0.609187
     },
     {
-      "rank": 15,
-      "feature_idx": 6846,
-      "diff": 8.626469,
-      "top_tokens": "  \u2018 ' \u201c eating",
-      "joke_mean": 12.093687,
-      "nonjoke_mean": 3.467219
-    },
-    {
-      "rank": 16,
-      "feature_idx": 9048,
-      "diff": 8.520968,
-      "top_tokens": "\u7b54\u6848?\r certainly Answer answer",
-      "joke_mean": 9.57825,
-      "nonjoke_mean": 1.057281
-    },
-    {
-      "rank": 17,
-      "feature_idx": 4246,
-      "diff": 8.484813,
-      "top_tokens": "WriteTagHelperConstraintMaker AttributeSetAutoritn\u00ed EconPapers",
-      "joke_mean": 8.797875,
-      "nonjoke_mean": 0.313062
-    },
-    {
-      "rank": 18,
+      "rank": 11,
       "feature_idx": 1790,
       "diff": 8.373438,
       "top_tokens": " Oh ohOh yesAh",
@@ -147,20 +91,76 @@
       "nonjoke_mean": 0.213188
     },
     {
-      "rank": 19,
-      "feature_idx": 14701,
-      "diff": 8.123063,
-      "top_tokens": " alot diatas\u6162\u6162\u7684 disini you",
-      "joke_mean": 11.53225,
-      "nonjoke_mean": 3.409188
-    },
-    {
-      "rank": 20,
+      "rank": 12,
       "feature_idx": 3408,
       "diff": 7.635625,
       "top_tokens": "  agua increased C R",
       "joke_mean": 11.77575,
       "nonjoke_mean": 4.140125
+    },
+    {
+      "rank": 13,
+      "feature_idx": 7749,
+      "diff": 7.613187,
+      "top_tokens": " whatWhat WhatwhatWHAT",
+      "joke_mean": 8.822187,
+      "nonjoke_mean": 1.209
+    },
+    {
+      "rank": 14,
+      "feature_idx": 8146,
+      "diff": 7.5405,
+      "top_tokens": " TheThe\n\n This It",
+      "joke_mean": 8.222094,
+      "nonjoke_mean": 0.681594
+    },
+    {
+      "rank": 15,
+      "feature_idx": 12844,
+      "diff": 7.149688,
+      "top_tokens": " what WHATWHAT Whatwhat",
+      "joke_mean": 9.026188,
+      "nonjoke_mean": 1.8765
+    },
+    {
+      "rank": 16,
+      "feature_idx": 12011,
+      "diff": 6.419812,
+      "top_tokens": " I my you. ",
+      "joke_mean": 8.486875,
+      "nonjoke_mean": 2.067063
+    },
+    {
+      "rank": 17,
+      "feature_idx": 4923,
+      "diff": 6.246656,
+      "top_tokens": " YouYOUyouYou YOU",
+      "joke_mean": 7.869812,
+      "nonjoke_mean": 1.623156
+    },
+    {
+      "rank": 18,
+      "feature_idx": 4781,
+      "diff": 5.828063,
+      "top_tokens": "?!??!?!%! !!!!!!!",
+      "joke_mean": 6.488812,
+      "nonjoke_mean": 0.66075
+    },
+    {
+      "rank": 19,
+      "feature_idx": 10751,
+      "diff": 5.553,
+      "top_tokens": " not always also still actually",
+      "joke_mean": 13.360875,
+      "nonjoke_mean": 7.807875
+    },
+    {
+      "rank": 20,
+      "feature_idx": 1275,
+      "diff": 5.454844,
+      "top_tokens": " it in the and we",
+      "joke_mean": 5.657781,
+      "nonjoke_mean": 0.202937
     }
   ],
   "validation": [

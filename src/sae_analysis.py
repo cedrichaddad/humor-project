@@ -20,6 +20,7 @@ Architecture notes
 from __future__ import annotations
 
 import json
+import re
 import sys
 import warnings
 from pathlib import Path
@@ -44,6 +45,53 @@ except ImportError:
         "Install with: pip install sae-lens transformer-lens",
         stacklevel=2,
     )
+
+# ---------------------------------------------------------------------------
+# Token-based artifact filter
+# ---------------------------------------------------------------------------
+# The SAE was pretrained on a broad corpus (The Pile / C4 / etc.) and learned
+# features for code, Arabic, Russian, Malay, CJK, and so on.  Some of those
+# features fire differentially on joke vs non-joke splits purely by chance —
+# an incidental corpus-skew correlation, not a humor signal.  We filter them
+# out by inspecting each feature's top decoded tokens BEFORE adding it to the
+# final ranking.
+
+_CODE_RE = re.compile(
+    r'[a-z][A-Z][a-zA-Z]{2,}'                           # camelCase
+    r'|[A-Z]{2,}[a-z][A-Z]'                             # MixedUpper (MigrationBuilder)
+    r'|\b(def|SELECT|FROM|WHERE|INSERT'
+    r'|import|function|var|const|return|printf'
+    r'|cout|endl|class|void|int|str)\b'                  # code keywords
+    r'|[{}\[\]<>]{2,}'                                   # bracket clusters
+    r'|;\s*$',                                            # line-ending semicolons
+    re.MULTILINE,
+)
+
+
+def _is_artifact_feature(top_tokens: List[str]) -> bool:
+    """Return True if this feature should be excluded from results.
+
+    Criteria
+    --------
+    • Any top token contains a non-ASCII character → foreign script
+      (Arabic, Russian, CJK, Malay, etc.)
+    • Any top token matches code-like patterns (camelCase, SQL keywords,
+      bracket clusters, etc.)
+
+    Both checks are intentionally conservative: a single bad token in the
+    top-5 is enough to discard the feature.  We oversample the candidate
+    pool (top-200 by diff) so discarding 30-40% still leaves plenty of
+    clean features to fill the top-20.
+    """
+    for tok in top_tokens:
+        # Non-ASCII → foreign script
+        if any(ord(c) > 127 for c in tok):
+            return True
+        # Code patterns
+        if _CODE_RE.search(tok):
+            return True
+    return False
+
 
 # ---------------------------------------------------------------------------
 # Model / SAE configuration registry
@@ -164,7 +212,9 @@ def get_humor_features(
        residual-stream activations with the SAE, and keep the *max*
        activation per feature across the sequence.
     4. Compute ``mean_joke − mean_non_joke`` per feature.
-    5. Report the top-20 features plus a logit-lens interpretation.
+    5. Oversample top-200 by diff, decode top tokens for each, filter out
+       artifact features (code / foreign script), keep top-20 clean ones.
+    6. Save results + logit-lens interpretation.
 
     Parameters
     ----------
@@ -189,19 +239,19 @@ def get_humor_features(
     print(f"[data] Loading CreativeLang/ColBERT_Humor_Detection from HuggingFace ...")
     try:
         from datasets import load_dataset
-        
+
         dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
         data = dataset['train']
-        
+
         # Filter jokes (humor=True) and non-jokes (humor=False)
         jokes = [item['text'] for item in data if item['humor'] == True][:1000]
         non_jokes = [item['text'] for item in data if item['humor'] == False][:1000]
-        
+
         print(f"[data] {len(jokes)} jokes  vs  {len(non_jokes)} non-jokes")
-        
+
         if len(jokes) == 0 or len(non_jokes) == 0:
             raise ValueError(f"Not enough data! jokes={len(jokes)}, non_jokes={len(non_jokes)}")
-            
+
     except Exception as exc:
         raise RuntimeError(f"Cannot load HuggingFace dataset: {exc}") from exc
 
@@ -242,22 +292,30 @@ def get_humor_features(
     mean_nonjoke = nonjoke_acts.float().mean(dim=0)
     diff = mean_joke - mean_nonjoke
 
+    # Oversample: pull top-200 by diff score, then filter artifacts below.
+    # This ensures we always have enough candidates to fill top-20 even if
+    # 50%+ are SAE pretraining artifacts (code, foreign script features).
     top_k = 20
-    top_vals, top_idxs = torch.topk(diff, top_k)
+    oversample_k = 200
+    top_vals_all, top_idxs_all = torch.topk(diff, oversample_k)
 
-    # ── 5. Logit-lens interpretation ──────────────────────────────────
+    # ── 5. Logit-lens interpretation + artifact filtering ─────────────
     W_U = model.W_U  # (d_model, vocab)
     results: List[Dict[str, Any]] = []
+    skipped = 0
 
     print(f"\n{'─'*60}")
-    print(f"  Top-{top_k} humor features  ({model_alias})")
+    print(f"  Top-{top_k} humor features (artifact-filtered)  ({model_alias})")
     print(f"{'─'*60}")
 
-    for rank, (idx_t, val_t) in enumerate(zip(top_idxs, top_vals)):
+    for idx_t, val_t in zip(top_idxs_all, top_vals_all):
+        if len(results) >= top_k:
+            break
+
         idx = idx_t.item()
         score = val_t.item()
 
-        # Decoder direction → logit space
+        # Decode top tokens first — we need them for the artifact check
         feat_dir = sae.W_dec[idx]
         if feat_dir.dtype != W_U.dtype:
             feat_dir = feat_dir.to(W_U.dtype)
@@ -266,13 +324,24 @@ def get_humor_features(
         top_token_ids = torch.topk(logits, 5).indices
         top_tokens = model.to_string(top_token_ids)
 
+        # Discard features whose top tokens look like code or foreign script.
+        # These are SAE pretraining artifacts, not humor signals.
+        if _is_artifact_feature(top_tokens):
+            skipped += 1
+            print(
+                f"  [skip] Feature {idx:5d}  Δ={score:+.4f}  "
+                f"artifact tokens: {top_tokens}"
+            )
+            continue
+
+        rank = len(results) + 1
         print(
-            f"  #{rank+1:2d}  Feature {idx:5d}  "
+            f"  #{rank:2d}  Feature {idx:5d}  "
             f"Δ={score:+.4f}  "
             f"tokens: {top_tokens}"
         )
         results.append({
-            "rank": rank + 1,
+            "rank": rank,
             "feature_idx": idx,
             "diff": round(score, 6),
             "top_tokens": top_tokens,
@@ -280,7 +349,17 @@ def get_humor_features(
             "nonjoke_mean": round(mean_nonjoke[idx].item(), 6),
         })
 
+    print(f"\n  Kept {len(results)} features, skipped {skipped} artifacts "
+          f"(out of top-{oversample_k} by diff)")
     print(f"{'─'*60}\n")
+
+    if len(results) < top_k:
+        warnings.warn(
+            f"Only found {len(results)} clean features after filtering "
+            f"{skipped} artifacts from the top-{oversample_k} candidates. "
+            "Consider increasing oversample_k or loosening _is_artifact_feature.",
+            stacklevel=2,
+        )
 
     # ── 6. Save ───────────────────────────────────────────────────────
     out_path = save_dir / f"{model_alias}_sae_features.json"
