@@ -11,7 +11,7 @@ Methodology:
 3. Analyze rank via PCA
 4. Validate with multiple probing methods
 
-Supports multiple models (GPT-2, Gemma-2, etc.) via MODEL_NAME config.
+Supports multiple models (Gemma-2 2B, GPT-2, etc.) via MODEL_NAME config.
 """
 
 import os
@@ -27,6 +27,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import torch
+from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score
 from tqdm import tqdm
@@ -40,7 +41,7 @@ warnings.filterwarnings('ignore')
 # =============================================================================
 
 SEED = 42
-MODEL_NAME = "gpt2"  # Default model; override via set_model() or run_experiment(model_name=...)
+MODEL_NAME = "gemma-2-2b"  # Default model; override via set_model() or run_experiment(model_name=...)
 BATCH_SIZE = 32
 MAX_LENGTH = 128
 N_SAMPLES = 10000
@@ -49,9 +50,8 @@ FIGURES_DIR = RESULTS_DIR / "figures"
 
 # Display name mapping for plot titles
 MODEL_DISPLAY_NAMES = {
+    "gemma-2-2b": "Gemma-2 2B",
     "gpt2": "GPT-2 Small",
-    "gemma-2-2b": "Gemma-2 2B",
-    "gemma-2-2b": "Gemma-2 2B",
 }
 
 def set_model(model_name: str):
@@ -491,14 +491,103 @@ def probe_all_layers(
     return pd.DataFrame(results)
 
 # =============================================================================
-# Causal Interventions
-# =============================================================================
-
-
-
-# =============================================================================
 # Rank Analysis (PCA)
 # =============================================================================
+
+def analyze_humor_direction_rank(
+    layer_directions: Dict,
+    save_path: Path
+) -> Dict:
+    """
+    PCA over per-layer humor directions to test the low-rank hypothesis.
+
+    Stacks the normalized probe direction from every layer into a matrix of
+    shape (n_layers, d_model) and runs PCA on it.  If humor is encoded in a
+    consistent low-rank subspace across layers — i.e. the directions are
+    nearly parallel — a small number of principal components will capture
+    most of the variance and the cumulative-explained-variance curve will
+    rise sharply before flattening.
+
+    This directly answers the central research question:
+      "Is there a low-rank linear basis for humor recognition?"
+
+    A steep early rise (PC1 alone explaining >50 %) supports a single
+    dominant humor direction that is reused across depth.  A slow rise
+    suggests the model re-encodes humor in geometrically distinct ways at
+    different layers.
+
+    Args:
+        layer_directions: Dict mapping layer_idx -> {'direction': torch.Tensor, ...}
+                          as built in Step 3b of run_experiment().
+        save_path:        Where to write the figure PNG.
+
+    Returns:
+        Dict with summary statistics:
+          - pc1_variance      : fraction of variance explained by PC1
+          - n_dims_90pct      : number of dims needed to reach 90 % cumvar
+          - cumulative_variance: full list of cumulative variance values (%)
+    """
+    # Stack normalized probe directions: (n_layers, d_model)
+    directions = np.stack([
+        layer_directions[i]['direction'].numpy()
+        for i in sorted(layer_directions.keys())
+    ])
+
+    pca = PCA(random_state=SEED)
+    pca.fit(directions)
+
+    cumvar = np.cumsum(pca.explained_variance_ratio_) * 100
+    n_components = np.arange(1, len(cumvar) + 1)
+
+    # How many dims needed to reach 90 %?
+    n_dims_90 = int(np.searchsorted(cumvar, 90.0)) + 1
+
+    display_name = get_display_name()
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+
+    ax.plot(n_components, cumvar, 'b-o', linewidth=2, markersize=5,
+            label='Cumulative explained variance')
+    ax.axhline(y=90, color='r', linestyle='--', linewidth=1.5,
+               label='90 % threshold')
+    ax.axvline(x=n_dims_90, color='r', linestyle=':', linewidth=1.5,
+               label=f'{n_dims_90} dim{"s" if n_dims_90 > 1 else ""} → 90 % var')
+
+    ax.set_xlabel('Number of Principal Components', fontsize=12)
+    ax.set_ylabel('Cumulative Explained Variance (%)', fontsize=12)
+    ax.set_title(
+        f'Rank of Humor Direction Subspace Across Layers ({display_name})',
+        fontsize=13
+    )
+    ax.legend(fontsize=11)
+    ax.grid(True, alpha=0.3)
+    ax.set_xlim(1, len(cumvar))
+    ax.set_ylim(0, 105)
+
+    # Annotate PC1 variance in-plot
+    ax.annotate(
+        f"PC1: {pca.explained_variance_ratio_[0]*100:.1f}%",
+        xy=(1, cumvar[0]),
+        xytext=(max(2, len(cumvar) // 8), cumvar[0] - 12),
+        arrowprops=dict(arrowstyle='->', color='gray'),
+        fontsize=10,
+        color='gray'
+    )
+
+    plt.tight_layout()
+    plt.savefig(save_path, dpi=150, bbox_inches='tight')
+    plt.close()
+
+    print(f"Saved: {save_path}")
+    print(f"  PC1 explains:          {pca.explained_variance_ratio_[0]*100:.1f}% of cross-layer variance")
+    print(f"  Dims needed for 90 %:  {n_dims_90}")
+
+    return {
+        'pc1_variance': float(pca.explained_variance_ratio_[0]),
+        'n_dims_90pct': n_dims_90,
+        'cumulative_variance': cumvar.tolist(),
+    }
+
 
 # =============================================================================
 # Visualization
@@ -572,16 +661,16 @@ def run_experiment(model_name: str = None):
     1. Loads Dataset A (aligned humor/serious pairs)
     2. Extracts activations from all layers
     3. Trains linear probes at each layer
-    4. Finds the best layer and extracts humor direction
-    5. Analyzes rank (how many dimensions needed)
-    6. Compares with Dataset B (randomized)
-    7. Saves all results and visualizations
+    3b. Extracts layer-specific humor directions
+    4. Rank analysis via PCA over layer directions
+    5. Compares with Dataset B (randomized)
+    6. Saves all results and visualizations
     
     The humor_direction learned here is used by intervention_tests.py
     for causal experiments (steering and ablation).
     
     Args:
-        model_name: Model to use (e.g. "gpt2", "gemma-2-2b").
+        model_name: Model to use (e.g. "gemma-2-2b", "gpt2").
                     If None, uses the global MODEL_NAME.
     
     Returns:
@@ -716,7 +805,7 @@ def run_experiment(model_name: str = None):
         
         # Extract the probe's weight vector as the humor direction.
         # The probe's coef_[0] points from non-humor toward humor by sklearn
-        # convention. We save it as-is without flipping.
+        # convention.
         # Whether steering along this direction causally increases humor
         # output is an empirical question tested in intervention_tests.py.
         # Negative steering effects at some layers reveal a mismatch between
@@ -785,10 +874,22 @@ def run_experiment(model_name: str = None):
     best_probe = best_probe_result['probe']
 
     # =========================================================================
-    # Step 4: Dataset B (Randomized) Comparison
+    # Step 4: Rank Analysis (PCA over layer directions)
     # =========================================================================
     print("\n" + "="*60)
-    print("Step 4: Dataset B (Randomized) Comparison")
+    print("Step 4: Rank Analysis")
+    print("="*60)
+
+    rank_results = analyze_humor_direction_rank(
+        layer_directions,
+        save_path=FIGURES_DIR / "pca_rank_analysis.png"
+    )
+
+    # =========================================================================
+    # Step 5: Dataset B (Randomized) Comparison
+    # =========================================================================
+    print("\n" + "="*60)
+    print("Step 5: Dataset B (Randomized) Comparison")
     print("="*60)
     
     # Load Dataset B for comparison
@@ -831,20 +932,21 @@ def run_experiment(model_name: str = None):
     }
 
     # =========================================================================
-    # Step 5: Generate Visualizations
+    # Step 6: Generate Visualizations
     # =========================================================================
     print("\n" + "="*60)
-    print("Step 5: Generating Visualizations")
+    print("Step 6: Generating Visualizations")
     print("="*60)
 
     plot_probe_accuracy_by_layer(probe_results, FIGURES_DIR / "probe_accuracy_by_layer.png")
     plot_direction_similarity(probe_results, FIGURES_DIR / "direction_similarity.png")
+    # Note: pca_rank_analysis.png already saved in Step 4
 
     # =========================================================================
-    # Step 6: Save Results
+    # Step 7: Save Results
     # =========================================================================
     print("\n" + "="*60)
-    print("Step 6: Saving Results")
+    print("Step 7: Saving Results")
     print("="*60)
 
     with open(RESULTS_DIR / "config.json", 'w') as f:
@@ -865,6 +967,9 @@ def run_experiment(model_name: str = None):
     with open(RESULTS_DIR / "dataset_comparison.json", 'w') as f:
         json.dump(dataset_comparison, f, indent=2)
 
+    with open(RESULTS_DIR / "rank_analysis.json", 'w') as f:
+        json.dump(rank_results, f, indent=2)
+
     print(f"\nResults saved to: {RESULTS_DIR}/")
     print(f"Figures saved to: {FIGURES_DIR}/")
 
@@ -880,11 +985,14 @@ def run_experiment(model_name: str = None):
     print(f"   (Random baseline: 50%)")
     print(f"2. Average cosine similarity between layers: {probe_results['direction_cosine_sim'].mean():.4f}")
     print(f"3. Humor/non-humor are linearly separable: {'Yes' if best_layer['probe_accuracy'] > 0.6 else 'Partially'}")
+    print(f"4. Humor direction rank: {rank_results['n_dims_90pct']} dim(s) explain 90% of variance across layers")
+    print(f"   (PC1 alone: {rank_results['pc1_variance']:.1%}) — {'low-rank' if rank_results['n_dims_90pct'] <= 3 else 'distributed'} representation")
 
     return {
         'config': config,
         'probe_results': probe_results,
         'probe_summary': probe_summary,
+        'rank_results': rank_results,
         'best_layer': best_layer_idx
     }
 

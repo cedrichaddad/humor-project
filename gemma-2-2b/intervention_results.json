@@ -2,480 +2,480 @@
   "steering_by_layer": [
     {
       "layer": 0,
-      "avg_effect": 0.16233775729224795,
-      "avg_humor": 0.2717372349330357,
-      "avg_control": 0.10763801847185407,
+      "avg_effect": 0.1624568303426107,
+      "avg_humor": 0.2708921432495117,
+      "avg_control": 0.10823917388916016,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.9643363952636719
+          "effect": 0.9617748260498047
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": -0.5986852645874023
+          "effect": -0.5919427871704102
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": -0.7922801971435547
+          "effect": -0.7906494140625
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.9966564178466797
+          "effect": 0.9985694885253906
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 0.31172752380371094
+          "effect": 0.3087577819824219
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.8758134841918945
+          "effect": 0.8683719635009766
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.14459228515625
+          "effect": 0.14136314392089844
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.32213687896728516
+          "effect": 0.31987667083740234
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": -0.6049785614013672
+          "effect": -0.6033821105957031
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": -0.2744579315185547
+          "effect": -0.2782888412475586
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.3491630554199219
+          "effect": 0.34690189361572266
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": -1.3063507080078125
+          "effect": -1.304183006286621
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.17535924911499023
+          "effect": 0.17423200607299805
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": -0.0070037841796875
+          "effect": -0.011847496032714844
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": -0.6185855865478516
+          "effect": -0.6202163696289062
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.2004613876342773
+          "effect": 1.204050064086914
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": -1.055109977722168
+          "effect": -1.0524511337280273
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.5754714012145996
+          "effect": 1.5764689445495605
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.3271656036376953
+          "effect": 0.3363971710205078
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.07583999633789062
+          "effect": 0.07852649688720703
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.3478212356567383
+          "effect": 1.349264144897461
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 1,
-      "avg_effect": -0.3054857367560977,
-      "avg_humor": -0.2701390470777239,
-      "avg_control": -0.3231590815952846,
+      "avg_effect": -0.30636292695999146,
+      "avg_humor": -0.2745622311319624,
+      "avg_control": -0.322263274874006,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": -0.5430346727371216
+          "effect": -0.5517464280128479
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.3107684850692749
+          "effect": 0.3077242374420166
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": -0.6325006484985352
+          "effect": -0.6385996341705322
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.04496145248413086
+          "effect": 0.041614532470703125
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": -0.23471832275390625
+          "effect": -0.23662948608398438
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.020437240600585938
+          "effect": 0.006939411163330078
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": -0.8568868637084961
+          "effect": -0.8512382507324219
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.6480698585510254
+          "effect": 0.6402349472045898
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": -0.7205462455749512
+          "effect": -0.7170748710632324
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 0.02091073989868164
+          "effect": 0.026122093200683594
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.07176589965820312
+          "effect": -0.06606197357177734
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": -0.5312185287475586
+          "effect": -0.5242776870727539
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.8945977687835693
+          "effect": 0.8996169567108154
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": -0.2873806953430176
+          "effect": -0.288907527923584
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 0.2446756362915039
+          "effect": 0.23986530303955078
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.09566688537597656
+          "effect": 0.09914159774780273
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": -4.7766008377075195
+          "effect": -4.770295143127441
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.06577038764953613
+          "effect": 0.06311869621276855
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": -0.4049797058105469
+          "effect": -0.4113597869873047
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.06234455108642578
+          "effect": 0.0644826889038086
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.23622894287109375
+          "effect": 0.23370885848999023
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 2,
-      "avg_effect": 0.31741801897684735,
-      "avg_humor": 0.6598533902849469,
-      "avg_control": 0.1462003333227975,
+      "avg_effect": 0.3552358604612805,
+      "avg_humor": 0.6910123825073242,
+      "avg_control": 0.18734759943825857,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.5264892578125
+          "effect": 0.5227394104003906
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.7318172454833984
+          "effect": 0.7288789749145508
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 0.4751729965209961
+          "effect": 0.49344444274902344
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.1057043075561523
+          "effect": 1.1181831359863281
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 0.7784128189086914
+          "effect": 0.8133516311645508
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.3939857482910156
+          "effect": 0.45378780364990234
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.607391357421875
+          "effect": 0.7067012786865234
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.8692684173583984
+          "effect": 0.8797988891601562
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": -0.4381542205810547
+          "effect": -0.4396829605102539
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": -0.0047588348388671875
+          "effect": -0.0030717849731445312
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.036632537841796875
+          "effect": 0.07204914093017578
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.17102622985839844
+          "effect": 0.5402183532714844
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": -0.5541057586669922
+          "effect": -0.5397891998291016
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.5353708267211914
+          "effect": 1.5634994506835938
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": -0.37284398078918457
+          "effect": -0.3679187297821045
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.25325965881347656
+          "effect": 0.24154186248779297
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.7751960754394531
+          "effect": 0.796931266784668
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.20735454559326172
+          "effect": 0.21050643920898438
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": -0.03088998794555664
+          "effect": -0.021823883056640625
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.08147525787353516
+          "effect": 0.0962820053100586
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": -0.40876102447509766
+          "effect": -0.40567445755004883
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 3,
-      "avg_effect": 0.6305239768255324,
-      "avg_humor": 0.8521463530404227,
-      "avg_control": 0.5197127887180873,
+      "avg_effect": 0.6235024361383348,
+      "avg_humor": 0.8373652185712542,
+      "avg_control": 0.516571044921875,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.6982669830322266
+          "effect": 1.6925735473632812
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.16680908203125
+          "effect": 0.1580810546875
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 0.9777145385742188
+          "effect": 0.9903249740600586
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.5414886474609375
+          "effect": 1.4498939514160156
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": -0.4134979248046875
+          "effect": -0.4015655517578125
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.8846502304077148
+          "effect": 0.8759269714355469
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.1095929145812988
+          "effect": 1.0963215827941895
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.869173049926758
+          "effect": 2.7963714599609375
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.0340604782104492
+          "effect": 1.025263786315918
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 0.9304018020629883
+          "effect": 0.8857707977294922
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.19736003875732422
+          "effect": 0.1889019012451172
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": -0.06415843963623047
+          "effect": -0.03641319274902344
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.17485809326171875
+          "effect": 0.2144489288330078
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.5748634338378906
+          "effect": 1.4990978240966797
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": -0.46518611907958984
+          "effect": -0.4587421417236328
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.37503719329833984
+          "effect": 0.37734413146972656
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": -0.7500095367431641
+          "effect": -0.7013721466064453
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.041718482971191406
+          "effect": 0.011186599731445312
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.33355236053466797
+          "effect": 0.34611988067626953
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.1836299896240234
+          "effect": 1.209456443786621
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": -0.15932178497314453
+          "effect": -0.12543964385986328
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 4,
-      "avg_effect": 0.4225176629566011,
-      "avg_humor": 0.567040034702846,
-      "avg_control": 0.3502564770834787,
+      "avg_effect": 0.4225194567725772,
+      "avg_humor": 0.5670413970947266,
+      "avg_control": 0.3502584866115025,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.5838222503662109
+          "effect": 0.5838260650634766
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.3532466888427734
+          "effect": 1.3532476425170898
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 0.13648700714111328
+          "effect": 0.13648223876953125
         },
         {
           "prompt": "A man walked into a bar and",
@@ -485,67 +485,67 @@
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.206892967224121
+          "effect": 1.2069015502929688
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.8680763244628906
+          "effect": 0.868072509765625
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": -0.2970867156982422
+          "effect": -0.29708194732666016
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.8733577728271484
+          "effect": 0.8733639717102051
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 2.0149545669555664
+          "effect": 2.0149621963500977
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": -0.4625816345214844
+          "effect": -0.4625859260559082
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.48273181915283203
+          "effect": -0.48273277282714844
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": -0.7657651901245117
+          "effect": -0.7657699584960938
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.796175479888916
+          "effect": 0.7961726188659668
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": -0.48642635345458984
+          "effect": -0.48642444610595703
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.0646800994873047
+          "effect": 1.0646858215332031
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.0440521240234375
+          "effect": 1.0440483093261719
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": -0.7516584396362305
+          "effect": -0.7516546249389648
         },
         {
           "prompt": "The primary objective of this project is to",
@@ -555,56 +555,56 @@
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.8321256637573242
+          "effect": 0.8321285247802734
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.22994422912597656
+          "effect": 0.22995471954345703
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.6046333312988281
+          "effect": 0.6046395301818848
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 5,
-      "avg_effect": 0.17571999913170225,
-      "avg_humor": -0.07069247109549386,
-      "avg_control": 0.2989262342453003,
+      "avg_effect": 0.17572020349048434,
+      "avg_humor": -0.07069628579275948,
+      "avg_control": 0.29892844813210623,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": -0.13578224182128906
+          "effect": -0.13579845428466797
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.147684097290039
+          "effect": 1.1476850509643555
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": -4.14022159576416
+          "effect": -4.140229225158691
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.7923555374145508
+          "effect": 1.7923698425292969
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 0.726689338684082
+          "effect": 0.7266702651977539
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.03133392333984375
+          "effect": 0.031334877014160156
         },
         {
           "prompt": "So a penguin walks into a",
@@ -614,52 +614,52 @@
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.22410106658935547
+          "effect": 0.22411632537841797
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": -1.2708520889282227
+          "effect": -1.270829200744629
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.0009899139404297
+          "effect": 1.0009851455688477
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.0368108749389648
+          "effect": 1.036808967590332
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.43773531913757324
+          "effect": 0.43773579597473145
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": -0.2053065299987793
+          "effect": -0.20530939102172852
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.0831327438354492
+          "effect": 1.0831308364868164
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 0.49131202697753906
+          "effect": 0.4913148880004883
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": -0.0061092376708984375
+          "effect": -0.0061130523681640625
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": -1.454331398010254
+          "effect": -1.4543285369873047
         },
         {
           "prompt": "The primary objective of this project is to",
@@ -669,165 +669,165 @@
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.033682823181152344
+          "effect": 0.033684730529785156
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.8877439498901367
+          "effect": 0.8877468109130859
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.9555549621582031
+          "effect": 0.9555521011352539
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 6,
-      "avg_effect": 0.6519629841759091,
-      "avg_humor": -0.39477361951555523,
-      "avg_control": 1.1753312860216414,
+      "avg_effect": 0.651966026851109,
+      "avg_humor": -0.3947695323399135,
+      "avg_control": 1.1753338064466203,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": -0.33419036865234375
+          "effect": -0.3341960906982422
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": -0.19150161743164062
+          "effect": -0.19149017333984375
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": -4.212506294250488
+          "effect": -4.212494850158691
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.3060932159423828
+          "effect": 0.3060951232910156
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.2757768630981445
+          "effect": 1.275766372680664
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.2958412170410156
+          "effect": 0.29585838317871094
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.09707164764404297
+          "effect": 0.09707450866699219
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.905439853668213
+          "effect": 1.9054336547851562
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 3.0203351974487305
+          "effect": 3.020331382751465
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.0807018280029297
+          "effect": 2.0806970596313477
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.3308658599853516
+          "effect": 1.3308515548706055
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.468109130859375
+          "effect": 0.4681243896484375
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.3970623016357422
+          "effect": 0.397066593170166
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 2.22637939453125
+          "effect": 2.2263717651367188
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": -0.004307746887207031
+          "effect": -0.0042877197265625
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.4273681640625
+          "effect": 0.4273872375488281
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.5459327697753906
+          "effect": 1.5459203720092773
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.19764232635498047
+          "effect": 0.19765758514404297
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.375584602355957
+          "effect": 1.375589370727539
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.5245990753173828
+          "effect": 0.52459716796875
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.9589252471923828
+          "effect": 0.9589328765869141
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 7,
-      "avg_effect": 1.4506694475809734,
-      "avg_humor": 1.1638624327523368,
-      "avg_control": 1.5940729549952917,
+      "avg_effect": 1.4506651787530809,
+      "avg_humor": 1.16386079788208,
+      "avg_control": 1.5940673691885812,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": -1.5214900970458984
+          "effect": -1.5214838981628418
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.9504547119140625
+          "effect": 0.9504504203796387
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.6931695938110352
+          "effect": 1.6931638717651367
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.7113628387451172
+          "effect": 1.7113609313964844
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.466219902038574
+          "effect": 2.4662132263183594
         },
         {
           "prompt": "Tell me something funny about",
@@ -837,106 +837,106 @@
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.6896181106567383
+          "effect": 1.6896190643310547
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.2380142211914062
+          "effect": 2.2380013465881348
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 2.0023107528686523
+          "effect": 2.0023059844970703
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.1041460037231445
+          "effect": 1.104146957397461
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 2.319456100463867
+          "effect": 2.319441318511963
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.2065000534057617
+          "effect": 1.2065105438232422
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.31847381591796875
+          "effect": 0.31846046447753906
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 2.1913375854492188
+          "effect": 2.1913414001464844
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 2.105362892150879
+          "effect": 2.105356216430664
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.6493015289306641
+          "effect": 0.6492938995361328
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 2.3096189498901367
+          "effect": 2.3096094131469727
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.7742033004760742
+          "effect": 0.7741899490356445
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.4398527145385742
+          "effect": 1.4398536682128906
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.4472227096557617
+          "effect": 1.4472122192382812
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 2.2112207412719727
+          "effect": 2.2112197875976562
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 8,
-      "avg_effect": 0.978715215410505,
-      "avg_humor": 0.6094927787780762,
-      "avg_control": 1.1633264337267195,
+      "avg_effect": 0.9787140573774066,
+      "avg_humor": 0.6094930512564523,
+      "avg_control": 1.1633245604378837,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": -0.6411261558532715
+          "effect": -0.6411194801330566
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.8906841278076172
+          "effect": 0.8906736373901367
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": -0.3626279830932617
+          "effect": -0.3626260757446289
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.8814916610717773
+          "effect": 0.8815040588378906
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
@@ -946,37 +946,37 @@
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.7228822708129883
+          "effect": 1.7228775024414062
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.4147977828979492
+          "effect": 1.4147939682006836
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.489668846130371
+          "effect": 2.4896697998046875
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.9274559020996094
+          "effect": 0.9274492263793945
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.1197104454040527
+          "effect": 1.1197195053100586
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.4091062545776367
+          "effect": 0.40911006927490234
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 2.635828971862793
+          "effect": 2.635836601257324
         },
         {
           "prompt": "Last weekend I decided to",
@@ -986,220 +986,220 @@
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 0.9288158416748047
+          "effect": 0.9287986755371094
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 0.5404539108276367
+          "effect": 0.5404453277587891
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.3452625274658203
+          "effect": 0.3452568054199219
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.0437755584716797
+          "effect": 1.043771743774414
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 2.1045761108398438
+          "effect": 2.1045799255371094
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.9254217147827148
+          "effect": 0.9254093170166016
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.0336246490478516
+          "effect": 1.0336284637451172
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.3949899673461914
+          "effect": 1.394989013671875
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 9,
-      "avg_effect": 1.4798047826403664,
-      "avg_humor": 1.0581040212086268,
-      "avg_control": 1.6906551633562361,
+      "avg_effect": 1.4798043398630052,
+      "avg_humor": 1.0581057582582747,
+      "avg_control": 1.6906536306653703,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.6783664226531982
+          "effect": 0.6783738136291504
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.2214882373809814
+          "effect": 1.2215056419372559
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.1102145910263062
+          "effect": 1.1102067232131958
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 2.0439600944519043
+          "effect": 2.043954372406006
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.7678146362304688
+          "effect": 1.767812728881836
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.7070679664611816
+          "effect": 0.7070584297180176
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": -0.12218379974365234
+          "effect": -0.12217140197753906
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.7726106643676758
+          "effect": 1.7726225852966309
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.044661521911621094
+          "effect": 0.044653892517089844
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.6134324073791504
+          "effect": 1.613429069519043
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.5091433525085449
+          "effect": 0.5091490745544434
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.2426824569702148
+          "effect": 1.242661476135254
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 3.328160285949707
+          "effect": 3.3281660079956055
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 2.5080032348632812
+          "effect": 2.507992744445801
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 0.39656639099121094
+          "effect": 0.3965611457824707
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 2.5251922607421875
+          "effect": 2.525181770324707
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.427962303161621
+          "effect": 1.4279699325561523
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 2.263364791870117
+          "effect": 2.263373374938965
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.6757192611694336
+          "effect": 1.6757078170776367
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.6896095275878906
+          "effect": 1.689615249633789
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 2.6720638275146484
+          "effect": 2.6720666885375977
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 10,
-      "avg_effect": 1.71100305943262,
-      "avg_humor": 1.1307659319468908,
-      "avg_control": 2.001121623175485,
+      "avg_effect": 1.711003343264262,
+      "avg_humor": 1.1307632412229265,
+      "avg_control": 2.0011233942849294,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.938209056854248
+          "effect": 0.9382143020629883
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.1314899921417236
+          "effect": 1.1314976215362549
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.498388648033142
+          "effect": 1.4983874559402466
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.6867918968200684
+          "effect": 0.6867861747741699
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.7668704986572266
+          "effect": 1.7668523788452148
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.9309659004211426
+          "effect": 0.9309639930725098
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.9626455307006836
+          "effect": 0.9626407623291016
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.36334228515625
+          "effect": 2.363339424133301
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.7485127449035645
+          "effect": 0.7485194206237793
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.4510607719421387
+          "effect": 1.4510679244995117
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.7288565635681152
+          "effect": 1.728851318359375
         },
         {
           "prompt": "The dog ran across the",
@@ -1209,12 +1209,12 @@
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 3.163694381713867
+          "effect": 3.163698196411133
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 2.341197967529297
+          "effect": 2.34121036529541
         },
         {
           "prompt": "The quarterly earnings report shows that",
@@ -1224,91 +1224,91 @@
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 2.0705575942993164
+          "effect": 2.070553779602051
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.527634620666504
+          "effect": 1.5276422500610352
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 2.3676061630249023
+          "effect": 2.3676109313964844
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.683584213256836
+          "effect": 1.6835765838623047
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.9278564453125
+          "effect": 0.9278526306152344
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 2.69942569732666
+          "effect": 2.6994314193725586
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 11,
-      "avg_effect": 1.4589681909197854,
-      "avg_humor": 1.1112098864146642,
-      "avg_control": 1.6328473431723458,
+      "avg_effect": 1.4589688039961315,
+      "avg_humor": 1.1112111806869507,
+      "avg_control": 1.632847615650722,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.7518634796142578
+          "effect": 0.7518661022186279
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.7994911670684814
+          "effect": 0.7994985580444336
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.1711257696151733
+          "effect": 1.1711233854293823
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.5348925590515137
+          "effect": 0.5348997116088867
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.2048282623291016
+          "effect": 2.2048263549804688
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.9094915390014648
+          "effect": 0.9094924926757812
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.4067764282226562
+          "effect": 1.4067716598510742
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.3078908920288086
+          "effect": 2.307900905609131
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.66615629196167
+          "effect": 1.6661591529846191
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.6318607330322266
+          "effect": 2.63185453414917
         },
         {
           "prompt": "She opened the door and saw",
@@ -1318,121 +1318,121 @@
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.9600839614868164
+          "effect": 1.9600801467895508
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 0.5754461288452148
+          "effect": 0.5754423141479492
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.4808893203735352
+          "effect": 1.4808979034423828
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.1408472061157227
+          "effect": 1.1408538818359375
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 2.3998374938964844
+          "effect": 2.3998336791992188
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.878814697265625
+          "effect": 1.8788108825683594
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": -0.41972923278808594
+          "effect": -0.41973209381103516
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 2.042712688446045
+          "effect": 2.042717456817627
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.4539604187011719
+          "effect": 1.4539566040039062
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 2.8021278381347656
+          "effect": 2.802126884460449
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 12,
-      "avg_effect": 1.2399546759469169,
-      "avg_humor": 0.9118759291512626,
-      "avg_control": 1.403994049344744,
+      "avg_effect": 1.2399536286081587,
+      "avg_humor": 0.9118723784174237,
+      "avg_control": 1.4039942537035262,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.0614346861839294
+          "effect": 1.0614434480667114
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.7862786650657654
+          "effect": 0.7862790822982788
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.1705666780471802
+          "effect": 1.1705603003501892
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.1327366828918457
+          "effect": 0.13273191452026367
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.33743953704834
+          "effect": 2.3374290466308594
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.0859241485595703
+          "effect": 1.0859203338623047
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": -0.19124889373779297
+          "effect": -0.19125747680664062
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.66804838180542
+          "effect": 2.6680502891540527
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.4023418426513672
+          "effect": 1.4023327827453613
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.5704941749572754
+          "effect": 1.570481777191162
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.40363597869873047
+          "effect": 0.4036383628845215
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.9536280632019043
+          "effect": 0.9536285400390625
         },
         {
           "prompt": "Last weekend I decided to",
@@ -1442,141 +1442,141 @@
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.0159473419189453
+          "effect": 1.0159416198730469
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.459869384765625
+          "effect": 1.4598784446716309
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.342221736907959
+          "effect": 1.3422203063964844
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.407282829284668
+          "effect": 1.4072842597961426
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.7349176406860352
+          "effect": 1.7349395751953125
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.5985016822814941
+          "effect": 1.5985045433044434
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.6094141006469727
+          "effect": 1.6094064712524414
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.9657406806945801
+          "effect": 0.9657397270202637
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 13,
-      "avg_effect": 0.9284766742161342,
-      "avg_humor": 1.3673583439418249,
-      "avg_control": 0.709035839353289,
+      "avg_effect": 0.9284771737598237,
+      "avg_humor": 1.367363384791783,
+      "avg_control": 0.7090340682438442,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 2.8408069610595703
+          "effect": 2.840806007385254
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.1963224411010742
+          "effect": 1.1963233947753906
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 1.592188835144043
+          "effect": 1.5922021865844727
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.9021787643432617
+          "effect": 1.9021921157836914
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.007232666015625
+          "effect": 1.0072393417358398
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.5492801666259766
+          "effect": 0.549281120300293
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.48349857330322266
+          "effect": 0.48349952697753906
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.8339600563049316
+          "effect": 1.8339533805847168
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.853520393371582
+          "effect": 0.8535213470458984
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.0261030197143555
+          "effect": 2.026103973388672
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.617156982421875
+          "effect": -0.6171665191650391
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.2602195739746094
+          "effect": 0.2602224349975586
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": -0.0028438568115234375
+          "effect": -0.002841949462890625
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 0.29714012145996094
+          "effect": 0.29713916778564453
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.6458368301391602
+          "effect": 1.645848274230957
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.43019676208496094
+          "effect": 0.4301919937133789
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.36065101623535156
+          "effect": 0.3606529235839844
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.04136848449707031
+          "effect": 0.04135322570800781
         },
         {
           "prompt": "The committee has determined that",
@@ -1586,116 +1586,116 @@
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.7505531311035156
+          "effect": 0.7505474090576172
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.2981796264648438
+          "effect": 1.298177719116211
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 14,
-      "avg_effect": 0.9928951717558361,
-      "avg_humor": 1.0190787996564592,
-      "avg_control": 0.9798033578055245,
+      "avg_effect": 0.992895557766869,
+      "avg_humor": 1.0190736225673132,
+      "avg_control": 0.9798065253666469,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 2.5672693252563477
+          "effect": 2.5672712326049805
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.1638631820678711
+          "effect": 0.16386127471923828
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 0.30423736572265625
+          "effect": 0.30422401428222656
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.249394416809082
+          "effect": 1.2493906021118164
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 0.9967479705810547
+          "effect": 0.9967365264892578
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 2.0010061264038086
+          "effect": 2.00100040435791
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": -0.14896678924560547
+          "effect": -0.14896869659423828
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.9345102310180664
+          "effect": 2.934515953063965
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": -0.45572662353515625
+          "effect": -0.45572519302368164
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 0.9961605072021484
+          "effect": 0.9961700439453125
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.17456531524658203
+          "effect": -0.17456722259521484
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 0.9086685180664062
+          "effect": 0.9086694717407227
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.2672386169433594
+          "effect": 1.267251968383789
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.3668804168701172
+          "effect": 1.3668737411499023
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 0.44463443756103516
+          "effect": 0.4446372985839844
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.9016857147216797
+          "effect": 0.9016942977905273
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.5410423278808594
+          "effect": 0.541046142578125
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 0.8831911087036133
+          "effect": 0.8831996917724609
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.7958335876464844
+          "effect": 1.7958307266235352
         },
         {
           "prompt": "Recent developments in the field indicate",
@@ -1705,16 +1705,16 @@
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.6315956115722656
+          "effect": 1.631596565246582
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 15,
-      "avg_effect": 1.606826350802467,
+      "avg_effect": 1.6068263053894043,
       "avg_humor": 1.6671816962105888,
-      "avg_control": 1.5766486780984061,
+      "avg_control": 1.5766486099788122,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
@@ -1814,7 +1814,7 @@
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.9292316436767578
+          "effect": 0.9292306900024414
         },
         {
           "prompt": "The data clearly demonstrates that",
@@ -1826,104 +1826,104 @@
     },
     {
       "layer": 16,
-      "avg_effect": 1.4706433046431768,
-      "avg_humor": 1.69339234488351,
-      "avg_control": 1.3592687845230103,
+      "avg_effect": 1.470643509001959,
+      "avg_humor": 1.6933892113821847,
+      "avg_control": 1.359270657811846,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 2.8566293716430664
+          "effect": 2.856616973876953
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.4102087020874023
+          "effect": 1.4102134704589844
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.749699592590332
+          "effect": 2.7496910095214844
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.2566757202148438
+          "effect": 1.2566733360290527
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.575723648071289
+          "effect": 1.5757246017456055
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.9978909492492676
+          "effect": 0.997887134552002
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.0069184303283691
+          "effect": 1.006917953491211
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.0631561279296875
+          "effect": 2.0631556510925293
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.6843113899230957
+          "effect": 0.6843104362487793
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.9795541763305664
+          "effect": 1.9795598983764648
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.0139670372009277
+          "effect": 1.0139679908752441
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.2823266983032227
+          "effect": 1.2823247909545898
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.9359350204467773
+          "effect": 1.935943603515625
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 2.723726272583008
+          "effect": 2.723735809326172
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.0968847274780273
+          "effect": 1.0968823432922363
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.9846289157867432
+          "effect": 0.9846301078796387
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.9842286109924316
+          "effect": 0.9842343330383301
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.3573293685913086
+          "effect": 1.3573360443115234
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.5296800136566162
+          "effect": 0.5296742916107178
         },
         {
           "prompt": "Recent developments in the field indicate",
@@ -1933,7 +1933,7 @@
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.174497365951538
+          "effect": 1.1744966506958008
         }
       ],
       "used_layer_specific": true
@@ -1941,8 +1941,8 @@
     {
       "layer": 17,
       "avg_effect": 1.1582424072992235,
-      "avg_humor": 1.4108193261282784,
-      "avg_control": 1.031953947884696,
+      "avg_humor": 1.410820143563407,
+      "avg_control": 1.0319535391671317,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
@@ -1952,92 +1952,92 @@
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.2814421653747559
+          "effect": 1.281442642211914
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.128666877746582
+          "effect": 2.1286778450012207
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.1085939407348633
+          "effect": 1.1085991859436035
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.103647232055664
+          "effect": 1.103642463684082
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 0.38257646560668945
+          "effect": 0.38257694244384766
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 0.6975412368774414
+          "effect": 0.6975345611572266
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 0.5775384902954102
+          "effect": 0.5775349140167236
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.1542387008666992
+          "effect": 1.154240608215332
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.790278434753418
+          "effect": 1.7902789115905762
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": -0.12683916091918945
+          "effect": -0.12683963775634766
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.5536060333251953
+          "effect": 1.5535993576049805
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 2.5713796615600586
+          "effect": 2.5713815689086914
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 0.16233444213867188
+          "effect": 0.16233301162719727
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.6712112426757812
+          "effect": 1.6712117195129395
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.7983932495117188
+          "effect": 0.7983951568603516
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.37248754501342773
+          "effect": 0.37248706817626953
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.6671829223632812
+          "effect": 1.667191505432129
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.8745927810668945
+          "effect": 0.8745870590209961
         },
         {
           "prompt": "Recent developments in the field indicate",
@@ -2047,86 +2047,86 @@
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.8711395263671875
+          "effect": 0.8711369037628174
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 18,
-      "avg_effect": 1.6553278196425665,
-      "avg_humor": 1.9863170215061732,
-      "avg_control": 1.489833218710763,
+      "avg_effect": 1.655327388218471,
+      "avg_humor": 1.9863156591142928,
+      "avg_control": 1.4898332527705602,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 2.167302131652832
+          "effect": 2.167292594909668
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.1305623054504395
+          "effect": 1.1305451393127441
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.878382682800293
+          "effect": 2.8783798217773438
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.4176506996154785
+          "effect": 1.4176483154296875
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.3761043548583984
+          "effect": 2.3761062622070312
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.6629672050476074
+          "effect": 1.6629772186279297
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 2.271249771118164
+          "effect": 2.2712602615356445
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.8373632431030273
+          "effect": 2.837362289428711
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.6592178344726562
+          "effect": 1.6592183113098145
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.3380441665649414
+          "effect": 2.338047981262207
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.9300227165222168
+          "effect": 0.9300293922424316
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 2.690340042114258
+          "effect": 2.690336227416992
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 2.037281036376953
+          "effect": 2.0372772216796875
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 0.7929749488830566
+          "effect": 0.7929811477661133
         },
         {
           "prompt": "The quarterly earnings report shows that",
@@ -2136,86 +2136,86 @@
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.8407707214355469
+          "effect": 1.8407702445983887
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.33736610412597656
+          "effect": 0.3373594284057617
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.3130531311035156
+          "effect": 1.3130464553833008
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.0752193927764893
+          "effect": 1.0752286911010742
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.3281993865966797
+          "effect": 0.3281998634338379
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.9566428661346436
+          "effect": 0.9566388130187988
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 19,
-      "avg_effect": 1.4952065717606318,
-      "avg_humor": 1.634746755872454,
-      "avg_control": 1.4254364797047205,
+      "avg_effect": 1.4952037561507452,
+      "avg_humor": 1.6347407613481795,
+      "avg_control": 1.425435253552028,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.9333219528198242
+          "effect": 1.9333171844482422
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.3399758338928223
+          "effect": 1.3399558067321777
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.8694729804992676
+          "effect": 2.869471549987793
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 0.8038506507873535
+          "effect": 0.8038520812988281
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.546560287475586
+          "effect": 1.5465469360351562
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.299722671508789
+          "effect": 1.2997198104858398
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.6503229141235352
+          "effect": 1.6503219604492188
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.959320068359375
+          "effect": 2.959317207336426
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.1627302169799805
+          "effect": 1.1627373695373535
         },
         {
           "prompt": "My favorite food is",
@@ -2225,22 +2225,22 @@
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.3867850303649902
+          "effect": 1.386784553527832
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 2.6057958602905273
+          "effect": 2.605794906616211
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.511286735534668
+          "effect": 1.5112791061401367
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.0319743156433105
+          "effect": 1.0319726467132568
         },
         {
           "prompt": "The quarterly earnings report shows that",
@@ -2250,17 +2250,17 @@
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.8826930522918701
+          "effect": 0.8826842308044434
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.8081650733947754
+          "effect": 0.808164119720459
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.6181573867797852
+          "effect": 1.6181640625
         },
         {
           "prompt": "The committee has determined that",
@@ -2270,81 +2270,81 @@
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.0426578521728516
+          "effect": 1.0426559448242188
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 0.9565024375915527
+          "effect": 0.9564967155456543
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 20,
-      "avg_effect": 1.7850141071137928,
-      "avg_humor": 2.0305399213518416,
-      "avg_control": 1.6622511999947684,
+      "avg_effect": 1.7850151743207658,
+      "avg_humor": 2.03053685597011,
+      "avg_control": 1.6622543334960938,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.9067068099975586
+          "effect": 1.9067039489746094
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.1983952522277832
+          "effect": 1.1983823776245117
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.633725166320801
+          "effect": 2.6337132453918457
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.5644583702087402
+          "effect": 1.5644612312316895
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.3917675018310547
+          "effect": 2.391768455505371
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.90179443359375
+          "effect": 1.9017958641052246
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 2.616931915283203
+          "effect": 2.6169328689575195
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.7619552612304688
+          "effect": 1.7619633674621582
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.5071253776550293
+          "effect": 1.5071330070495605
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.7765440940856934
+          "effect": 2.7765555381774902
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.5857768058776855
+          "effect": 1.585775375366211
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 2.1754112243652344
+          "effect": 2.1754093170166016
         },
         {
           "prompt": "Last weekend I decided to",
@@ -2354,27 +2354,27 @@
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 0.9134140014648438
+          "effect": 0.9134244918823242
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.7152419090270996
+          "effect": 1.7152438163757324
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.7035245895385742
+          "effect": 1.7035331726074219
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.377584457397461
+          "effect": 1.3775854110717773
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.9936513900756836
+          "effect": 1.9936552047729492
         },
         {
           "prompt": "The committee has determined that",
@@ -2384,106 +2384,106 @@
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.190558910369873
+          "effect": 1.1905574798583984
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.4710965156555176
+          "effect": 1.4710922241210938
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 21,
-      "avg_effect": 1.6288093158176966,
+      "avg_effect": 1.6288091228121804,
       "avg_humor": 1.7373990331377303,
-      "avg_control": 1.57451445715768,
+      "avg_control": 1.5745141676494054,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.8448944091796875
+          "effect": 1.8448905944824219
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.2183141708374023
+          "effect": 1.2183189392089844
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.401719570159912
+          "effect": 2.401735782623291
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.494920253753662
+          "effect": 1.4949145317077637
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.034512519836426
+          "effect": 2.034499168395996
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.055513858795166
+          "effect": 1.0555176734924316
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 2.1119184494018555
+          "effect": 2.1119165420532227
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.061378002166748
+          "effect": 2.0613961219787598
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.4716506004333496
+          "effect": 1.471646785736084
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.775233268737793
+          "effect": 2.77523136138916
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.698561191558838
+          "effect": 1.6985633373260498
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.9194355010986328
+          "effect": 1.9194259643554688
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.6946220397949219
+          "effect": 1.6946258544921875
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.062650203704834
+          "effect": 1.0626356601715088
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.219296932220459
+          "effect": 1.2192978858947754
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.1363046169281006
+          "effect": 1.1363041400909424
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 0.9899439811706543
+          "effect": 0.9899435043334961
         },
         {
           "prompt": "The primary objective of this project is to",
@@ -2493,51 +2493,51 @@
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.1828975677490234
+          "effect": 1.182896375656128
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 0.885033130645752
+          "effect": 0.8850336074829102
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.2571723461151123
+          "effect": 1.2571747303009033
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 22,
-      "avg_effect": 1.740865707397461,
-      "avg_humor": 1.9406314577375139,
-      "avg_control": 1.6409828322274345,
+      "avg_effect": 1.7408659004029774,
+      "avg_humor": 1.9406307765415736,
+      "avg_control": 1.6409834623336792,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.7357940673828125
+          "effect": 1.73579740524292
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.2252492904663086
+          "effect": 1.2252483367919922
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.5884571075439453
+          "effect": 2.588449478149414
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.818833827972412
+          "effect": 1.8188343048095703
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 2.3660268783569336
+          "effect": 2.36602783203125
         },
         {
           "prompt": "Tell me something funny about",
@@ -2547,22 +2547,22 @@
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.9015674591064453
+          "effect": 1.901566505432129
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.9499874114990234
+          "effect": 1.9499931335449219
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.8332977294921875
+          "effect": 1.8332953453063965
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.8432674407958984
+          "effect": 2.8432717323303223
         },
         {
           "prompt": "She opened the door and saw",
@@ -2572,131 +2572,131 @@
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.680459976196289
+          "effect": 1.6804561614990234
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.0994787216186523
+          "effect": 1.0994758605957031
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.7330923080444336
+          "effect": 1.7330918312072754
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.5617623329162598
+          "effect": 1.5617599487304688
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.1863925457000732
+          "effect": 1.1863889694213867
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.1617045402526855
+          "effect": 1.1617026329040527
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 2.002796173095703
+          "effect": 2.002812385559082
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.3834171295166016
+          "effect": 1.3834164142608643
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.2729434967041016
+          "effect": 1.272944450378418
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.5618011951446533
+          "effect": 1.5618009567260742
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 23,
-      "avg_effect": 1.623557033992949,
-      "avg_humor": 1.8006781850542342,
-      "avg_control": 1.5349964584623064,
+      "avg_effect": 1.6235564549763997,
+      "avg_humor": 1.8006811823163713,
+      "avg_control": 1.534994091306414,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 1.6716914176940918
+          "effect": 1.6716933250427246
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 1.6643824577331543
+          "effect": 1.664381504058838
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 2.216041088104248
+          "effect": 2.2160444259643555
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.5693449974060059
+          "effect": 1.569350242614746
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.979888916015625
+          "effect": 1.979898452758789
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.6907505989074707
+          "effect": 1.690748691558838
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.812647819519043
+          "effect": 1.8126516342163086
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 2.0225954055786133
+          "effect": 2.022594451904297
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 1.3324012756347656
+          "effect": 1.332395076751709
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 2.1922826766967773
+          "effect": 2.192279815673828
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 1.2726101875305176
+          "effect": 1.2726020812988281
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.8077430725097656
+          "effect": 1.8077421188354492
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.9515924453735352
+          "effect": 1.9515886306762695
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.3326482772827148
+          "effect": 1.3326382637023926
         },
         {
           "prompt": "The quarterly earnings report shows that",
@@ -2706,12 +2706,12 @@
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 1.119786024093628
+          "effect": 1.119788408279419
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.3280363082885742
+          "effect": 1.3280344009399414
         },
         {
           "prompt": "The primary objective of this project is to",
@@ -2721,131 +2721,131 @@
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 1.0240423679351807
+          "effect": 1.024040699005127
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.2130308151245117
+          "effect": 1.2130322456359863
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.4937717914581299
+          "effect": 1.4937713146209717
         }
       ],
       "used_layer_specific": true
     },
     {
       "layer": 24,
-      "avg_effect": 1.108455362774077,
-      "avg_humor": 1.0124408176967077,
-      "avg_control": 1.1564626353127616,
+      "avg_effect": 1.10845608938308,
+      "avg_humor": 1.0124398980821883,
+      "avg_control": 1.1564641850335258,
       "per_prompt": [
         {
           "prompt": "Why did the chicken cross the road?",
           "category": "humor",
-          "effect": 0.7145655155181885
+          "effect": 0.7145671844482422
         },
         {
           "prompt": "What do you call a fish without eyes?",
           "category": "humor",
-          "effect": 0.722414493560791
+          "effect": 0.7224164009094238
         },
         {
           "prompt": "Knock knock, who's there?",
           "category": "humor",
-          "effect": 0.747452974319458
+          "effect": 0.7474510669708252
         },
         {
           "prompt": "A man walked into a bar and",
           "category": "humor",
-          "effect": 1.1480693817138672
+          "effect": 1.1480631828308105
         },
         {
           "prompt": "A priest, a rabbi, and an imam walk into",
           "category": "humor",
-          "effect": 1.1660795211791992
+          "effect": 1.1660785675048828
         },
         {
           "prompt": "Tell me something funny about",
           "category": "humor",
-          "effect": 1.1121759414672852
+          "effect": 1.1121768951416016
         },
         {
           "prompt": "So a penguin walks into a",
           "category": "humor",
-          "effect": 1.476327896118164
+          "effect": 1.4763259887695312
         },
         {
           "prompt": "The weather today is",
           "category": "neutral",
-          "effect": 1.2417712211608887
+          "effect": 1.241774082183838
         },
         {
           "prompt": "I went to the store and bought",
           "category": "neutral",
-          "effect": 0.7786769866943359
+          "effect": 0.778679370880127
         },
         {
           "prompt": "My favorite food is",
           "category": "neutral",
-          "effect": 1.4424757957458496
+          "effect": 1.442476749420166
         },
         {
           "prompt": "She opened the door and saw",
           "category": "neutral",
-          "effect": 0.9111697673797607
+          "effect": 0.9111742973327637
         },
         {
           "prompt": "The dog ran across the",
           "category": "neutral",
-          "effect": 1.93048095703125
+          "effect": 1.9304800033569336
         },
         {
           "prompt": "Last weekend I decided to",
           "category": "neutral",
-          "effect": 1.227647304534912
+          "effect": 1.2276453971862793
         },
         {
           "prompt": "When I was a kid, I used to",
           "category": "neutral",
-          "effect": 1.156461238861084
+          "effect": 1.1564650535583496
         },
         {
           "prompt": "The quarterly earnings report shows that",
           "category": "serious",
-          "effect": 1.0849032402038574
+          "effect": 1.0849056243896484
         },
         {
           "prompt": "According to the latest research,",
           "category": "serious",
-          "effect": 0.8222126960754395
+          "effect": 0.8222155570983887
         },
         {
           "prompt": "In conclusion, the evidence suggests",
           "category": "serious",
-          "effect": 1.012019157409668
+          "effect": 1.012016773223877
         },
         {
           "prompt": "The primary objective of this project is to",
           "category": "serious",
-          "effect": 1.755620002746582
+          "effect": 1.755615234375
         },
         {
           "prompt": "The committee has determined that",
           "category": "serious",
-          "effect": 0.7706730365753174
+          "effect": 0.7706763744354248
         },
         {
           "prompt": "Recent developments in the field indicate",
           "category": "serious",
-          "effect": 1.047318458557129
+          "effect": 1.0473246574401855
         },
         {
           "prompt": "The data clearly demonstrates that",
           "category": "serious",
-          "effect": 1.009047031402588
+          "effect": 1.009049415588379
         }
       ],
       "used_layer_specific": true
@@ -2983,7 +2983,7 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": -1.5928869247436523,
-          "humor_prob": 2.517476792490405e-07
+          "humor_prob": 2.5174767924904056e-07
         },
         "-10.0": {
           "logit_difference": -1.4060049057006836,
@@ -2999,7 +2999,7 @@
         },
         "0.0": {
           "logit_difference": -0.9736776351928711,
-          "humor_prob": 3.7799516305441536e-07
+          "humor_prob": 3.779951630544154e-07
         },
         "2.0": {
           "logit_difference": -0.8694925308227539,
@@ -3007,7 +3007,7 @@
         },
         "5.0": {
           "logit_difference": -0.6903772354125977,
-          "humor_prob": 4.6636438387723297e-07
+          "humor_prob": 4.663643838772329e-07
         },
         "10.0": {
           "logit_difference": -0.2828044891357422,
@@ -3074,7 +3074,7 @@
         },
         "10.0": {
           "logit_difference": 1.4883794784545898,
-          "humor_prob": 5.5125864278429955e-06
+          "humor_prob": 5.512586427842995e-06
         },
         "15.0": {
           "logit_difference": 2.259572982788086,
@@ -3117,15 +3117,15 @@
         },
         "-5.0": {
           "logit_difference": 2.2522153854370117,
-          "humor_prob": 3.2954675383485966e-07
+          "humor_prob": 3.295467538348597e-07
         },
         "-2.0": {
           "logit_difference": 2.3353891372680664,
-          "humor_prob": 3.44597440992249e-07
+          "humor_prob": 3.4459744099224894e-07
         },
         "0.0": {
           "logit_difference": 2.411007881164551,
-          "humor_prob": 3.625138863055992e-07
+          "humor_prob": 3.6251388630559916e-07
         },
         "2.0": {
           "logit_difference": 2.5023088455200195,
@@ -3133,7 +3133,7 @@
         },
         "5.0": {
           "logit_difference": 2.676128387451172,
-          "humor_prob": 4.574339373847535e-07
+          "humor_prob": 4.5743393738475347e-07
         },
         "10.0": {
           "logit_difference": 3.1153602600097656,
@@ -3172,11 +3172,11 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": 3.0640010833740234,
-          "humor_prob": 1.0871558904239938e-07
+          "humor_prob": 1.0871558904239937e-07
         },
         "-10.0": {
           "logit_difference": 3.324629783630371,
-          "humor_prob": 1.3899009267604346e-07
+          "humor_prob": 1.3899009267604348e-07
         },
         "-5.0": {
           "logit_difference": 3.616392135620117,
@@ -3188,7 +3188,7 @@
         },
         "0.0": {
           "logit_difference": 3.956319808959961,
-          "humor_prob": 2.543527866887441e-07
+          "humor_prob": 2.5435278668874413e-07
         },
         "2.0": {
           "logit_difference": 4.1106157302856445,
@@ -3243,7 +3243,7 @@
         },
         "-5.0": {
           "logit_difference": 4.9538116455078125,
-          "humor_prob": 1.6870636390857407e-07
+          "humor_prob": 1.6870636390857404e-07
         },
         "-2.0": {
           "logit_difference": 5.08042049407959,
@@ -3298,19 +3298,19 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": 3.8664989471435547,
-          "humor_prob": 4.473237800951148e-06
+          "humor_prob": 4.473237800951149e-06
         },
         "-10.0": {
           "logit_difference": 4.083610534667969,
-          "humor_prob": 5.3402005742813995e-06
+          "humor_prob": 5.3402005742814e-06
         },
         "-5.0": {
           "logit_difference": 4.300995826721191,
           "humor_prob": 6.446815151688179e-06
         },
         "-2.0": {
-          "logit_difference": 4.430248260498047,
-          "humor_prob": 7.25138436078285e-06
+          "logit_difference": 4.4302520751953125,
+          "humor_prob": 7.251398191714086e-06
         },
         "0.0": {
           "logit_difference": 4.515890121459961,
@@ -3330,7 +3330,7 @@
         },
         "15.0": {
           "logit_difference": 5.190859794616699,
-          "humor_prob": 1.4994012375635475e-05
+          "humor_prob": 1.4994012375635473e-05
         }
       },
       "projections": {
@@ -3369,11 +3369,11 @@
         },
         "-5.0": {
           "logit_difference": 6.391847610473633,
-          "humor_prob": 1.2767786931675422e-05
+          "humor_prob": 1.276778693167542e-05
         },
         "-2.0": {
           "logit_difference": 6.470130920410156,
-          "humor_prob": 1.373430471526821e-05
+          "humor_prob": 1.3734304715268208e-05
         },
         "0.0": {
           "logit_difference": 6.523576736450195,
@@ -3574,7 +3574,7 @@
         },
         "5.0": {
           "logit_difference": 6.977823257446289,
-          "humor_prob": 2.960891909442476e-05
+          "humor_prob": 2.9608919094424755e-05
         },
         "10.0": {
           "logit_difference": 7.3812055587768555,
@@ -3582,7 +3582,7 @@
         },
         "15.0": {
           "logit_difference": 7.764434814453125,
-          "humor_prob": 4.757436212094499e-05
+          "humor_prob": 4.7574362120944994e-05
         }
       },
       "projections": {
@@ -3613,7 +3613,7 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": 5.201777458190918,
-          "humor_prob": 3.7956310011663923e-06
+          "humor_prob": 3.795631001166392e-06
         },
         "-10.0": {
           "logit_difference": 5.406028747558594,
@@ -3629,19 +3629,19 @@
         },
         "0.0": {
           "logit_difference": 5.824530601501465,
-          "humor_prob": 4.600701011602205e-06
+          "humor_prob": 4.600701011602206e-06
         },
         "2.0": {
           "logit_difference": 5.909340858459473,
-          "humor_prob": 4.681162538681401e-06
+          "humor_prob": 4.681162538681402e-06
         },
         "5.0": {
           "logit_difference": 6.035356521606445,
-          "humor_prob": 4.776627800115847e-06
+          "humor_prob": 4.776627800115848e-06
         },
         "10.0": {
           "logit_difference": 6.236974716186523,
-          "humor_prob": 4.8995836735210845e-06
+          "humor_prob": 4.899583673521085e-06
         },
         "15.0": {
           "logit_difference": 6.432900428771973,
@@ -3684,7 +3684,7 @@
         },
         "-5.0": {
           "logit_difference": -1.8463630676269531,
-          "humor_prob": 1.8257240492374582e-07
+          "humor_prob": 1.825724049237458e-07
         },
         "-2.0": {
           "logit_difference": -1.6276140213012695,
@@ -3692,7 +3692,7 @@
         },
         "0.0": {
           "logit_difference": -1.4678688049316406,
-          "humor_prob": 2.3762998004044164e-07
+          "humor_prob": 2.376299800404416e-07
         },
         "2.0": {
           "logit_difference": -1.2969608306884766,
@@ -3708,7 +3708,7 @@
         },
         "15.0": {
           "logit_difference": 0.0635061264038086,
-          "humor_prob": 7.372165096624973e-07
+          "humor_prob": 7.372165096624974e-07
         }
       },
       "projections": {
@@ -3739,11 +3739,11 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": 8.13314151763916,
-          "humor_prob": 1.64833022078473e-07
+          "humor_prob": 1.6483302207847303e-07
         },
         "-10.0": {
           "logit_difference": 8.297365188598633,
-          "humor_prob": 1.7483228299618688e-07
+          "humor_prob": 1.7483228299618685e-07
         },
         "-5.0": {
           "logit_difference": 8.462996482849121,
@@ -3806,11 +3806,11 @@
         },
         "-10.0": {
           "logit_difference": 8.390775680541992,
-          "humor_prob": 1.1030614728707071e-07
+          "humor_prob": 1.1030614728707073e-07
         },
         "-5.0": {
           "logit_difference": 8.797428131103516,
-          "humor_prob": 1.6593249312981915e-07
+          "humor_prob": 1.6593249312981918e-07
         },
         "-2.0": {
           "logit_difference": 9.03985595703125,
@@ -3826,7 +3826,7 @@
         },
         "5.0": {
           "logit_difference": 9.599410057067871,
-          "humor_prob": 3.777054447798546e-07
+          "humor_prob": 3.7770544477985466e-07
         },
         "10.0": {
           "logit_difference": 9.992782592773438,
@@ -3865,11 +3865,11 @@
       "logit_diffs": {
         "-15.0": {
           "logit_difference": 4.913482666015625,
-          "humor_prob": 8.735835134482346e-06
+          "humor_prob": 8.735835134482348e-06
         },
         "-10.0": {
           "logit_difference": 5.0947418212890625,
-          "humor_prob": 9.796387558829563e-06
+          "humor_prob": 9.796387558829564e-06
         },
         "-5.0": {
           "logit_difference": 5.280276298522949,
@@ -3881,7 +3881,7 @@
         },
         "0.0": {
           "logit_difference": 5.4695539474487305,
-          "humor_prob": 1.2441763583212148e-05
+          "humor_prob": 1.244176358321215e-05
         },
         "2.0": {
           "logit_difference": 5.546133041381836,
@@ -3893,7 +3893,7 @@
         },
         "10.0": {
           "logit_difference": 5.854885101318359,
-          "humor_prob": 1.5871321121879553e-05
+          "humor_prob": 1.587132112187955e-05
         },
         "15.0": {
           "logit_difference": 6.0460100173950195,
@@ -3940,11 +3940,11 @@
         },
         "-2.0": {
           "logit_difference": 4.790505409240723,
-          "humor_prob": 4.4037480832658505e-06
+          "humor_prob": 4.403748083265851e-06
         },
         "0.0": {
           "logit_difference": 4.825538635253906,
-          "humor_prob": 4.425434172946321e-06
+          "humor_prob": 4.425434172946322e-06
         },
         "2.0": {
           "logit_difference": 4.861003875732422,
@@ -3956,7 +3956,7 @@
         },
         "10.0": {
           "logit_difference": 5.007330894470215,
-          "humor_prob": 4.602781190096334e-06
+          "humor_prob": 4.602781190096335e-06
         },
         "15.0": {
           "logit_difference": 5.102424621582031,
@@ -4019,11 +4019,11 @@
         },
         "10.0": {
           "logit_difference": 2.8229475021362305,
-          "humor_prob": 1.5162252272319941e-05
+          "humor_prob": 1.516225227231994e-05
         },
         "15.0": {
           "logit_difference": 2.9896841049194336,
-          "humor_prob": 1.6228650963823987e-05
+          "humor_prob": 1.622865096382399e-05
         }
       },
       "projections": {
@@ -4058,7 +4058,7 @@
         },
         "-10.0": {
           "logit_difference": 12.08746337890625,
-          "humor_prob": 7.161181466795396e-05
+          "humor_prob": 7.161181466795398e-05
         },
         "-5.0": {
           "logit_difference": 12.317642211914062,
@@ -4066,11 +4066,11 @@
         },
         "-2.0": {
           "logit_difference": 12.45621395111084,
-          "humor_prob": 8.887357464646526e-05
+          "humor_prob": 8.887357464646525e-05
         },
         "0.0": {
           "logit_difference": 12.548836708068848,
-          "humor_prob": 9.377507398032954e-05
+          "humor_prob": 9.377507398032953e-05
         },
         "2.0": {
           "logit_difference": 12.641633033752441,
@@ -4086,7 +4086,7 @@
         },
         "15.0": {
           "logit_difference": 13.249130249023438,
-          "humor_prob": 0.00013938414201738428
+          "humor_prob": 0.0001393841420173843
         }
       },
       "projections": {
@@ -4141,7 +4141,7 @@
         },
         "5.0": {
           "logit_difference": 5.882525444030762,
-          "humor_prob": 0.00015175105779451274
+          "humor_prob": 0.00015175105779451276
         },
         "10.0": {
           "logit_difference": 6.021239280700684,
@@ -4184,7 +4184,7 @@
         },
         "-10.0": {
           "logit_difference": 2.6731977462768555,
-          "humor_prob": 1.825933115499582e-05
+          "humor_prob": 1.8259331154995823e-05
         },
         "-5.0": {
           "logit_difference": 2.8291015625,
@@ -4208,11 +4208,11 @@
         },
         "10.0": {
           "logit_difference": 3.2948923110961914,
-          "humor_prob": 2.16989863524843e-05
+          "humor_prob": 2.1698986352484296e-05
         },
         "15.0": {
-          "logit_difference": 3.447206497192383,
-          "humor_prob": 2.267559104021795e-05
+          "logit_difference": 3.4472055435180664,
+          "humor_prob": 2.2675547790001628e-05
         }
       },
       "projections": {

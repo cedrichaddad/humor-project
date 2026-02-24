@@ -7,8 +7,8 @@ This script combines:
 2. Causal validation via steering and ablation
 
 Usage:
+    python src/run_sae_experiment.py --batch_size 128    # gemma-2-2b (default)
     python src/run_sae_experiment.py --model gpt2 --batch_size 4
-    python src/run_sae_experiment.py --model gemma-2-2b --batch_size 128 (if local)
 """
 import json
 import sys
@@ -106,7 +106,7 @@ def run_causal_validation(
 def main():
     """Run complete SAE experiment: discovery + validation."""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="gpt2", choices=["gpt2", "gemma-2-2b"])
+    parser.add_argument("--model", type=str, default="gemma-2-2b", choices=["gemma-2-2b", "gpt2"])    
     parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--samples", type=int, default=2000)
     args = parser.parse_args()

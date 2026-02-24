@@ -5,7 +5,7 @@ Intervention Tests for Humor Recognition.
 Supports multiple models via command line or function argument.
 
 Usage:
-    python intervention_tests.py                  # uses default (gpt2)
+    python intervention_tests.py                  # uses default (gemma 2-2b)
     python intervention_tests.py gemma-2-2b       # uses gemma
 """
 import matplotlib.pyplot as plt

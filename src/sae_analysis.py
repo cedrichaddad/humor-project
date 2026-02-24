@@ -2,7 +2,7 @@
 src/sae_analysis.py
 
 Sparse Autoencoder (SAE) feature discovery for humor recognition.
-Supports GPT-2 Small (local/MPS) and Gemma-2-2B (Modal/A100).
+Supports GPT-2 Small and Gemma-2-2B.
 
 Architecture notes
 ──────────────────
@@ -379,7 +379,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="SAE humor-feature discovery")
     parser.add_argument(
-        "--model", default="gpt2", choices=list(MODEL_CONFIGS),
+        "--model", default="gemma-2-2b", choices=list(MODEL_CONFIGS),
         help="Model alias to use",
     )
     parser.add_argument("--batch-size", type=int, default=4)

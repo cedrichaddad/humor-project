@@ -23,7 +23,7 @@ image = (
         "transformers==4.45.0",
         "datasets==3.0.0",
         "transformer-lens==2.8.0",
-        "typeguard",              # <-- add this
+        "typeguard",             
         "scikit-learn==1.5.0",
         "matplotlib==3.9.0",
         "seaborn==0.13.0",
@@ -41,10 +41,10 @@ image = (
 # ---------------------------------------------------------------------------
 SHARED_KWARGS = dict(
     image=image,
-    gpu="A100-80GB",  # A100 40GB - plenty for Gemma-2-2B
+    gpu="A100-80GB", 
     cpu=8.0,
-    memory=65536,  # 48 GB (increased for safety)
-    timeout=5 * 3600,  # 5 hours max (was 3, now extended)
+    memory=65536,  
+    timeout=5 * 3600, 
     volumes={
         "/root/.cache/huggingface": hf_cache_vol,
         "/root/humor_project/results": results_vol,
@@ -73,13 +73,12 @@ def run_experiment(model_name: str = "gemma-2-2b"):
     """
     Run the complete humor experiment.
     
-    Timeline (Gemma-2-2B):
-    - Model loading: ~5 min
-    - Dataset A extraction + probing: ~60-75 min
-    - Dataset B extraction + probing: ~60-75 min
-    - Rank analysis: ~10 min
-    - Interventions: ~45-60 min
-    Total: ~3-4 hours (5 hour timeout for safety)
+    Steps (Gemma-2-2B):
+    - Model loading
+    - Dataset A extraction + probing
+    - Dataset B extraction + probing
+    - Rank analysis
+    - Interventions
     """
     import sys
     import os
@@ -211,17 +210,11 @@ def main(model: str = "gemma-2-2b", detach: bool = False):
     print(f"Mode: {'Detached (background)' if detach else 'Interactive'}")
     print("="*70)
     
-    if model == "gemma-2-2b":
-        print("\n⏱️  ESTIMATED TIME:")
-        print("   • Dataset A extraction + probing: 60-75 min")
-        print("   • Dataset B extraction + probing: 60-75 min")
-        print("   • Rank analysis: 10 min")
-        print("   • Interventions: 45-60 min")
-        print("   • TOTAL: ~3-4 hours")
-        print("\n💰 ESTIMATED COST: $9-12 (A100 @ $3/hr for 3-4 hrs)")
-    elif model == "gpt2":
-        print("\n⏱️  ESTIMATED TIME: 25-30 minutes")
-        print("💰 ESTIMATED COST: $1.50")
+    print("\n⏱️  ESTIMATED TIME:")
+    print("   • Dataset A extraction + probing")
+    print("   • Dataset B extraction + probing")
+    print("   • Rank analysis")
+    print("   • Interventions")
     
     print("="*70)
     print()
@@ -238,7 +231,7 @@ def main(model: str = "gemma-2-2b", detach: bool = False):
         print()
     else:
         # Run and wait
-        print("⏳ Running experiment (will take 3-4 hours)...")
+        print("⏳ Running experiment")
         print("   You can Ctrl+C to detach (experiment continues)")
         print()
         result = run_experiment.remote(model_name=model)
