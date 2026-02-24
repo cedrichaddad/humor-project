@@ -39,28 +39,28 @@ FEATURE_CATEGORIES = {
     # ── Semantic Humor ────────────────────────────────────────────────
     7531:  ("Semantic Humor",    "Surprise punctuation (?!?)"),
     7343:  ("Semantic Humor",    "Laughter tokens (lol, haha)"),
-    8665:  ("Semantic Humor",    "Hesitation / delivery (uh, um)"),
-    12844: ("Semantic Humor",    "Exclamatory 'what' (WHAT?!)"),
     9303:  ("Semantic Humor",    "Profanity / shock (mierda, !?)"),
     15527: ("Semantic Humor",    "Double-meaning (\"mean\", meant)"),
-    8064:  ("Semantic Humor",    "Punchline action (get rid, gets)"),
     4667:  ("Semantic Humor",    "Intensifiers (really, basically)"),
-    12443: ("Semantic Humor",    "Question clusters (??, ?\")"),
+    2796:  ("Semantic Humor",    "Modal absolutes (never, always, would)"),
+    1790:  ("Semantic Humor",    "Punchline reaction (Oh, Ah, yes)"),
+    7749:  ("Semantic Humor",    "Exclamatory 'what' (what, WHAT)"),
+    12844: ("Semantic Humor",    "Exclamatory 'what' — split neuron"),
+    4923:  ("Semantic Humor",    "Emphatic direct address (YOU, You)"),
+    4781:  ("Semantic Humor",    "Punchline emphasis (!!, ?!?)"),
+    10751: ("Semantic Humor",    "Expectation subversion (actually, not, still)"),
 
     # ── Dataset Artifact ──────────────────────────────────────────────
-    2748:  ("Dataset Artifact",  "Code: MigrationBuilder"),
-    10663: ("Dataset Artifact",  "Code: principalTable, queryInterface"),
-    4250:  ("Dataset Artifact",  "Arabic script tokens"),
-    14701: ("Dataset Artifact",  "Malay/informal (alot, diatas)"),
-    7224:  ("Dataset Artifact",  "Russian (данного) + informal"),
-    9382:  ("Dataset Artifact",  "Code: ModelExpression, featureID"),
+    11655: ("Dataset Artifact",  "Code: fragmented brackets/quotes (\\r, {}, ):)"),
 
     # ── Other / Structural ────────────────────────────────────────────
-    2048:  ("Other/Structural",  "BOS / sequence start"),
     4234:  ("Other/Structural",  "EOS / newline boundaries"),
-    1275:  ("Other/Structural",  "Function words (it, in, the)"),
+    2048:  ("Other/Structural",  "BOS / sequence start"),
     2567:  ("Other/Structural",  "Pronouns / determiners (they, those)"),
-    3408:  ("Other/Structural",  "Mixed (agua, increased, C)"),
+    3408:  ("Other/Structural",  "Mixed tokens (agua, increased, C)"),
+    8146:  ("Other/Structural",  "Setup/punchline line break (\\n\\n, The, This)"),
+    12011: ("Other/Structural",  "First/second person pronouns (I, my, you)"),
+    1275:  ("Other/Structural",  "Function words (it, in, the)"),
 }
 
 # Color palette
