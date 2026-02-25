@@ -4415,5 +4415,35 @@
     "accuracy_drop": 0.39999999999999997,
     "drop_percentage": 45.07042253521127
   },
-  "n_test_samples": 80
+  "n_test_samples": 80,
+  "downstream_probe_shared": {
+    "ablation_layers": [
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "downstream_layer": 20,
+    "direction_type": "shared (layer 15)",
+    "normal_accuracy": 0.925,
+    "ablated_accuracy": 0.85,
+    "accuracy_drop": 0.07500000000000007,
+    "drop_percentage": 8.108108108108116
+  },
+  "downstream_probe_layer_specific": {
+    "ablation_layers": [
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "downstream_layer": 20,
+    "direction_type": "layer-specific",
+    "normal_accuracy": 0.925,
+    "ablated_accuracy": 0.4875,
+    "accuracy_drop": 0.43750000000000006,
+    "drop_percentage": 47.297297297297305
+  }
 }

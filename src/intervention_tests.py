@@ -931,6 +931,307 @@ def evaluate_probe_on_ablated_activations(
     return {'ablation_impact': impact, 'n_test_samples': len(texts) - split_idx}
 
 
+def _load_colbert_test_data(results_dir, n_samples: int = 400):
+    """
+    Load and return the ColBERT test data used by both downstream probe variants.
+    Extracted into a helper to avoid duplicating the dataset loading + exclusion logic.
+    Returns: texts (list), labels (np.ndarray), split_idx (int)
+    """
+    from datasets import load_dataset
+    import random as _random
+
+    dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
+
+    _random.seed(40)
+    np.random.seed(40)
+    torch.manual_seed(40)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(40)
+
+    all_data = list(dataset['train'])
+    try:
+        import pandas as pd
+        dataset_a_path = Path("datasets/dataset_a_paired.xlsx")
+        if dataset_a_path.exists():
+            df_a = pd.read_excel(dataset_a_path)
+            dataset_a_prefixes = set(t[:60].strip().lower() for t in df_a['text'].astype(str).tolist())
+            all_data = [ex for ex in all_data if ex['text'][:60].strip().lower() not in dataset_a_prefixes]
+    except Exception as e:
+        print(f"  Warning: Dataset A exclusion failed ({e}), proceeding without it")
+
+    humor_pool   = [ex for ex in all_data if     ex['humor']]
+    serious_pool = [ex for ex in all_data if not ex['humor']]
+    _random.shuffle(humor_pool)
+    _random.shuffle(serious_pool)
+    half     = n_samples // 2
+    balanced = humor_pool[:half] + serious_pool[:half]
+    _random.shuffle(balanced)
+    texts  = [ex['text']  for ex in balanced]
+    labels = np.array([1 if ex['humor'] else 0 for ex in balanced])
+    split_idx = int(0.8 * len(texts))
+    print(f"  {len(texts)} samples ({half} humor, {half} non-humor)")
+    return texts, labels, split_idx
+
+
+def _extract_at_downstream(model, texts, fwd_hooks_fn, downstream_hook_name):
+    """
+    Run forward passes and capture activations at downstream_layer.
+    fwd_hooks_fn(apply_ablation) -> list of (hook_name, hook_fn) to install.
+    """
+    def run(apply_ablation):
+        captured = []
+
+        def capture_hook(activation, hook):
+            captured.append(activation.detach().cpu())
+            return activation
+
+        all_acts = []
+        for i in range(0, len(texts), 32):
+            batch_texts = texts[i:i + 32]
+            tokens      = model.to_tokens(batch_texts, prepend_bos=True)
+            seq_lengths = (tokens != model.tokenizer.pad_token_id).sum(dim=1) - 1
+
+            captured.clear()
+            fwd_hooks = [(downstream_hook_name, capture_hook)] + fwd_hooks_fn(apply_ablation)
+
+            with model.hooks(fwd_hooks=fwd_hooks):
+                model(tokens)
+
+            batch_acts = captured[0]
+            for j in range(len(batch_texts)):
+                final_pos = min(seq_lengths[j].item(), batch_acts.shape[1] - 1)
+                all_acts.append(batch_acts[j, final_pos, :].numpy())
+
+        return np.array(all_acts)
+    return run
+
+
+def evaluate_downstream_probe_shared_direction(
+    model: HookedTransformer,
+    humor_direction: torch.Tensor,
+    ablation_layers: List[int],
+    downstream_layer: int,
+    n_samples: int = 400,
+) -> Dict:
+    """
+    Downstream probe variant A: SHARED DIRECTION.
+
+    Projects out layer 15's direction at every ablation layer (16, 17, 18, 19).
+    This asks the precise question: "does layer 15's exact vector survive forward
+    into layer 20?" If the representation rotates across layers this will
+    underestimate the effect, since the layer-15 vector no longer aligns well with
+    the humor subspace at later layers.
+    """
+    display_name  = get_display_name()
+    results_dir   = get_results_dir()
+    figures_dir   = get_figures_dir()
+    device        = next(model.parameters()).device
+
+    print(f"\n{'='*60}")
+    print(f"Downstream Probe Test — Shared Direction ({display_name})")
+    print(f"  Ablation layers : {ablation_layers}  (layer 15 direction throughout)")
+    print(f"  Probe at layer  : {downstream_layer}")
+    print(f"{'='*60}")
+
+    downstream_dir_path = results_dir / "directions" / f"layer{downstream_layer}.pt"
+    if not downstream_dir_path.exists():
+        return {"downstream_probe_shared": {"error": f"direction for layer {downstream_layer} not found"}}
+
+    downstream_direction = torch.load(downstream_dir_path).to(device)
+    downstream_direction = downstream_direction / downstream_direction.norm()
+    downstream_dir_np    = downstream_direction.cpu().numpy()
+
+    # Single ablation direction: layer 15's vector, reused at all ablation layers
+    ablation_dir = humor_direction.to(device)
+    ablation_dir = ablation_dir / ablation_dir.norm()
+
+    print("Loading test data...")
+    texts, labels, split_idx = _load_colbert_test_data(results_dir, n_samples)
+
+    downstream_hook_name = f"blocks.{downstream_layer}.hook_resid_post"
+
+    def ablate_hook(activation, hook):
+        v = ablation_dir
+        proj_coef  = torch.einsum('bsd,d->bs', activation, v)
+        projection = proj_coef.unsqueeze(-1) * v
+        return activation - projection
+
+    def fwd_hooks_fn(apply_ablation):
+        if not apply_ablation:
+            return []
+        return [(f"blocks.{abl_layer}.hook_resid_post", ablate_hook)
+                for abl_layer in ablation_layers]
+
+    extractor = _extract_at_downstream(model, texts, fwd_hooks_fn, downstream_hook_name)
+
+    print(f"Extracting normal activations at layer {downstream_layer}...")
+    X_normal  = extractor(apply_ablation=False)
+    print(f"Extracting ablated activations (layer 15 direction @ layers {ablation_layers})...")
+    X_ablated = extractor(apply_ablation=True)
+
+    diff_norm = np.linalg.norm(X_ablated - X_normal)
+    print(f"  ||X_ablated - X_normal|| = {diff_norm:.4f}")
+
+    proj_normal  = X_normal  @ downstream_dir_np
+    proj_ablated = X_ablated @ downstream_dir_np
+    threshold     = np.median(proj_normal[:split_idx])
+    normal_acc    = accuracy_score(labels[split_idx:], (proj_normal[split_idx:]  > threshold).astype(int))
+    ablated_acc   = accuracy_score(labels[split_idx:], (proj_ablated[split_idx:] > threshold).astype(int))
+
+    result = {
+        "ablation_layers"  : ablation_layers,
+        "downstream_layer" : downstream_layer,
+        "direction_type"   : "shared (layer 15)",
+        "normal_accuracy"  : normal_acc,
+        "ablated_accuracy" : ablated_acc,
+        "accuracy_drop"    : normal_acc - ablated_acc,
+        "drop_percentage"  : 100 * (normal_acc - ablated_acc) / normal_acc if normal_acc > 0 else 0,
+    }
+
+    print(f"\n  Normal  accuracy : {result['normal_accuracy']:.3f}")
+    print(f"  Ablated accuracy : {result['ablated_accuracy']:.3f}")
+    print(f"  Drop             : {result['accuracy_drop']:.3f}  ({result['drop_percentage']:.1f}%)")
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(
+        [f"Normal\n(layer {downstream_layer})", f"Ablated\n(layer 15 dir @ {ablation_layers[0]}–{ablation_layers[-1]})"],
+        [normal_acc, ablated_acc], color=['steelblue', 'salmon'],
+    )
+    ax.axhline(y=0.5, color='r', linestyle='--', label='Chance (0.5)')
+    ax.set_ylabel('1-D Probe Accuracy')
+    ax.set_ylim(0, 1)
+    ax.set_title(
+        f"Downstream Probe — Shared Direction ({display_name})\n"
+        f"Layer 15 direction ablated @ layers {ablation_layers[0]}–{ablation_layers[-1]}  →  Probe @ layer {downstream_layer}\n"
+        f"Drop: {result['drop_percentage']:.1f}%"
+    )
+    ax.legend()
+    plt.tight_layout()
+    save_path = figures_dir / f"downstream_probe_shared_abl{ablation_layers[0]}-{ablation_layers[-1]}_probe{downstream_layer}.png"
+    plt.savefig(save_path, dpi=150)
+    plt.close()
+    print(f"Saved: {save_path}")
+
+    return {"downstream_probe_shared": result}
+
+
+def evaluate_downstream_probe_layer_specific(
+    model: HookedTransformer,
+    humor_direction: torch.Tensor,
+    ablation_layers: List[int],
+    downstream_layer: int,
+    n_samples: int = 400,
+) -> Dict:
+    """
+    Downstream probe variant B: LAYER-SPECIFIC DIRECTIONS.
+
+    Projects out each layer's own saved humor direction at that layer.
+    This removes the humor subspace as it actually exists at each point —
+    capturing the signal even as it rotates across layers. More complete
+    suppression, but tests a broader question: "does the humor subspace
+    (not just layer 15's exact vector) propagate causally?"
+    """
+    display_name  = get_display_name()
+    results_dir   = get_results_dir()
+    figures_dir   = get_figures_dir()
+    device        = next(model.parameters()).device
+
+    print(f"\n{'='*60}")
+    print(f"Downstream Probe Test — Layer-Specific Directions ({display_name})")
+    print(f"  Ablation layers : {ablation_layers}  (each layer's own direction)")
+    print(f"  Probe at layer  : {downstream_layer}")
+    print(f"{'='*60}")
+
+    downstream_dir_path = results_dir / "directions" / f"layer{downstream_layer}.pt"
+    if not downstream_dir_path.exists():
+        return {"downstream_probe_layer_specific": {"error": f"direction for layer {downstream_layer} not found"}}
+
+    downstream_direction = torch.load(downstream_dir_path).to(device)
+    downstream_direction = downstream_direction / downstream_direction.norm()
+    downstream_dir_np    = downstream_direction.cpu().numpy()
+
+    # Load each layer's own saved humor direction
+    layer_dirs = {}
+    for abl_layer in ablation_layers:
+        path = results_dir / "directions" / f"layer{abl_layer}.pt"
+        if not path.exists():
+            return {"downstream_probe_layer_specific": {"error": f"direction for layer {abl_layer} not found"}}
+        d = torch.load(path).to(device)
+        layer_dirs[abl_layer] = d / d.norm()
+    print(f"  Loaded {len(layer_dirs)} layer-specific directions")
+
+    print("Loading test data...")
+    texts, labels, split_idx = _load_colbert_test_data(results_dir, n_samples)
+
+    downstream_hook_name = f"blocks.{downstream_layer}.hook_resid_post"
+
+    def make_ablate_hook(v):
+        # Closure captures each layer's own direction v
+        def ablate_hook(activation, hook):
+            proj_coef  = torch.einsum('bsd,d->bs', activation, v)
+            projection = proj_coef.unsqueeze(-1) * v
+            return activation - projection
+        return ablate_hook
+
+    def fwd_hooks_fn(apply_ablation):
+        if not apply_ablation:
+            return []
+        return [(f"blocks.{abl_layer}.hook_resid_post", make_ablate_hook(layer_dirs[abl_layer]))
+                for abl_layer in ablation_layers]
+
+    extractor = _extract_at_downstream(model, texts, fwd_hooks_fn, downstream_hook_name)
+
+    print(f"Extracting normal activations at layer {downstream_layer}...")
+    X_normal  = extractor(apply_ablation=False)
+    print(f"Extracting ablated activations (layer-specific directions @ layers {ablation_layers})...")
+    X_ablated = extractor(apply_ablation=True)
+
+    diff_norm = np.linalg.norm(X_ablated - X_normal)
+    print(f"  ||X_ablated - X_normal|| = {diff_norm:.4f}")
+
+    proj_normal  = X_normal  @ downstream_dir_np
+    proj_ablated = X_ablated @ downstream_dir_np
+    threshold     = np.median(proj_normal[:split_idx])
+    normal_acc    = accuracy_score(labels[split_idx:], (proj_normal[split_idx:]  > threshold).astype(int))
+    ablated_acc   = accuracy_score(labels[split_idx:], (proj_ablated[split_idx:] > threshold).astype(int))
+
+    result = {
+        "ablation_layers"  : ablation_layers,
+        "downstream_layer" : downstream_layer,
+        "direction_type"   : "layer-specific",
+        "normal_accuracy"  : normal_acc,
+        "ablated_accuracy" : ablated_acc,
+        "accuracy_drop"    : normal_acc - ablated_acc,
+        "drop_percentage"  : 100 * (normal_acc - ablated_acc) / normal_acc if normal_acc > 0 else 0,
+    }
+
+    print(f"\n  Normal  accuracy : {result['normal_accuracy']:.3f}")
+    print(f"  Ablated accuracy : {result['ablated_accuracy']:.3f}")
+    print(f"  Drop             : {result['accuracy_drop']:.3f}  ({result['drop_percentage']:.1f}%)")
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(
+        [f"Normal\n(layer {downstream_layer})", f"Ablated\n(layer-specific @ {ablation_layers[0]}–{ablation_layers[-1]})"],
+        [normal_acc, ablated_acc], color=['steelblue', 'salmon'],
+    )
+    ax.axhline(y=0.5, color='r', linestyle='--', label='Chance (0.5)')
+    ax.set_ylabel('1-D Probe Accuracy')
+    ax.set_ylim(0, 1)
+    ax.set_title(
+        f"Downstream Probe — Layer-Specific ({display_name})\n"
+        f"Layer-specific ablation @ layers {ablation_layers[0]}–{ablation_layers[-1]}  →  Probe @ layer {downstream_layer}\n"
+        f"Drop: {result['drop_percentage']:.1f}%"
+    )
+    ax.legend()
+    plt.tight_layout()
+    save_path = figures_dir / f"downstream_probe_layerspecific_abl{ablation_layers[0]}-{ablation_layers[-1]}_probe{downstream_layer}.png"
+    plt.savefig(save_path, dpi=150)
+    plt.close()
+    print(f"Saved: {save_path}")
+
+    return {"downstream_probe_layer_specific": result}
+
+
 def run_interventions(model_name: str = None):
     """
     Run all intervention tests for a given model.
@@ -1003,7 +1304,42 @@ def run_interventions(model_name: str = None):
     except Exception as e:
         print(f"\nWarning: Could not evaluate probe impact: {e}")
         all_results['ablation_impact'] = {'error': str(e)}
-    
+
+    # Test 5a: Downstream probe — shared direction.
+    # Ablates layer 15's direction at every intermediate layer [15..19].
+    # Asks: does layer 15's exact vector survive forward into layer 20?
+    # Test 5b: Downstream probe — layer-specific directions.
+    # Ablates each layer's own saved direction at that layer [15..19].
+    # Asks: does the humor subspace (which rotates across layers) propagate causally?
+    # Running both lets us compare: 5a isolates layer 15's vector specifically;
+    # 5b gives the stronger suppression since it tracks the rotating subspace.
+    DOWNSTREAM_LAYER = 20
+    ABLATION_LAYERS  = list(range(BEST_LAYER, DOWNSTREAM_LAYER))  # e.g. [15,16,17,18,19]
+
+    try:
+        shared_results = evaluate_downstream_probe_shared_direction(
+            model, humor_direction,
+            ablation_layers=ABLATION_LAYERS,
+            downstream_layer=DOWNSTREAM_LAYER,
+            n_samples=400,
+        )
+        all_results.update(shared_results)
+    except Exception as e:
+        print(f"\nWarning: Could not run shared-direction downstream probe: {e}")
+        all_results['downstream_probe_shared'] = {'error': str(e)}
+
+    try:
+        layerspec_results = evaluate_downstream_probe_layer_specific(
+            model, humor_direction,
+            ablation_layers=ABLATION_LAYERS,
+            downstream_layer=DOWNSTREAM_LAYER,
+            n_samples=400,
+        )
+        all_results.update(layerspec_results)
+    except Exception as e:
+        print(f"\nWarning: Could not run layer-specific downstream probe: {e}")
+        all_results['downstream_probe_layer_specific'] = {'error': str(e)}
+
     # Save all results to JSON
     results_path = results_dir / "intervention_results.json"
     
