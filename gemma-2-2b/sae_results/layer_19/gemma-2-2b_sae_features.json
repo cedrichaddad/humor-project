@@ -1,0 +1,162 @@
+[
+  {
+    "rank": 1,
+    "feature_idx": 5406,
+    "diff": 31.862499,
+    "top_tokens": "\n\n The This It There",
+    "joke_mean": 34.597374,
+    "nonjoke_mean": 2.734875
+  },
+  {
+    "rank": 2,
+    "feature_idx": 11028,
+    "diff": 25.44425,
+    "top_tokens": " was can is had will",
+    "joke_mean": 31.459625,
+    "nonjoke_mean": 6.015375
+  },
+  {
+    "rank": 3,
+    "feature_idx": 1363,
+    "diff": 21.767248,
+    "top_tokens": " few different lot large new",
+    "joke_mean": 35.424374,
+    "nonjoke_mean": 13.657125
+  },
+  {
+    "rank": 4,
+    "feature_idx": 13980,
+    "diff": 20.987814,
+    "top_tokens": " we they you it he",
+    "joke_mean": 22.337376,
+    "nonjoke_mean": 1.349563
+  },
+  {
+    "rank": 5,
+    "feature_idx": 15731,
+    "diff": 19.65325,
+    "top_tokens": " deserve need belong seemSourceChecksum",
+    "joke_mean": 22.221094,
+    "nonjoke_mean": 2.567844
+  },
+  {
+    "rank": 6,
+    "feature_idx": 4634,
+    "diff": 17.95575,
+    "top_tokens": " about kind happenedabout What",
+    "joke_mean": 19.896313,
+    "nonjoke_mean": 1.940562
+  },
+  {
+    "rank": 7,
+    "feature_idx": 7978,
+    "diff": 15.40825,
+    "top_tokens": " jokes joke humor humour Jokes",
+    "joke_mean": 18.431313,
+    "nonjoke_mean": 3.023062
+  },
+  {
+    "rank": 8,
+    "feature_idx": 1538,
+    "diff": 14.042875,
+    "top_tokens": " got gotta forgot didn gettin",
+    "joke_mean": 18.142376,
+    "nonjoke_mean": 4.0995
+  },
+  {
+    "rank": 9,
+    "feature_idx": 1786,
+    "diff": 13.455062,
+    "top_tokens": " fuckingfucking FUCKING goddamnfuck",
+    "joke_mean": 17.888531,
+    "nonjoke_mean": 4.433469
+  },
+  {
+    "rank": 10,
+    "feature_idx": 14220,
+    "diff": 11.804062,
+    "top_tokens": " does exactly about role do",
+    "joke_mean": 14.363625,
+    "nonjoke_mean": 2.559562
+  },
+  {
+    "rank": 11,
+    "feature_idx": 6694,
+    "diff": 11.645875,
+    "top_tokens": "UserScript initComponents &___ denn endblock",
+    "joke_mean": 12.302188,
+    "nonjoke_mean": 0.656313
+  },
+  {
+    "rank": 12,
+    "feature_idx": 10399,
+    "diff": 11.477188,
+    "top_tokens": " we it no if the",
+    "joke_mean": 14.531813,
+    "nonjoke_mean": 3.054625
+  },
+  {
+    "rank": 13,
+    "feature_idx": 7914,
+    "diff": 11.450968,
+    "top_tokens": " also not actually still always",
+    "joke_mean": 28.476343,
+    "nonjoke_mean": 17.025375
+  },
+  {
+    "rank": 14,
+    "feature_idx": 3442,
+    "diff": 11.003502,
+    "top_tokens": "?!?\n\n?\"!??.",
+    "joke_mean": 54.6875,
+    "nonjoke_mean": 43.683998
+  },
+  {
+    "rank": 15,
+    "feature_idx": 12842,
+    "diff": 10.965281,
+    "top_tokens": " been gottaSuccessListenerbeenBeen",
+    "joke_mean": 14.389719,
+    "nonjoke_mean": 3.424438
+  },
+  {
+    "rank": 16,
+    "feature_idx": 10937,
+    "diff": 10.783188,
+    "top_tokens": "<eos>Good Good:) saludos",
+    "joke_mean": 11.235782,
+    "nonjoke_mean": 0.452594
+  },
+  {
+    "rank": 17,
+    "feature_idx": 440,
+    "diff": 10.643937,
+    "top_tokens": " would not pay why they",
+    "joke_mean": 13.090062,
+    "nonjoke_mean": 2.446125
+  },
+  {
+    "rank": 18,
+    "feature_idx": 7461,
+    "diff": 10.040313,
+    "top_tokens": " a an sebuah eine seorang",
+    "joke_mean": 14.43025,
+    "nonjoke_mean": 4.389937
+  },
+  {
+    "rank": 19,
+    "feature_idx": 5685,
+    "diff": 10.006624,
+    "top_tokens": "/...(...!...:...?...",
+    "joke_mean": 22.069937,
+    "nonjoke_mean": 12.063313
+  },
+  {
+    "rank": 20,
+    "feature_idx": 3471,
+    "diff": 9.937375,
+    "top_tokens": " kind type kinds sort types",
+    "joke_mean": 11.072875,
+    "nonjoke_mean": 1.1355
+  }
+]

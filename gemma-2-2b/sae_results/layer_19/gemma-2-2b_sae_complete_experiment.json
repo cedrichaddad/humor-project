@@ -1,0 +1,233 @@
+{
+  "model": "gemma-2-2b",
+  "layer": 19,
+  "discovery": [
+    {
+      "rank": 1,
+      "feature_idx": 5406,
+      "diff": 31.862499,
+      "top_tokens": "\n\n The This It There",
+      "joke_mean": 34.597374,
+      "nonjoke_mean": 2.734875
+    },
+    {
+      "rank": 2,
+      "feature_idx": 11028,
+      "diff": 25.44425,
+      "top_tokens": " was can is had will",
+      "joke_mean": 31.459625,
+      "nonjoke_mean": 6.015375
+    },
+    {
+      "rank": 3,
+      "feature_idx": 1363,
+      "diff": 21.767248,
+      "top_tokens": " few different lot large new",
+      "joke_mean": 35.424374,
+      "nonjoke_mean": 13.657125
+    },
+    {
+      "rank": 4,
+      "feature_idx": 13980,
+      "diff": 20.987814,
+      "top_tokens": " we they you it he",
+      "joke_mean": 22.337376,
+      "nonjoke_mean": 1.349563
+    },
+    {
+      "rank": 5,
+      "feature_idx": 15731,
+      "diff": 19.65325,
+      "top_tokens": " deserve need belong seemSourceChecksum",
+      "joke_mean": 22.221094,
+      "nonjoke_mean": 2.567844
+    },
+    {
+      "rank": 6,
+      "feature_idx": 4634,
+      "diff": 17.95575,
+      "top_tokens": " about kind happenedabout What",
+      "joke_mean": 19.896313,
+      "nonjoke_mean": 1.940562
+    },
+    {
+      "rank": 7,
+      "feature_idx": 7978,
+      "diff": 15.40825,
+      "top_tokens": " jokes joke humor humour Jokes",
+      "joke_mean": 18.431313,
+      "nonjoke_mean": 3.023062
+    },
+    {
+      "rank": 8,
+      "feature_idx": 1538,
+      "diff": 14.042875,
+      "top_tokens": " got gotta forgot didn gettin",
+      "joke_mean": 18.142376,
+      "nonjoke_mean": 4.0995
+    },
+    {
+      "rank": 9,
+      "feature_idx": 1786,
+      "diff": 13.455062,
+      "top_tokens": " fuckingfucking FUCKING goddamnfuck",
+      "joke_mean": 17.888531,
+      "nonjoke_mean": 4.433469
+    },
+    {
+      "rank": 10,
+      "feature_idx": 14220,
+      "diff": 11.804062,
+      "top_tokens": " does exactly about role do",
+      "joke_mean": 14.363625,
+      "nonjoke_mean": 2.559562
+    },
+    {
+      "rank": 11,
+      "feature_idx": 6694,
+      "diff": 11.645875,
+      "top_tokens": "UserScript initComponents &___ denn endblock",
+      "joke_mean": 12.302188,
+      "nonjoke_mean": 0.656313
+    },
+    {
+      "rank": 12,
+      "feature_idx": 10399,
+      "diff": 11.477188,
+      "top_tokens": " we it no if the",
+      "joke_mean": 14.531813,
+      "nonjoke_mean": 3.054625
+    },
+    {
+      "rank": 13,
+      "feature_idx": 7914,
+      "diff": 11.450968,
+      "top_tokens": " also not actually still always",
+      "joke_mean": 28.476343,
+      "nonjoke_mean": 17.025375
+    },
+    {
+      "rank": 14,
+      "feature_idx": 3442,
+      "diff": 11.003502,
+      "top_tokens": "?!?\n\n?\"!??.",
+      "joke_mean": 54.6875,
+      "nonjoke_mean": 43.683998
+    },
+    {
+      "rank": 15,
+      "feature_idx": 12842,
+      "diff": 10.965281,
+      "top_tokens": " been gottaSuccessListenerbeenBeen",
+      "joke_mean": 14.389719,
+      "nonjoke_mean": 3.424438
+    },
+    {
+      "rank": 16,
+      "feature_idx": 10937,
+      "diff": 10.783188,
+      "top_tokens": "<eos>Good Good:) saludos",
+      "joke_mean": 11.235782,
+      "nonjoke_mean": 0.452594
+    },
+    {
+      "rank": 17,
+      "feature_idx": 440,
+      "diff": 10.643937,
+      "top_tokens": " would not pay why they",
+      "joke_mean": 13.090062,
+      "nonjoke_mean": 2.446125
+    },
+    {
+      "rank": 18,
+      "feature_idx": 7461,
+      "diff": 10.040313,
+      "top_tokens": " a an sebuah eine seorang",
+      "joke_mean": 14.43025,
+      "nonjoke_mean": 4.389937
+    },
+    {
+      "rank": 19,
+      "feature_idx": 5685,
+      "diff": 10.006624,
+      "top_tokens": "/...(...!...:...?...",
+      "joke_mean": 22.069937,
+      "nonjoke_mean": 12.063313
+    },
+    {
+      "rank": 20,
+      "feature_idx": 3471,
+      "diff": 9.937375,
+      "top_tokens": " kind type kinds sort types",
+      "joke_mean": 11.072875,
+      "nonjoke_mean": 1.1355
+    }
+  ],
+  "validation": [
+    {
+      "feature_idx": 5406,
+      "steering": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\nThat\u2019s the question that\u2019s been haunting everyone over the past week. It\u2019s",
+        "I told my friend a joke about": "<bos>I told my friend a joke about her. She said it was about her.\nThe joke was that she was the most unfunny",
+        "The weather today is": "<bos>The weather today is supposed to be quite warm, and that is a good reason to take a walk in the park to"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road? to get to the other side! is the most popular sentence in the world. yes, it is",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a 40 year old dude who was having a hard time finding a girl and he asked me",
+        "The weather today is": "<bos>The weather today is a bit like a boy, it will make you have an angry face, but it will also make"
+      }
+    },
+    {
+      "feature_idx": 11028,
+      "steering": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\nIf we go back to where we place the chicken, then the chicken is on the left side",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a guy who was trying to take the best shot of a rose at sunrise. But when he set",
+        "The weather today is": "<bos>The weather today is very happy, the sun is shining, the sky is clear, the temperature is very comfortable, and"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\nTo get to the other side.\n\nWhy did the chicken cross the road?\n\nTo get",
+        "I told my friend a joke about": "<bos>I told my friend a joke about the teacher\n\nI asked my friend a question about the teacher\n\nI gave my friend a compliment about",
+        "The weather today is": "<bos>The weather today is quite clear and sunny. It is quite hot, so I to the river to take a shower."
+      }
+    },
+    {
+      "feature_idx": 1363,
+      "steering": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road? To get to the other side, of course! In today\u2019s world of online advertising, the",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a guy who goes to a bar, orders a beer, and gets drunk. He goes home,",
+        "The weather today is": "<bos>The weather today is a mix of sun and clouds. The temperature is expected to be around 55\u00b0F ("
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road? Well, to get to the other side, of course.\n\nThis is the latest in a a",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a a a and my friend said it sounded like a a and I said it did because I said",
+        "The weather today is": "<bos>The weather today is a a a a a\n\nA a a a a\n\nA ah a a a a a\n\n"
+      }
+    },
+    {
+      "feature_idx": 13980,
+      "steering": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\nIt was on its way to the chicken shop.\n\nThe chicken shop was on the road,",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a guy who was planning on stealing a car. I told him I thought it was funny. He",
+        "The weather today is": "<bos>The weather today is quite the contrast to yesterday. While it was sunny and warm on Monday, today we have the exact"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\n[User 0001]\n\n<blockquote>It was a long time ago, but I",
+        "I told my friend a joke about": "<bos>I told my friend a joke about the early days of the internet, but I don\u2019t remember it.\n\nI only remember that",
+        "The weather today is": "<bos>The weather today is just absolutely beautiful!  The sun is shining, the birds are chirping, and the sky is"
+      }
+    },
+    {
+      "feature_idx": 15731,
+      "steering": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\nTo test the hypothesis that the chicken crossed the road by virtue of its own volition.\n\nThe",
+        "I told my friend a joke about": "<bos>I told my friend a joke about how my family made a movie.\n\nShe said, \u201cCool. Do you have a trailer?\u201d",
+        "The weather today is": "<bos>The weather today is a mix of sun and cloud, with a high of 15 C, according to Environment Canada"
+      },
+      "ablation": {
+        "Why did the chicken cross the road?": "<bos>Why did the chicken cross the road?\n\n(1) To get to the other side.\n\n(2) To find the road to",
+        "I told my friend a joke about": "<bos>I told my friend a joke about a guy who was a clown.\n\nHe found it offensive and told me I was a sexist pig",
+        "The weather today is": "<bos>The weather today is not conducive to flying, with high winds and low cloud. I guess it is not just me who"
+      }
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "rank": 1,
+    "feature_idx": 1858,
+    "diff": 31.858189,
+    "top_tokens": " The\n\n This It There",
+    "joke_mean": 35.252251,
+    "nonjoke_mean": 3.394063
+  },
+  {
+    "rank": 2,
+    "feature_idx": 10461,
+    "diff": 26.105877,
+    "top_tokens": " is can has was will",
+    "joke_mean": 33.126877,
+    "nonjoke_mean": 7.021
+  },
+  {
+    "rank": 3,
+    "feature_idx": 11092,
+    "diff": 24.315626,
+    "top_tokens": " they you we he it",
+    "joke_mean": 25.879688,
+    "nonjoke_mean": 1.564062
+  },
+  {
+    "rank": 4,
+    "feature_idx": 4223,
+    "diff": 23.710938,
+    "top_tokens": " does DoesDoes did Did",
+    "joke_mean": 33.056438,
+    "nonjoke_mean": 9.3455
+  },
+  {
+    "rank": 5,
+    "feature_idx": 9982,
+    "diff": 23.362625,
+    "top_tokens": " few lot couple different very",
+    "joke_mean": 37.639751,
+    "nonjoke_mean": 14.277125
+  },
+  {
+    "rank": 6,
+    "feature_idx": 6385,
+    "diff": 22.853125,
+    "top_tokens": " hey oh Seriously Oh Hey",
+    "joke_mean": 24.443594,
+    "nonjoke_mean": 1.590469
+  },
+  {
+    "rank": 7,
+    "feature_idx": 1761,
+    "diff": 22.535812,
+    "top_tokens": " about happenedaboutInvalidProtocol?!",
+    "joke_mean": 24.896687,
+    "nonjoke_mean": 2.360875
+  },
+  {
+    "rank": 8,
+    "feature_idx": 11571,
+    "diff": 21.540627,
+    "top_tokens": " happens we they happened kind",
+    "joke_mean": 26.043501,
+    "nonjoke_mean": 4.502875
+  },
+  {
+    "rank": 9,
+    "feature_idx": 8112,
+    "diff": 14.242499,
+    "top_tokens": " kind kinds sort type types",
+    "joke_mean": 15.932875,
+    "nonjoke_mean": 1.690375
+  },
+  {
+    "rank": 10,
+    "feature_idx": 140,
+    "diff": 13.882751,
+    "top_tokens": " resourceCulture createState AssemblyTitleBASEPATH BoxFit",
+    "joke_mean": 23.255501,
+    "nonjoke_mean": 9.37275
+  },
+  {
+    "rank": 11,
+    "feature_idx": 15074,
+    "diff": 13.359938,
+    "top_tokens": " we you they AssemblyCulture wir",
+    "joke_mean": 14.526188,
+    "nonjoke_mean": 1.16625
+  },
+  {
+    "rank": 12,
+    "feature_idx": 10414,
+    "diff": 12.970563,
+    "top_tokens": " we there it if they",
+    "joke_mean": 17.928782,
+    "nonjoke_mean": 4.958219
+  },
+  {
+    "rank": 13,
+    "feature_idx": 1555,
+    "diff": 12.7035,
+    "top_tokens": " jokes joke humor humour joking",
+    "joke_mean": 15.740562,
+    "nonjoke_mean": 3.037062
+  },
+  {
+    "rank": 14,
+    "feature_idx": 10252,
+    "diff": 12.498938,
+    "top_tokens": " been gotta gonnabeen BEEN",
+    "joke_mean": 16.665688,
+    "nonjoke_mean": 4.16675
+  },
+  {
+    "rank": 15,
+    "feature_idx": 8535,
+    "diff": 12.154751,
+    "top_tokens": " they exactly pay not else",
+    "joke_mean": 15.09675,
+    "nonjoke_mean": 2.942
+  },
+  {
+    "rank": 16,
+    "feature_idx": 3586,
+    "diff": 11.837189,
+    "top_tokens": " a an sebuah eine another",
+    "joke_mean": 21.386032,
+    "nonjoke_mean": 9.548843
+  },
+  {
+    "rank": 17,
+    "feature_idx": 10873,
+    "diff": 11.358875,
+    "top_tokens": " am don have dont guess",
+    "joke_mean": 12.311438,
+    "nonjoke_mean": 0.952563
+  },
+  {
+    "rank": 18,
+    "feature_idx": 3686,
+    "diff": 11.21775,
+    "top_tokens": " yourself youryourself yourselves Yourself",
+    "joke_mean": 16.935562,
+    "nonjoke_mean": 5.717813
+  },
+  {
+    "rank": 19,
+    "feature_idx": 11795,
+    "diff": 10.751503,
+    "top_tokens": "^(@)verwijspagina ujednoznacz Forumiteutilisons",
+    "joke_mean": 94.383003,
+    "nonjoke_mean": 83.6315
+  },
+  {
+    "rank": 20,
+    "feature_idx": 259,
+    "diff": 10.703375,
+    "top_tokens": " water trees eating food shoes",
+    "joke_mean": 12.298,
+    "nonjoke_mean": 1.594625
+  }
+]

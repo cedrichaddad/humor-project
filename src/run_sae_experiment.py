@@ -2,186 +2,141 @@
 """
 Run Complete SAE Experiment: Feature Discovery + Causal Validation.
 
-This script combines:
-1. SAE feature discovery (via sae_analysis.get_humor_features)
-2. Causal validation via steering and ablation
+Sweeps layers 15-20, saving each to results/<model>/sae_results/layer_N/.
 
 Usage:
-    python src/run_sae_experiment.py --batch_size 128    # gemma-2-2b (default)
-    python src/run_sae_experiment.py --model gpt2 --batch_size 4
+    python src/run_sae_experiment.py                   # gemma-2-2b, batch 4
+    python src/run_sae_experiment.py --batch-size 128
 """
 import json
-import sys
 import torch
 import argparse
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-# Import the new SAE analysis function
-from sae_analysis import get_humor_features, load_sae_model
+from sae_analysis import (
+    get_humor_features_for_layer,
+    load_sae_model,
+    SWEEP_LAYERS,
+    SAE,
+    _GEMMA_CANONICAL_RELEASE,
+)
 from experiment import set_model, set_seed, SEED
 from intervention_tests import HumorIntervention
+from generate_sae_figures import generate_figures_for_layer
 
-def get_results_dir(model_name):
-    """Get current model's results directory."""
-    return Path(f"results/{model_name}")
 
-def run_causal_validation(
-    model,
-    sae,
-    top_feature_indices,
-    layer: int,
-    test_prompts=None,
-    model_name="gemma-2-2b"
-):
-    """
-    Run causal validation by steering and ablating SAE features.
-    """
-    if test_prompts is None:
-        test_prompts = [
-            "Why did the chicken cross the road?",
-            "I told my friend a joke about",
-            "The weather today is"
-        ]
-    
+def run_causal_validation(model, sae, top_feature_indices, layer, model_name="gemma-2-2b"):
+    test_prompts = [
+        "Why did the chicken cross the road?",
+        "I told my friend a joke about",
+        "The weather today is",
+    ]
+
     device = next(model.parameters()).device
-    
-    # Initialize intervention helper
-    # Dummy direction to init
-    dummy_direction = torch.zeros(model.cfg.d_model, device=device)
+    dummy  = torch.zeros(model.cfg.d_model, device=device)
     if model.cfg.dtype == torch.bfloat16:
-        dummy_direction = dummy_direction.to(dtype=torch.bfloat16)
+        dummy = dummy.to(dtype=torch.bfloat16)
 
-    intervention = HumorIntervention(model, dummy_direction, layer=layer)
-    
-    print("\n" + "="*60)
-    print("CAUSAL VALIDATION: Steering & Ablation")
-    print("="*60)
-    
-    validation_results = []
-    
-    # We need access to feature decoder directions
-    for idx in top_feature_indices[:5]:  # Test top 5 features
-        # Normalize direction
-        feature_dir = sae.W_dec[idx]
-        feature_dir = feature_dir / feature_dir.norm()
-        
-        # Ensure dtype match
-        if feature_dir.dtype != dummy_direction.dtype:
-            feature_dir = feature_dir.to(dtype=dummy_direction.dtype)
+    intervention = HumorIntervention(model, dummy, layer=layer)
+    results = []
 
-        feature_result = {
-            'feature_idx': idx,
-            'steering': {},
-            'ablation': {}
-        }
-        
-        print(f"\n{'─'*60}")
-        print(f"Feature {idx}")
-        print(f"{'─'*60}")
-        
+    for idx in top_feature_indices[:5]:
+        feat_dir = sae.W_dec[idx]
+        feat_dir = feat_dir / feat_dir.norm()
+        if feat_dir.dtype != dummy.dtype:
+            feat_dir = feat_dir.to(dtype=dummy.dtype)
+
+        entry = {"feature_idx": idx, "steering": {}, "ablation": {}}
+        print(f"\n  Feature {idx}")
+
         for prompt in test_prompts:
-            # SAE features are sparse; higher alpha needed for visible effects
-            print(f"\n  Prompt: '{prompt}'")
-            
-            # Steering
-            steered = intervention.steer_direction(
-                feature_dir, prompt, alpha=30.0, max_new_tokens=20, temperature=0.7
-            )
-            feature_result['steering'][prompt] = steered
-            print(f"    Steered (α=30): {steered}")
-            
-            # Ablation
-            ablated = intervention.ablate_direction(
-                feature_dir, prompt, max_new_tokens=20, temperature=0.7
-            )
-            feature_result['ablation'][prompt] = ablated
-            print(f"    Ablated:        {ablated}")
-        
-        validation_results.append(feature_result)
-    
-    return validation_results
+            steered = intervention.steer_direction(feat_dir, prompt, alpha=30.0, max_new_tokens=20, temperature=0.7)
+            ablated = intervention.ablate_direction(feat_dir, prompt, max_new_tokens=20, temperature=0.7)
+            entry["steering"][prompt] = steered
+            entry["ablation"][prompt] = ablated
+            print(f"    [{prompt[:40]}]")
+            print(f"      steered: {steered}")
+            print(f"      ablated: {ablated}")
+
+        results.append(entry)
+    return results
 
 
 def main():
-    """Run complete SAE experiment: discovery + validation."""
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="gemma-2-2b", choices=["gemma-2-2b", "gpt2"])    
-    parser.add_argument("--batch_size", type=int, default=4)
-    parser.add_argument("--samples", type=int, default=2000)
+    parser.add_argument("--model",      type=str, default="gemma-2-2b", choices=["gemma-2-2b", "gpt2"])
+    parser.add_argument("--batch-size", type=int, default=4)
     args = parser.parse_args()
-    
+
     model_name = args.model
-    # Set model context
     set_model(model_name)
     set_seed(SEED)
-    
-    results_dir = get_results_dir(model_name)
-    results_dir.mkdir(parents=True, exist_ok=True)
-    
-    print("="*60)
-    print(f"COMPLETE SAE EXPERIMENT: Discovery + Validation ({model_name})")
-    print("="*60)
-    
-    # =========================================================================
-    # STEP 1: Run SAE Analysis (Feature Discovery)
-    # =========================================================================
-    print("\n" + "="*60)
-    print("STEP 1: SAE Feature Discovery")
-    print("="*60)
-    
-    # Call our new API
-    sae_results = get_humor_features(
-        model_alias=model_name,
-        batch_size=args.batch_size,
-        save_dir=results_dir
-    )
-    
-    if not sae_results:
-        print("\nError: SAE analysis failed. Exiting.")
-        return
-    
-    # Extract top feature indices
-    top_indices = [r['feature_idx'] for r in sae_results[:10]]
-    print(f"\nTop 10 humor features identified: {top_indices}")
-    
-    # =========================================================================
-    # STEP 2: Causal Validation (Steering + Ablation)
-    # =========================================================================
-    print("\n" + "="*60)
-    print("STEP 2: Causal Validation")
-    print("="*60)
-    
-    # Load model and SAE for validation using our factory
-    model, sae, cfg = load_sae_model(model_name)
-    
-    # Run causal tests
-    validation_results = run_causal_validation(
-        model, sae, top_indices, cfg['layer'], model_name=model_name
-    )
-    
-    # =========================================================================
-    # STEP 3: Save Combined Results
-    # =========================================================================
-    print("\n" + "="*60)
-    print("STEP 3: Saving Complete Results")
-    print("="*60)
-    
-    complete_results = {
-        'model': model_name,
-        'layer': cfg['layer'],
-        'discovery': sae_results,
-        'validation': validation_results
-    }
-    
-    output_path = results_dir / f"{model_name}_sae_complete_experiment.json"
-    with open(output_path, 'w') as f:
-        json.dump(complete_results, f, indent=2)
-    
-    print(f"\nComplete results saved to: {output_path}")
-    print("\n" + "="*60)
-    print("EXPERIMENT COMPLETE")
-    print("="*60)
+
+    sae_results_dir = Path(f"results/{model_name}/sae_results")
+    sae_results_dir.mkdir(parents=True, exist_ok=True)
+
+    print("=" * 60)
+    print(f"  SAE EXPERIMENT  ({model_name})  layers {SWEEP_LAYERS}")
+    print("=" * 60)
+
+    # Load transformer once — reused across all layers
+    model, _, _ = load_sae_model(model_name)
+    device   = next(model.parameters()).device
+    use_bf16 = model.cfg.dtype == torch.bfloat16
+
+    for layer in SWEEP_LAYERS:
+        layer_dir = sae_results_dir / f"layer_{layer}"
+        layer_dir.mkdir(parents=True, exist_ok=True)
+
+        print(f"\n{'='*60}\n  Layer {layer}\n{'='*60}")
+
+        # ── Feature discovery ──────────────────────────────────────────
+        features = get_humor_features_for_layer(
+            layer=layer,
+            model=model,
+            batch_size=args.batch_size,
+            save_dir=layer_dir,
+        )
+        top_indices = [r["feature_idx"] for r in features[:10]]
+        print(f"\n  Top 10: {top_indices}")
+
+        # ── Causal validation ──────────────────────────────────────────
+        layer_sae, _, _ = SAE.from_pretrained(
+            release=_GEMMA_CANONICAL_RELEASE,
+            sae_id=f"layer_{layer}/width_16k/canonical",
+            device=device,
+        )
+        if use_bf16:
+            layer_sae = layer_sae.to(dtype=torch.bfloat16)
+
+        validation = run_causal_validation(model, layer_sae, top_indices, layer, model_name)
+
+        del layer_sae
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+
+        # ── Save ──────────────────────────────────────────────────────
+        combined = {
+            "model":      model_name,
+            "layer":      layer,
+            "discovery":  features,
+            "validation": validation,
+        }
+        out = layer_dir / "gemma-2-2b_sae_complete_experiment.json"
+        with open(out, "w") as f:
+            json.dump(combined, f, indent=2)
+        print(f"\n  Saved: {out}")
+
+        # ── Figures ───────────────────────────────────────────────────
+        try:
+            generate_figures_for_layer(layer, sae_results_dir)
+        except Exception as e:
+            print(f"  WARNING figures layer {layer}: {e}")
+
+    print("\n" + "=" * 60)
+    print("  ALL LAYERS COMPLETE")
+    print("=" * 60)
+
 
 if __name__ == "__main__":
     main()

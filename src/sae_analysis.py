@@ -2,43 +2,33 @@
 src/sae_analysis.py
 
 Sparse Autoencoder (SAE) feature discovery for humor recognition.
-Supports GPT-2 Small and Gemma-2-2B.
+Gemma-2-2B only, sweeping layers 15-20 via GemmaScope canonical SAEs.
 
 Architecture notes
 ──────────────────
-• For Gemma-Scope SAEs the config object is a JumpReLUSAEConfig whose
-  hook-point attribute is ``hook_point`` (NOT ``hook_name``).
-• The TransformerLens cache keys follow the pattern
-  ``blocks.<layer>.hook_resid_post`` for residual-stream SAEs, so we
-  derive the hook name deterministically from the layer index rather
-  than relying on any single SAE-config field name.
-• Gemma-2 uses logit soft-capping, so ``center_unembed`` must be False.
-• Gemma-2 uses RMSNorm (no bias), so ``center_writing_weights`` must be
-  False to avoid the "can't center" warning.
+• Uses gemma-scope-2b-pt-res-canonical — works for any layer without
+  hardcoding an average_l0 value.
+• Hook keys follow the pattern blocks.<layer>.hook_resid_post.
+• Gemma-2 uses logit soft-capping → center_unembed=False.
+• Gemma-2 uses RMSNorm (no bias) → center_writing_weights=False.
 """
 
 from __future__ import annotations
 
 import json
 import re
-import sys
 import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-import numpy as np
-import pandas as pd
 import torch
 from tqdm import tqdm
 
-# ---------------------------------------------------------------------------
-# Optional imports (fail gracefully for non-GPU environments)
-# ---------------------------------------------------------------------------
 try:
     from sae_lens import SAE
     from transformer_lens import HookedTransformer
 except ImportError:
-    SAE = None  # type: ignore[assignment,misc]
+    SAE = None            # type: ignore[assignment,misc]
     HookedTransformer = None  # type: ignore[assignment,misc]
     warnings.warn(
         "sae-lens / transformer-lens not installed. "
@@ -46,108 +36,68 @@ except ImportError:
         stacklevel=2,
     )
 
-# ---------------------------------------------------------------------------
-# Token-based artifact filter
-# ---------------------------------------------------------------------------
+# ═══════════════════════════════════════════════════════════════════════════
+# Constants
+# ═══════════════════════════════════════════════════════════════════════════
+
+_GEMMA_CANONICAL_RELEASE = "gemma-scope-2b-pt-res-canonical"
+SWEEP_LAYERS = [15, 16, 17, 18, 19, 20]
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Artifact filter
+# ═══════════════════════════════════════════════════════════════════════════
 # The SAE was pretrained on a broad corpus (The Pile / C4 / etc.) and learned
-# features for code, Arabic, Russian, Malay, CJK, and so on.  Some of those
-# features fire differentially on joke vs non-joke splits purely by chance —
-# an incidental corpus-skew correlation, not a humor signal.  We filter them
-# out by inspecting each feature's top decoded tokens BEFORE adding it to the
-# final ranking.
+# features for code, Arabic, Russian, Malay, CJK, etc. Some fire
+# differentially on jokes vs non-jokes purely by chance. We filter them by
+# inspecting each feature's top decoded tokens before ranking.
 
 _CODE_RE = re.compile(
-    r'[a-z][A-Z][a-zA-Z]{2,}'                           # camelCase
-    r'|[A-Z]{2,}[a-z][A-Z]'                             # MixedUpper (MigrationBuilder)
+    r'[a-z][A-Z][a-zA-Z]{2,}'                       # camelCase
+    r'|[A-Z]{2,}[a-z][A-Z]'                         # MixedUpper
     r'|\b(def|SELECT|FROM|WHERE|INSERT'
     r'|import|function|var|const|return|printf'
-    r'|cout|endl|class|void|int|str)\b'                  # code keywords
-    r'|[{}\[\]<>]{2,}'                                   # bracket clusters
-    r'|;\s*$',                                            # line-ending semicolons
+    r'|cout|endl|class|void|int|str)\b'              # code keywords
+    r'|[{}\[\]<>]{2,}'                               # bracket clusters
+    r'|;\s*$',                                        # line-ending semicolons
     re.MULTILINE,
 )
 
 
 def _is_artifact_feature(top_tokens: List[str]) -> bool:
-    """Return True if this feature should be excluded from results.
-
-    Criteria
-    --------
-    • Any top token contains a non-ASCII character → foreign script
-      (Arabic, Russian, CJK, Malay, etc.)
-    • Any top token matches code-like patterns (camelCase, SQL keywords,
-      bracket clusters, etc.)
-
-    Both checks are intentionally conservative: a single bad token in the
-    top-5 is enough to discard the feature.  We oversample the candidate
-    pool (top-200 by diff) so discarding 30-40% still leaves plenty of
-    clean features to fill the top-20.
-    """
+    """Return True if the feature should be excluded (code / foreign script)."""
     for tok in top_tokens:
-        # Non-ASCII → foreign script
         if any(ord(c) > 127 for c in tok):
             return True
-        # Code patterns
         if _CODE_RE.search(tok):
             return True
     return False
 
 
-# ---------------------------------------------------------------------------
-# Model / SAE configuration registry
-# ---------------------------------------------------------------------------
-# ``hook_name`` is the TransformerLens cache key for the residual stream
-# at the specified layer.  We set it explicitly so the rest of the code
-# never has to guess.
-
-MODEL_CONFIGS: Dict[str, Dict[str, Any]] = {
-    "gpt2": {
-        "model_name": "gpt2",
-        "sae_release": "gpt2-small-res-jb",
-        "sae_id": "blocks.7.hook_resid_post",
-        "hook_name": "blocks.7.hook_resid_post",
-        "layer": 7,
-        "dtype": "float32",
-    },
-    "gemma-2-2b": {
-        "model_name": "gemma-2-2b",
-        "sae_release": "gemma-scope-2b-pt-res",
-        "sae_id": "layer_15/width_16k/average_l0_78",
-        "hook_name": "blocks.15.hook_resid_post",  # ← deterministic
-        "layer": 15,
-        "dtype": "bfloat16",
-    },
-}
-
-
 # ═══════════════════════════════════════════════════════════════════════════
-# Model + SAE loader
+# Transformer loader
 # ═══════════════════════════════════════════════════════════════════════════
 
 def load_sae_model(
     model_alias: str = "gemma-2-2b",
     device: Optional[str] = None,
 ):
-    """Load a HookedTransformer and its corresponding SAE.
+    """Load the HookedTransformer (Gemma-2-2B).
+
+    The SAE is loaded separately per layer in get_humor_features_for_layer
+    so we never need to keep more than one SAE in memory at a time.
 
     Returns
     -------
     model : HookedTransformer
-    sae   : SAE
-    cfg   : dict   – the entry from ``MODEL_CONFIGS``
+    None  : (placeholder — callers that destructure 3 values still work)
+    None  : (placeholder)
     """
-    if SAE is None or HookedTransformer is None:
-        raise ImportError("sae-lens and transformer-lens are required.")
+    if HookedTransformer is None:
+        raise ImportError("transformer-lens is required.")
 
-    if model_alias not in MODEL_CONFIGS:
-        raise ValueError(
-            f"Unknown model: {model_alias!r}. "
-            f"Choose from {list(MODEL_CONFIGS)}"
-        )
+    if model_alias != "gemma-2-2b":
+        raise ValueError(f"Only gemma-2-2b is supported, got {model_alias!r}")
 
-    cfg = MODEL_CONFIGS[model_alias]
-
-    # ── Device selection ──────────────────────────────────────────────
     if device is None:
         if torch.cuda.is_available():
             device = "cuda"
@@ -156,237 +106,154 @@ def load_sae_model(
         else:
             device = "cpu"
 
-    # ── Dtype selection ───────────────────────────────────────────────
-    use_bf16 = (
-        cfg["dtype"] == "bfloat16"
-        and device == "cuda"
-        and torch.cuda.is_bf16_supported()
-    )
-    dtype = torch.bfloat16 if use_bf16 else torch.float32
-    print(f"[load] model={cfg['model_name']}  device={device}  dtype={dtype}")
+    use_bf16 = device == "cuda" and torch.cuda.is_bf16_supported()
+    dtype    = torch.bfloat16 if use_bf16 else torch.float32
+    print(f"[load] model=gemma-2-2b  device={device}  dtype={dtype}")
 
-    # ── Load transformer ──────────────────────────────────────────────
     model = HookedTransformer.from_pretrained(
-        cfg["model_name"],
+        "gemma-2-2b",
         device=device,
         dtype=dtype,
-        center_unembed=False,           # required: Gemma soft-cap
-        center_writing_weights=False,   # required: RMSNorm
+        center_unembed=False,
+        center_writing_weights=False,
         default_padding_side="right",
     )
-    print(f"[load] ✓ {cfg['model_name']} loaded ({model.cfg.n_layers} layers)")
-
-    # ── Load SAE ──────────────────────────────────────────────────────
-    print(f"[load] SAE release={cfg['sae_release']}  id={cfg['sae_id']}")
-    sae, _, _ = SAE.from_pretrained(
-        release=cfg["sae_release"],
-        sae_id=cfg["sae_id"],
-        device=device,
-    )
-
-    # Match dtype with the model for mixed-precision matmuls
-    if use_bf16:
-        sae = sae.to(dtype=torch.bfloat16)
-
-    print(f"[load] ✓ SAE loaded  (d_sae={sae.cfg.d_sae})")
-    return model, sae, cfg
+    print(f"[load] ✓ gemma-2-2b loaded ({model.cfg.n_layers} layers)")
+    return model, None, None
 
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Feature extraction pipeline
 # ═══════════════════════════════════════════════════════════════════════════
 
-def get_humor_features(
-    model_alias: str = "gemma-2-2b",
-    data_path: Union[str, Path] = "datasets/dataset_a_paired.xlsx",
-    batch_size: int = 4,
+def get_humor_features_for_layer(
+    layer: int,
+    model=None,
+    batch_size: int = 128,
     save_dir: Union[str, Path] = "results",
 ) -> List[Dict[str, Any]]:
-    """Extract and rank SAE features that differentiate humor from non-humor.
+    """Extract and rank SAE features that differentiate humor from non-humor
+    at a given Gemma-2-2B layer.
 
     Pipeline
     --------
-    1. Load model + SAE.
-    2. Read dataset, split by ``humor`` label.
-    3. For each text, run the model up to the target layer, encode the
-       residual-stream activations with the SAE, and keep the *max*
-       activation per feature across the sequence.
-    4. Compute ``mean_joke − mean_non_joke`` per feature.
-    5. Oversample top-200 by diff, decode top tokens for each, filter out
-       artifact features (code / foreign script), keep top-20 clean ones.
-    6. Save results + logit-lens interpretation.
+    1. Load the canonical GemmaScope SAE for this layer.
+    2. Load ColBERT dataset (1000 jokes + 1000 non-jokes).
+    3. Run the model to the target layer, encode residuals with the SAE,
+       keep max activation per feature across the sequence.
+    4. Compute mean_joke - mean_nonjoke per feature.
+    5. Oversample top-200 by diff, apply artifact filter, keep top-20 clean.
+    6. Save results to save_dir/gemma-2-2b_sae_features.json.
 
     Parameters
     ----------
-    model_alias : str
-        ``"gpt2"`` or ``"gemma-2-2b"``.
-    data_path : str | Path
-        Path to the paired XLSX dataset (needs ``text`` and ``humor`` cols).
-    batch_size : int
-        Token batch size — use 4 for local/MPS, ≥128 for A100.
-    save_dir : str | Path
-        Directory to write the JSON results file.
+    layer      : Gemma-2-2B layer index (15-20).
+    model      : Pre-loaded HookedTransformer. Loaded fresh if None.
+    batch_size : Token batch size (4 for local/MPS, 128 for A100).
+    save_dir   : Directory to write JSON results.
     """
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # ── 1. Load ───────────────────────────────────────────────────────
-    model, sae, cfg = load_sae_model(model_alias)
-    hook_name: str = cfg["hook_name"]
-    layer: int = cfg["layer"]
+    if model is None:
+        model, _, _ = load_sae_model("gemma-2-2b")
 
-    # ── 2. Data (HuggingFace ColBERT) ────────────────────────────────
-    print(f"[data] Loading CreativeLang/ColBERT_Humor_Detection from HuggingFace ...")
-    try:
-        from datasets import load_dataset
+    device   = next(model.parameters()).device
+    use_bf16 = model.cfg.dtype == torch.bfloat16
 
-        dataset = load_dataset("CreativeLang/ColBERT_Humor_Detection")
-        data = dataset['train']
+    hook_name = f"blocks.{layer}.hook_resid_post"
 
-        # Filter jokes (humor=True) and non-jokes (humor=False)
-        jokes = [item['text'] for item in data if item['humor'] == True][:1000]
-        non_jokes = [item['text'] for item in data if item['humor'] == False][:1000]
+    print(f"\n[load] SAE layer={layer}  id=layer_{layer}/width_16k/canonical")
+    sae, _, _ = SAE.from_pretrained(
+        release=_GEMMA_CANONICAL_RELEASE,
+        sae_id=f"layer_{layer}/width_16k/canonical",
+        device=device,
+    )
+    if use_bf16:
+        sae = sae.to(dtype=torch.bfloat16)
+    print(f"[load] ✓ SAE loaded  (d_sae={sae.cfg.d_sae})")
 
-        print(f"[data] {len(jokes)} jokes  vs  {len(non_jokes)} non-jokes")
+    # ── Data ─────────────────────────────────────────────────────────
+    from datasets import load_dataset
+    print("[data] Loading ColBERT...")
+    data      = load_dataset("CreativeLang/ColBERT_Humor_Detection")["train"]
+    jokes     = [item["text"] for item in data if item["humor"] == True][:1000]
+    non_jokes = [item["text"] for item in data if item["humor"] == False][:1000]
+    print(f"[data] {len(jokes)} jokes  vs  {len(non_jokes)} non-jokes")
 
-        if len(jokes) == 0 or len(non_jokes) == 0:
-            raise ValueError(f"Not enough data! jokes={len(jokes)}, non_jokes={len(non_jokes)}")
-
-    except Exception as exc:
-        raise RuntimeError(f"Cannot load HuggingFace dataset: {exc}") from exc
-
-    # ── 3. Feature extraction ─────────────────────────────────────────
-    def _extract(texts: List[str], desc: str = "Extracting") -> torch.Tensor:
-        """Return (N, d_sae) tensor of max SAE activations per text."""
-        all_maxes: List[torch.Tensor] = []
-
+    # ── Extraction ───────────────────────────────────────────────────
+    def _extract(texts, desc):
+        all_maxes = []
         for start in tqdm(range(0, len(texts), batch_size), desc=desc):
-            batch = texts[start : start + batch_size]
+            batch  = texts[start : start + batch_size]
             tokens = model.to_tokens(batch, prepend_bos=True)
-
             with torch.no_grad():
                 _, cache = model.run_with_cache(
                     tokens,
                     names_filter=[hook_name],
                     stop_at_layer=layer + 1,
                 )
-                # (batch, seq, d_model)
-                residuals = cache[hook_name]
-
-                # (batch, seq, d_sae)
-                feature_acts = sae.encode(residuals)
-
-                # Max activation per feature across the sequence dim
-                max_acts = feature_acts.max(dim=1).values  # (batch, d_sae)
-                all_maxes.append(max_acts.cpu())
-
+                feature_acts = sae.encode(cache[hook_name])
+                all_maxes.append(feature_acts.max(dim=1).values.cpu())
         return torch.cat(all_maxes, dim=0)
 
-    print(f"[extract] batch_size={batch_size}")
-    joke_acts = _extract(jokes, desc="Jokes")
-    nonjoke_acts = _extract(non_jokes, desc="Non-jokes")
+    joke_acts    = _extract(jokes,     desc=f"L{layer} jokes")
+    nonjoke_acts = _extract(non_jokes, desc=f"L{layer} non-jokes")
 
-    # ── 4. Feature ranking ────────────────────────────────────────────
-    print("[rank] Computing mean-difference ranking ...")
-    mean_joke = joke_acts.float().mean(dim=0)
+    # ── Ranking ──────────────────────────────────────────────────────
+    mean_joke    = joke_acts.float().mean(dim=0)
     mean_nonjoke = nonjoke_acts.float().mean(dim=0)
-    diff = mean_joke - mean_nonjoke
+    diff         = mean_joke - mean_nonjoke
 
-    # Oversample: pull top-200 by diff score, then filter artifacts below.
-    # This ensures we always have enough candidates to fill top-20 even if
-    # 50%+ are SAE pretraining artifacts (code, foreign script features).
-    top_k = 20
-    oversample_k = 200
-    top_vals_all, top_idxs_all = torch.topk(diff, oversample_k)
+    _, top_idxs = torch.topk(diff, 200)
+    top_vals    = diff[top_idxs]
 
-    # ── 5. Logit-lens interpretation + artifact filtering ─────────────
-    W_U = model.W_U  # (d_model, vocab)
-    results: List[Dict[str, Any]] = []
+    # ── Logit lens + artifact filter ─────────────────────────────────
+    W_U     = model.W_U
+    results = []
     skipped = 0
 
     print(f"\n{'─'*60}")
-    print(f"  Top-{top_k} humor features (artifact-filtered)  ({model_alias})")
+    print(f"  Top-20 humor features  (layer {layer})")
     print(f"{'─'*60}")
 
-    for idx_t, val_t in zip(top_idxs_all, top_vals_all):
-        if len(results) >= top_k:
+    for idx_t, val_t in zip(top_idxs, top_vals):
+        if len(results) >= 20:
             break
-
-        idx = idx_t.item()
+        idx   = idx_t.item()
         score = val_t.item()
 
-        # Decode top tokens first — we need them for the artifact check
         feat_dir = sae.W_dec[idx]
         if feat_dir.dtype != W_U.dtype:
             feat_dir = feat_dir.to(W_U.dtype)
 
-        logits = feat_dir @ W_U
-        top_token_ids = torch.topk(logits, 5).indices
-        top_tokens = model.to_string(top_token_ids)
+        top_tokens = model.to_string(torch.topk(feat_dir @ W_U, 5).indices)
 
-        # Discard features whose top tokens look like code or foreign script.
-        # These are SAE pretraining artifacts, not humor signals.
         if _is_artifact_feature(top_tokens):
             skipped += 1
-            print(
-                f"  [skip] Feature {idx:5d}  Δ={score:+.4f}  "
-                f"artifact tokens: {top_tokens}"
-            )
             continue
 
         rank = len(results) + 1
-        print(
-            f"  #{rank:2d}  Feature {idx:5d}  "
-            f"Δ={score:+.4f}  "
-            f"tokens: {top_tokens}"
-        )
+        print(f"  #{rank:2d}  F{idx:5d}  Δ={score:+.4f}  tokens: {top_tokens}")
         results.append({
-            "rank": rank,
+            "rank":        rank,
             "feature_idx": idx,
-            "diff": round(score, 6),
-            "top_tokens": top_tokens,
-            "joke_mean": round(mean_joke[idx].item(), 6),
-            "nonjoke_mean": round(mean_nonjoke[idx].item(), 6),
+            "diff":        round(score, 6),
+            "top_tokens":  top_tokens,
+            "joke_mean":   round(mean_joke[idx].item(), 6),
+            "nonjoke_mean":round(mean_nonjoke[idx].item(), 6),
         })
 
-    print(f"\n  Kept {len(results)} features, skipped {skipped} artifacts "
-          f"(out of top-{oversample_k} by diff)")
-    print(f"{'─'*60}\n")
+    print(f"\n  Kept {len(results)}, skipped {skipped} artifacts")
+    print(f"{'─'*60}")
 
-    if len(results) < top_k:
-        warnings.warn(
-            f"Only found {len(results)} clean features after filtering "
-            f"{skipped} artifacts from the top-{oversample_k} candidates. "
-            "Consider increasing oversample_k or loosening _is_artifact_feature.",
-            stacklevel=2,
-        )
-
-    # ── 6. Save ───────────────────────────────────────────────────────
-    out_path = save_dir / f"{model_alias}_sae_features.json"
+    out_path = save_dir / "gemma-2-2b_sae_features.json"
     with open(out_path, "w") as fp:
         json.dump(results, fp, indent=2)
     print(f"[save] ✅ {out_path}")
 
+    del sae
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+
     return results
-
-
-# ═══════════════════════════════════════════════════════════════════════════
-# CLI
-# ═══════════════════════════════════════════════════════════════════════════
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="SAE humor-feature discovery")
-    parser.add_argument(
-        "--model", default="gemma-2-2b", choices=list(MODEL_CONFIGS),
-        help="Model alias to use",
-    )
-    parser.add_argument("--batch-size", type=int, default=4)
-    parser.add_argument("--data", default="datasets/dataset_a_paired.xlsx")
-    parser.add_argument("--save-dir", default="results")
-    args = parser.parse_args()
-
-    get_humor_features(
-        args.model, args.data, args.batch_size, args.save_dir,
-    )

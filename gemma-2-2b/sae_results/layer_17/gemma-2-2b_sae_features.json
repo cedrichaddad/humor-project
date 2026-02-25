@@ -1,0 +1,162 @@
+[
+  {
+    "rank": 1,
+    "feature_idx": 5373,
+    "diff": 34.201878,
+    "top_tokens": "<bos> resourceCulture'IsContentLookAnd",
+    "joke_mean": 64.103752,
+    "nonjoke_mean": 29.901875
+  },
+  {
+    "rank": 2,
+    "feature_idx": 13570,
+    "diff": 25.350498,
+    "top_tokens": " can have didn don could",
+    "joke_mean": 31.051624,
+    "nonjoke_mean": 5.701125
+  },
+  {
+    "rank": 3,
+    "feature_idx": 7616,
+    "diff": 21.543688,
+    "top_tokens": " SeriouslySeriously SorryOKSorry",
+    "joke_mean": 22.86175,
+    "nonjoke_mean": 1.318063
+  },
+  {
+    "rank": 4,
+    "feature_idx": 14000,
+    "diff": 17.584688,
+    "top_tokens": "?!?%?!? $??\"",
+    "joke_mean": 19.434563,
+    "nonjoke_mean": 1.849875
+  },
+  {
+    "rank": 5,
+    "feature_idx": 12602,
+    "diff": 16.413313,
+    "top_tokens": "()].}`).']\").\">. }}$.",
+    "joke_mean": 18.1555,
+    "nonjoke_mean": 1.742188
+  },
+  {
+    "rank": 6,
+    "feature_idx": 15935,
+    "diff": 15.949,
+    "top_tokens": " different few\"):\r larger'):\r",
+    "joke_mean": 25.324125,
+    "nonjoke_mean": 9.375125
+  },
+  {
+    "rank": 7,
+    "feature_idx": 13068,
+    "diff": 13.336375,
+    "top_tokens": "Whatwhat WhatWHAT what",
+    "joke_mean": 15.402375,
+    "nonjoke_mean": 2.066
+  },
+  {
+    "rank": 8,
+    "feature_idx": 15890,
+    "diff": 13.320499,
+    "top_tokens": "\n\n The<eos>\n This",
+    "joke_mean": 49.824001,
+    "nonjoke_mean": 36.503502
+  },
+  {
+    "rank": 9,
+    "feature_idx": 9931,
+    "diff": 12.267125,
+    "top_tokens": " sanitaires religieusesSequentialGroup Celuisego",
+    "joke_mean": 13.271,
+    "nonjoke_mean": 1.003875
+  },
+  {
+    "rank": 10,
+    "feature_idx": 15044,
+    "diff": 11.277813,
+    "top_tokens": "Depends Depends depends Basically nothing",
+    "joke_mean": 11.69575,
+    "nonjoke_mean": 0.417937
+  },
+  {
+    "rank": 11,
+    "feature_idx": 760,
+    "diff": 10.10675,
+    "top_tokens": " lol lmao haha fucking LOL",
+    "joke_mean": 14.764688,
+    "nonjoke_mean": 4.657938
+  },
+  {
+    "rank": 12,
+    "feature_idx": 4244,
+    "diff": 9.95275,
+    "top_tokens": " have need know want ModelExpression",
+    "joke_mean": 11.489,
+    "nonjoke_mean": 1.53625
+  },
+  {
+    "rank": 13,
+    "feature_idx": 2918,
+    "diff": 8.87575,
+    "top_tokens": " IIRC IIMHO IMHO IMO",
+    "joke_mean": 9.208375,
+    "nonjoke_mean": 0.332625
+  },
+  {
+    "rank": 14,
+    "feature_idx": 14695,
+    "diff": 8.691688,
+    "top_tokens": " DoDo CoCo do",
+    "joke_mean": 9.102062,
+    "nonjoke_mean": 0.410375
+  },
+  {
+    "rank": 15,
+    "feature_idx": 15778,
+    "diff": 8.542625,
+    "top_tokens": " I  you.I",
+    "joke_mean": 11.689563,
+    "nonjoke_mean": 3.146938
+  },
+  {
+    "rank": 16,
+    "feature_idx": 14533,
+    "diff": 7.973781,
+    "top_tokens": " be ever notUserScript really",
+    "joke_mean": 9.098594,
+    "nonjoke_mean": 1.124812
+  },
+  {
+    "rank": 17,
+    "feature_idx": 7437,
+    "diff": 7.810375,
+    "top_tokens": " II am guess Municipalidad",
+    "joke_mean": 8.562094,
+    "nonjoke_mean": 0.751719
+  },
+  {
+    "rank": 18,
+    "feature_idx": 12421,
+    "diff": 7.790031,
+    "top_tokens": " not NOT does do Does",
+    "joke_mean": 8.457125,
+    "nonjoke_mean": 0.667094
+  },
+  {
+    "rank": 19,
+    "feature_idx": 13800,
+    "diff": 7.53825,
+    "top_tokens": " not always also still actually",
+    "joke_mean": 17.119125,
+    "nonjoke_mean": 9.580875
+  },
+  {
+    "rank": 20,
+    "feature_idx": 13868,
+    "diff": 7.442125,
+    "top_tokens": " why WhyWhy Whytewhy",
+    "joke_mean": 9.368375,
+    "nonjoke_mean": 1.92625
+  }
+]

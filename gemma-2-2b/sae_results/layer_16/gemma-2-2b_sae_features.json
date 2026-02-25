@@ -1,0 +1,162 @@
+[
+  {
+    "rank": 1,
+    "feature_idx": 4789,
+    "diff": 18.227686,
+    "top_tokens": " kiddingJokes joke Jokes jokes",
+    "joke_mean": 18.951937,
+    "nonjoke_mean": 0.72425
+  },
+  {
+    "rank": 2,
+    "feature_idx": 7526,
+    "diff": 17.456062,
+    "top_tokens": "?!?%?!? $??\"",
+    "joke_mean": 19.358063,
+    "nonjoke_mean": 1.902
+  },
+  {
+    "rank": 3,
+    "feature_idx": 13328,
+    "diff": 17.098345,
+    "top_tokens": "tagHelperRunnerawaiter itprovidedIn you",
+    "joke_mean": 24.732407,
+    "nonjoke_mean": 7.634062
+  },
+  {
+    "rank": 4,
+    "feature_idx": 11572,
+    "diff": 14.401751,
+    "top_tokens": "\"):\r few different'):\r\"]=\"",
+    "joke_mean": 23.421625,
+    "nonjoke_mean": 9.019875
+  },
+  {
+    "rank": 5,
+    "feature_idx": 7883,
+    "diff": 12.07925,
+    "top_tokens": " have need ModelExpressionaddGap know",
+    "joke_mean": 13.531375,
+    "nonjoke_mean": 1.452125
+  },
+  {
+    "rank": 6,
+    "feature_idx": 10724,
+    "diff": 11.161312,
+    "top_tokens": " what happenedwhat happens What",
+    "joke_mean": 13.620937,
+    "nonjoke_mean": 2.459625
+  },
+  {
+    "rank": 7,
+    "feature_idx": 4822,
+    "diff": 9.635562,
+    "top_tokens": " \" meant ' mean to",
+    "joke_mean": 10.432625,
+    "nonjoke_mean": 0.797063
+  },
+  {
+    "rank": 8,
+    "feature_idx": 3566,
+    "diff": 9.358126,
+    "top_tokens": "AccessorTableWhatInvalidProtocol Whatandoah",
+    "joke_mean": 10.732938,
+    "nonjoke_mean": 1.374812
+  },
+  {
+    "rank": 9,
+    "feature_idx": 1634,
+    "diff": 8.3265,
+    "top_tokens": " II don am myself",
+    "joke_mean": 8.96025,
+    "nonjoke_mean": 0.63375
+  },
+  {
+    "rank": 10,
+    "feature_idx": 5058,
+    "diff": 8.10475,
+    "top_tokens": " can never had would have",
+    "joke_mean": 9.1425,
+    "nonjoke_mean": 1.03775
+  },
+  {
+    "rank": 11,
+    "feature_idx": 11920,
+    "diff": 7.519906,
+    "top_tokens": " AttributeSet AssemblyTitle PergamonValueStyleGEBURTSDATUM",
+    "joke_mean": 7.830594,
+    "nonjoke_mean": 0.310688
+  },
+  {
+    "rank": 12,
+    "feature_idx": 3377,
+    "diff": 7.412969,
+    "top_tokens": " OhOh or Which oh",
+    "joke_mean": 8.528687,
+    "nonjoke_mean": 1.115719
+  },
+  {
+    "rank": 13,
+    "feature_idx": 7403,
+    "diff": 7.3535,
+    "top_tokens": "Answer Answer answerPuesWell",
+    "joke_mean": 40.29525,
+    "nonjoke_mean": 32.94175
+  },
+  {
+    "rank": 14,
+    "feature_idx": 9654,
+    "diff": 7.1245,
+    "top_tokens": " not also always still actually",
+    "joke_mean": 16.536438,
+    "nonjoke_mean": 9.411938
+  },
+  {
+    "rank": 15,
+    "feature_idx": 887,
+    "diff": 6.751312,
+    "top_tokens": "\n\n\n\n\n<eos>\n\n\n\n\n",
+    "joke_mean": 7.026125,
+    "nonjoke_mean": 0.274812
+  },
+  {
+    "rank": 16,
+    "feature_idx": 4978,
+    "diff": 6.711281,
+    "top_tokens": "\n            ",
+    "joke_mean": 7.242969,
+    "nonjoke_mean": 0.531687
+  },
+  {
+    "rank": 17,
+    "feature_idx": 10287,
+    "diff": 6.620313,
+    "top_tokens": "UserScript <<<<<<<<<<<<<< JButton still.*\")]",
+    "joke_mean": 6.970188,
+    "nonjoke_mean": 0.349875
+  },
+  {
+    "rank": 18,
+    "feature_idx": 7144,
+    "diff": 6.558312,
+    "top_tokens": "!!!!!! lol!!!!",
+    "joke_mean": 8.709844,
+    "nonjoke_mean": 2.151531
+  },
+  {
+    "rank": 19,
+    "feature_idx": 1190,
+    "diff": 6.50575,
+    "top_tokens": "OGND shitfuckerFUCK fucking",
+    "joke_mean": 7.579,
+    "nonjoke_mean": 1.07325
+  },
+  {
+    "rank": 20,
+    "feature_idx": 817,
+    "diff": 6.420125,
+    "top_tokens": " we the z it in",
+    "joke_mean": 7.853938,
+    "nonjoke_mean": 1.433812
+  }
+]
