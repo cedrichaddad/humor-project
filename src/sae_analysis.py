@@ -40,16 +40,20 @@ except ImportError:
 # Constants
 # ═══════════════════════════════════════════════════════════════════════════
 
+# Canonical release works for any layer; no per-layer average_l0 needed
 _GEMMA_CANONICAL_RELEASE = "gemma-scope-2b-pt-res-canonical"
+
+# All layers we analyse in the sweep
 SWEEP_LAYERS = [15, 16, 17, 18, 19, 20]
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Artifact filter
 # ═══════════════════════════════════════════════════════════════════════════
 # The SAE was pretrained on a broad corpus (The Pile / C4 / etc.) and learned
-# features for code, Arabic, Russian, Malay, CJK, etc. Some fire
-# differentially on jokes vs non-jokes purely by chance. We filter them by
-# inspecting each feature's top decoded tokens before ranking.
+# features for code, Arabic, Russian, Malay, CJK, etc. Some of these fire
+# differentially on jokes vs non-jokes purely by chance — an incidental
+# corpus-skew correlation, not a humor signal. We filter them out by
+# inspecting each feature's top decoded tokens before adding it to the ranking.
 
 _CODE_RE = re.compile(
     r'[a-z][A-Z][a-zA-Z]{2,}'                       # camelCase
@@ -64,10 +68,17 @@ _CODE_RE = re.compile(
 
 
 def _is_artifact_feature(top_tokens: List[str]) -> bool:
-    """Return True if the feature should be excluded (code / foreign script)."""
+    """Return True if the feature should be excluded (code / foreign script).
+
+    A single bad token in the top-5 is enough to discard the feature.
+    We oversample to top-200 so discarding 30-40% still leaves enough
+    clean features to fill the final top-20.
+    """
     for tok in top_tokens:
+        # Non-ASCII → foreign script (Arabic, Russian, CJK, Malay, etc.)
         if any(ord(c) > 127 for c in tok):
             return True
+        # Code-like patterns
         if _CODE_RE.search(tok):
             return True
     return False
@@ -84,13 +95,15 @@ def load_sae_model(
     """Load the HookedTransformer (Gemma-2-2B).
 
     The SAE is loaded separately per layer in get_humor_features_for_layer
-    so we never need to keep more than one SAE in memory at a time.
+    so we never keep more than one SAE in GPU memory at a time. The two
+    None return values are placeholders so callers that destructure
+    (model, sae, cfg) still work without changes.
 
     Returns
     -------
     model : HookedTransformer
-    None  : (placeholder — callers that destructure 3 values still work)
-    None  : (placeholder)
+    None  : placeholder (sae)
+    None  : placeholder (cfg)
     """
     if HookedTransformer is None:
         raise ImportError("transformer-lens is required.")
@@ -98,6 +111,7 @@ def load_sae_model(
     if model_alias != "gemma-2-2b":
         raise ValueError(f"Only gemma-2-2b is supported, got {model_alias!r}")
 
+    # Auto-detect best available device
     if device is None:
         if torch.cuda.is_available():
             device = "cuda"
@@ -106,6 +120,7 @@ def load_sae_model(
         else:
             device = "cpu"
 
+    # Use bfloat16 on CUDA for memory efficiency; float32 everywhere else
     use_bf16 = device == "cuda" and torch.cuda.is_bf16_supported()
     dtype    = torch.bfloat16 if use_bf16 else torch.float32
     print(f"[load] model=gemma-2-2b  device={device}  dtype={dtype}")
@@ -114,8 +129,8 @@ def load_sae_model(
         "gemma-2-2b",
         device=device,
         dtype=dtype,
-        center_unembed=False,
-        center_writing_weights=False,
+        center_unembed=False,           # required: Gemma uses logit soft-capping
+        center_writing_weights=False,   # required: RMSNorm has no bias to center
         default_padding_side="right",
     )
     print(f"[load] ✓ gemma-2-2b loaded ({model.cfg.n_layers} layers)")
@@ -155,14 +170,17 @@ def get_humor_features_for_layer(
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
+    # Load model fresh only if caller didn't pass one in (sweep reuses it)
     if model is None:
         model, _, _ = load_sae_model("gemma-2-2b")
 
     device   = next(model.parameters()).device
     use_bf16 = model.cfg.dtype == torch.bfloat16
 
+    # ResidPost hook at the target layer — where we intercept activations
     hook_name = f"blocks.{layer}.hook_resid_post"
 
+    # Load only this layer's SAE; caller frees it after use to save VRAM
     print(f"\n[load] SAE layer={layer}  id=layer_{layer}/width_16k/canonical")
     sae, _, _ = SAE.from_pretrained(
         release=_GEMMA_CANONICAL_RELEASE,
@@ -190,10 +208,11 @@ def get_humor_features_for_layer(
             with torch.no_grad():
                 _, cache = model.run_with_cache(
                     tokens,
-                    names_filter=[hook_name],
-                    stop_at_layer=layer + 1,
+                    names_filter=[hook_name],   # only cache the one hook we need
+                    stop_at_layer=layer + 1,    # don't run layers we don't need
                 )
                 feature_acts = sae.encode(cache[hook_name])
+                # Max over sequence positions: one activation value per feature per text
                 all_maxes.append(feature_acts.max(dim=1).values.cpu())
         return torch.cat(all_maxes, dim=0)
 
@@ -205,10 +224,14 @@ def get_humor_features_for_layer(
     mean_nonjoke = nonjoke_acts.float().mean(dim=0)
     diff         = mean_joke - mean_nonjoke
 
+    # Oversample to 200 so the artifact filter has room to discard bad features
+    # and still leave 20 clean ones
     _, top_idxs = torch.topk(diff, 200)
     top_vals    = diff[top_idxs]
 
     # ── Logit lens + artifact filter ─────────────────────────────────
+    # Project each feature's decoder direction into vocab space to get
+    # human-readable top tokens — used both for display and artifact filtering
     W_U     = model.W_U
     results = []
     skipped = 0
@@ -229,6 +252,7 @@ def get_humor_features_for_layer(
 
         top_tokens = model.to_string(torch.topk(feat_dir @ W_U, 5).indices)
 
+        # Skip features whose tokens suggest code / foreign script artifacts
         if _is_artifact_feature(top_tokens):
             skipped += 1
             continue
@@ -252,6 +276,7 @@ def get_humor_features_for_layer(
         json.dump(results, fp, indent=2)
     print(f"[save] ✅ {out_path}")
 
+    # Free SAE from GPU memory before loading the next layer's SAE
     del sae
     if torch.cuda.is_available():
         torch.cuda.empty_cache()

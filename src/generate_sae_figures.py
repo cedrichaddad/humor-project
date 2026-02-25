@@ -1,13 +1,17 @@
 """
 generate_sae_figures.py
 
-Produces all 6 publication-quality figures for a given layer's SAE results.
-Supports layers 15-20 with pre-labeled feature categories.
+Produces all 6 publication-quality figures for each layer's SAE results.
+Runs the full sweep (layers 15-20) in one call.
 
-Usage:
-    python src/generate_sae_figures.py              # layer 15 (default, original behaviour)
-    python src/generate_sae_figures.py --layer 16
-    python src/generate_sae_figures.py --all-layers  # generate for layers 15-20
+Figures produced per layer
+──────────────────────────
+  01_top_features_categorized  – horizontal bar, diff score, colour-coded by category
+  02_signal_noise_scatter      – joke mean vs non-joke mean; points above y=x are selective
+  03_category_breakdown        – pie (feature count) + stacked bar (delta contribution)
+  04_paired_activations        – side-by-side joke/non-joke mean per feature
+  05_selectivity_ratio         – joke_mean / nonjoke_mean, sorted ascending
+  06_causal_validation         – steering and ablation outputs for top-5 features
 
 Categories
 ──────────
@@ -28,8 +32,13 @@ import seaborn as sns
 
 # ===========================================================================================
 # Feature categories per layer
-# Based on manual inspection of top_tokens from the cross-layer overlap sweep.
+#
+# Manually labelled from the actual artifact-filtered SAE output JSONs.
 # Each entry: feature_idx -> (category, human-readable label)
+#
+# Layer 15 labels come from the original single-layer analysis.
+# Layers 16-20 labels were assigned after running the full sweep so they
+# reflect the filtered output (code/foreign tokens already removed).
 # ===========================================================================================
 
 FEATURE_CATEGORIES_BY_LAYER = {
@@ -208,9 +217,16 @@ CAT_COLORS = {
 # Helpers
 # ===========================================================================================
 
+def _safe_label(text: str) -> str:
+    """Escape matplotlib special characters in label strings."""
+    return text.replace("$", r"\$").replace("{", r"\{").replace("}", r"\}")
+
+
 def _load_layer_data(layer, base_dir):
     # base_dir is expected to be  results/gemma-2-2b/sae_results/
     # Each layer lives in  base_dir / layer_N /
+    # Prefer the complete experiment JSON (has both discovery + validation);
+    # fall back to features-only JSON if validation hasn't been run yet
     path = base_dir / f"layer_{layer}" / "gemma-2-2b_sae_complete_experiment.json"
     if not path.exists():
         path = base_dir / f"layer_{layer}" / "gemma-2-2b_sae_features.json"
@@ -221,6 +237,8 @@ def _load_layer_data(layer, base_dir):
     with open(path) as f:
         raw = json.load(f)
 
+    # Handle both complete experiment format {"discovery": [...], "validation": [...]}
+    # and the features-only format (bare list)
     if isinstance(raw, dict) and "discovery" in raw:
         discovery  = raw["discovery"]
         validation = raw.get("validation", [])
@@ -231,20 +249,23 @@ def _load_layer_data(layer, base_dir):
         discovery  = raw.get("discovery", raw)
         validation = raw.get("validation", [])
 
+    # Join category labels onto the dataframe for colour-coding and display
     cats = FEATURE_CATEGORIES_BY_LAYER.get(layer, {})
     df = pd.DataFrame(discovery)
     df["category"]    = df["feature_idx"].map(lambda x: cats.get(x, ("Unknown", str(x)))[0])
-    df["human_label"] = df["feature_idx"].map(lambda x: cats.get(x, ("Unknown", str(x)))[1])
+    df["human_label"] = df["feature_idx"].map(lambda x: _safe_label(cats.get(x, ("Unknown", str(x)))[1]))
     df["color"]       = df["category"].map(CAT_COLORS).fillna("#999999")
     df["bar_label"]   = df.apply(lambda r: f"F{r['feature_idx']}: {r['human_label']}", axis=1)
     return df, validation
 
 
 def _title(layer):
+    # Consistent title prefix used across all figures
     return f"Gemma-2-2B  Layer {layer}"
 
 
 def _patches():
+    # Legend patches matching CAT_COLORS — shared across figures
     return [mpatches.Patch(color=c, label=l) for l, c in CAT_COLORS.items()]
 
 
@@ -253,6 +274,9 @@ def _patches():
 # ===========================================================================================
 
 def fig_top_features_bar(df, out_dir, layer):
+    # Fig 01: horizontal bar sorted by diff score, colour-coded by category
+    # Shows at a glance which features carry the most humor signal and whether
+    # those are genuine semantic features or pretraining artifacts
     fig, ax = plt.subplots(figsize=(13, 10))
     df_s = df.sort_values("diff", ascending=True)
     ax.barh(df_s["bar_label"], df_s["diff"], color=df_s["color"], edgecolor="white", linewidth=0.5)
@@ -268,6 +292,9 @@ def fig_top_features_bar(df, out_dir, layer):
 
 
 def fig_signal_noise_scatter(df, out_dir, layer):
+    # Fig 02: scatter of joke_mean vs nonjoke_mean, bubble size = diff
+    # Points above y=x line are selective for jokes; points on/below the line
+    # activate equally on jokes and non-jokes (noise)
     fig, ax = plt.subplots(figsize=(10, 9))
     for cat, grp in df.groupby("category"):
         ax.scatter(grp["nonjoke_mean"], grp["joke_mean"],
@@ -275,6 +302,8 @@ def fig_signal_noise_scatter(df, out_dir, layer):
                    label=cat, alpha=0.75, edgecolors="white", linewidth=0.8)
     lo, hi = 0, max(df["joke_mean"].max(), df["nonjoke_mean"].max()) * 1.05
     ax.plot([lo, hi], [lo, hi], "k--", alpha=0.25, label="y = x")
+    # Only annotate features with a strong diff or high base activation —
+    # avoids clutter while labelling the most interesting points
     for _, r in df.iterrows():
         if r["diff"] > 7 or r["nonjoke_mean"] > 20:
             ax.annotate(f"F{r['feature_idx']}", (r["nonjoke_mean"], r["joke_mean"]),
@@ -294,6 +323,11 @@ def fig_signal_noise_scatter(df, out_dir, layer):
 
 
 def fig_category_breakdown(df, out_dir, layer):
+    # Fig 03: two panels side-by-side.
+    # Left (pie): how many of the top-20 features fall into each category.
+    # Right (stacked bar): what fraction of the total activation *difference*
+    # each category accounts for — a feature count of 2 could contribute 60%
+    # of the signal if those features have very large diffs.
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
     counts = df["category"].value_counts()
     colors = [CAT_COLORS.get(c, "#999") for c in counts.index]
@@ -328,6 +362,11 @@ def fig_category_breakdown(df, out_dir, layer):
 
 
 def fig_paired_activations(df, out_dir, layer):
+    # Fig 04: grouped bar chart showing absolute joke vs non-joke mean
+    # activation for every feature, sorted by diff descending.
+    # Complements fig 02 by making the raw activation magnitudes visible
+    # alongside the selectivity — a feature can have a large diff but still
+    # fire at moderate absolute levels (or vice versa).
     fig, ax = plt.subplots(figsize=(14, 8))
     df_s = df.sort_values("diff", ascending=False)
     x = np.arange(len(df_s))
@@ -351,6 +390,10 @@ def fig_paired_activations(df, out_dir, layer):
 
 
 def fig_selectivity_ratio(df, out_dir, layer):
+    # Fig 05: joke_mean / nonjoke_mean ratio per feature, sorted ascending.
+    # Ratio > 1 means the feature fires more on jokes than non-jokes.
+    # nonjoke_mean is clipped to 0.01 to avoid division-by-zero for features
+    # that are essentially silent on non-joke texts.
     fig, ax = plt.subplots(figsize=(13, 8))
     df_sel = df.copy()
     df_sel["selectivity"] = df_sel["joke_mean"] / df_sel["nonjoke_mean"].clip(lower=0.01)
@@ -370,6 +413,10 @@ def fig_selectivity_ratio(df, out_dir, layer):
 
 
 def fig_causal_validation(validation, out_dir, layer, cats):
+    # Fig 06: one subplot per feature (top-5), each showing a 3-row table.
+    # Columns: prompt | steered completion (alpha=30) | ablated completion.
+    # Steered text going humor-like and ablated text becoming neutral both
+    # confirm the feature is causally involved in humor representation.
     if not validation:
         print(f"  (no validation data for layer {layer}, skipping fig 6)")
         return
@@ -421,6 +468,9 @@ def generate_figures_for_layer(layer, base_dir):
     print(f"{'='*55}")
 
     sns.set_theme(style="whitegrid", font_scale=1.1)
+    # Disable LaTeX math text parsing — labels contain $, {}, ^ etc.
+    plt.rcParams["text.usetex"] = False
+    plt.rcParams["mathtext.default"] = "regular"
     df, validation = _load_layer_data(layer, base_dir)
     cats = FEATURE_CATEGORIES_BY_LAYER.get(layer, {})
 
