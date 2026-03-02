@@ -285,7 +285,7 @@ def extract_activations(
     1. Tokenize text
     2. Run forward pass
     3. Capture activations at each layer
-    4. Extract activation at final token position (following Tigges et al. 2023)
+    4. Extract activation at final token position
     
     Why final token? 
     - For text classification, the final token typically contains the most
